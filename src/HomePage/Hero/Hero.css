@@ -1,0 +1,15 @@
+.hero {
+    margin: 0 48px;
+    padding: 16px;
+    position: relative;
+    height: 770px;
+}
+
+.hero .overlay {}
+
+.hero img {
+    width: 100%;
+    object-fit: cover;
+}
+
+.hero h1 {}
