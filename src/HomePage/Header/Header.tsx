@@ -4,12 +4,14 @@ import { useState } from "react";
 import logo from "../../assets/image.png";
 
 const Header = (props) => {
-  const [active, setActive] = useState(false);
+  const [langActive, setlangActive] = useState(false);
+  const [menuActive, setMenuActive] = useState(false);
   const [language, setLanguage] = useState("EN");
   const languages = [
     { code: "EN", name: "English" },
     { code: "AR", name: "Arabic" },
   ];
+  
   const navLinks = [
     { name: "Home", link: "home"},
     { name: "MNF Uni", link: "news"},
@@ -23,8 +25,12 @@ const Header = (props) => {
   };
 
   const dropdownLang = () => {
-    setActive(!active);
+    setlangActive(!langActive);
   };
+
+  const navBarMenu = () => {
+    setMenuActive(!menuActive);
+  }
 
   return (
     <header className="nav-container">
@@ -32,7 +38,9 @@ const Header = (props) => {
         <img src={logo} alt="International Students Affairs office Logo" />
       </a>
 
-      <nav className="nav-links">
+      <nav className={menuActive ? "nav-links nav-active" : "nav-links"}>
+        <i class="fa-solid fa-times close" onClick={navBarMenu}></i>
+
         <ul>
           {navLinks.map((link, index) => {
             return (
@@ -50,7 +58,7 @@ const Header = (props) => {
           <i className="fa-solid fa-globe"></i>
           <span>{language}</span>
 
-          <div className={active ? "lang-dropdown lang-active" : "lang-dropdown"}>
+          <div className={langActive ? "lang-dropdown lang-active" : "lang-dropdown"}>
             {languages.map((lang) => {
               return (
                 <div key={lang.code} onClick={() => changeLanguage(lang)}>
@@ -60,6 +68,7 @@ const Header = (props) => {
             })}
           </div>
         </div>
+        <i class="fa-solid fa-bars menu" onClick={navBarMenu}></i>
       </div>
     </header>
   );

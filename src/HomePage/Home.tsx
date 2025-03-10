@@ -7,6 +7,7 @@ function Home() {
     <div>
       <Header index={0}/>
       <Hero />
+      
     </div>
   );
 }
