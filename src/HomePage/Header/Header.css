@@ -41,7 +41,6 @@
     gap: 24px;
 }
 
-
 .nav-links ul li.active {
     background-color: #ffffff;
     border-radius: 50px;
@@ -224,7 +223,7 @@
         min-width: 45px;
         max-width: 45px;
     }
-    
+
     .nav-container{
         margin: 0 12px;
         padding: 4px;

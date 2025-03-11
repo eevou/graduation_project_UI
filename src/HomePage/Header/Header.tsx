@@ -11,13 +11,13 @@ const Header = (props) => {
     { code: "EN", name: "English" },
     { code: "AR", name: "Arabic" },
   ];
-  
+
   const navLinks = [
-    { name: "Home", link: "home"},
-    { name: "MNF Uni", link: "news"},
-    { name: "Colleges", link: "colleges"},
-    { name: "Programs", link: "programs"},
-    { name: "Contact Us", link: "contact"},
+    { name: "Home", link: "home" },
+    { name: "MNF Uni", link: "news" },
+    { name: "Colleges", link: "colleges" },
+    { name: "Programs", link: "programs" },
+    { name: "Contact Us", link: "contact" },
   ];
 
   const changeLanguage = (lang) => {
@@ -30,7 +30,7 @@ const Header = (props) => {
 
   const navBarMenu = () => {
     setMenuActive(!menuActive);
-  }
+  };
 
   return (
     <header className="nav-container">
@@ -44,7 +44,7 @@ const Header = (props) => {
         <ul>
           {navLinks.map((link, index) => {
             return (
-              <li key={index} className={props.index === index? "active" : ""}>
+              <li key={index} className={props.index === index ? "active" : ""}>
                 <a href={link.link}>{link.name}</a>
               </li>
             );
@@ -58,7 +58,11 @@ const Header = (props) => {
           <i className="fa-solid fa-globe"></i>
           <span>{language}</span>
 
-          <div className={langActive ? "lang-dropdown lang-active" : "lang-dropdown"}>
+          <div
+            className={
+              langActive ? "lang-dropdown lang-active" : "lang-dropdown"
+            }
+          >
             {languages.map((lang) => {
               return (
                 <div key={lang.code} onClick={() => changeLanguage(lang)}>
