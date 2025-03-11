@@ -10,7 +10,7 @@
 
 /* Custom scrollbar styles */
 .custom-scrollbar::-webkit-scrollbar {
-    height: 6px;
+    height: 10px;
 }
 
 .custom-scrollbar::-webkit-scrollbar-track {
@@ -20,7 +20,7 @@
 
 .custom-scrollbar::-webkit-scrollbar-thumb {
     background: var(--orange-500);
-    border-radius: 3px;
+    border-radius: 10px;
     transition: background-color 0.2s;
 }
 
@@ -30,9 +30,9 @@
 
 /* News Carousel styles */
 .news-carousel {
-    width: 100%;
     max-width: 90rem;
-    margin: 0 auto;
+    margin: 0 48px 20px;
+    ;
 }
 
 .news-carousel-container {
@@ -51,8 +51,8 @@
 }
 
 .news-card {
-        width: 490px;
-        height: 290px;
+    width: 490px;
+    height: 290px;
 }
 
 .news-card-inner {
@@ -100,14 +100,14 @@
 }
 
 .news-card-text {
-        min-width: 0;
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
+    min-width: 0;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
-.news-card-image-container.news-card-image-container-right{
+.news-card-image-container.news-card-image-container-right {
     flex-direction: column-reverse;
 }
 
