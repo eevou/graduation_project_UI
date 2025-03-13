@@ -1,0 +1,99 @@
+/* Footer container styles */
+.footer {
+  background-color: #020817;
+  color: white;
+  padding: 64px 32px;
+}
+
+.footer-container {
+    background-color: #8e9092;
+  max-width: 1280px;
+  margin: 0 auto;
+  display: grid;
+  gap: 48px;
+}
+
+/* Responsive grid layout */
+@media (min-width: 768px) {
+  .footer-container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .footer-container {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+/* Section styles */
+.footer-section {
+  min-width: 0; /* Ensures proper grid behavior */
+}
+
+.footer-section h2 {
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 24px;
+  text-decoration: underline;
+  color: white;
+}
+
+/* Special style for multiline heading */
+.footer-section h2[data-multiline="true"] {
+  white-space: pre-line;
+  line-height: 1.5;
+}
+
+/* Column layout within sections */
+.columns {
+    background-color: blueviolet;
+    display: grid;
+    gap: 24px;
+}
+
+/* List styles */
+.footer-section ul {
+  list-style: none;
+}
+
+.footer-section li {
+    background-color: yellow;
+  margin-bottom: 12px;
+  font-size: 14px;
+  min-width: 140px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Link styles */
+.footer-section a {
+  color: #94a3b8;
+  text-decoration: none;
+  transition: color 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  max-width: 100%;
+}
+
+.footer-section a:hover {
+  color: #60a5fa;
+}
+
+/* App container styles */
+.app-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: #143068;
+}
+
+/* Main content styles */
+.main-content {
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

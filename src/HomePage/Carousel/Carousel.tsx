@@ -144,10 +144,9 @@ export default function NewsCarousel() {
                       }
                     >
                       <h3 className="news-card-title">{item.title}</h3>
-                      <a href={item.link} className="news-card-link">
-                        Read more
-                        <ArrowUpRight />
-                      </a>
+                      <div className="arrowlinks">
+                        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#1f1f1f"><path d="m242-246-42-42 412-412H234v-60h480v480h-60v-378L242-246Z" /></svg>
+                      </div>
                     </div>
                     <div
                       className={

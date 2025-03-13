@@ -127,6 +127,16 @@
     transition: color 0.2s;
 }
 
+.arrowlinks {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f5f4f4;
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+}
+
 .news-card-link:hover {
     color: var(--orange-600);
 }
