@@ -139,6 +139,22 @@
     width: 64px;
     height: 64px;
     border-radius: 50%;
+    transition: .3s
+}
+
+.arrowlinks svg {
+    transition: 0.3s;
+}
+
+.arrowlinks:hover {
+    background-color: #f66b51
+}
+
+.arrowlinks:hover svg {
+    transform: translate(8px, -8px);
+    fill: white;
+    height: 32px;
+    width: 32px;
 }
 
 .news-card-link:hover {
