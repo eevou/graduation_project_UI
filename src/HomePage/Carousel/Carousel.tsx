@@ -150,7 +150,7 @@ export default function NewsCarousel() {
                     </div>
                     <div
                       className={
-                        index % 2 === 0
+                        index % 2 !== 0
                           ? "news-card-image-container"
                           : "news-card-image-container news-card-image-container-right"
                       }
@@ -159,7 +159,7 @@ export default function NewsCarousel() {
                         src={item.image}
                         alt={item.title}
                         className={
-                          index % 2 === 0
+                          index % 2 !== 0
                             ? "news-card-image"
                             : "news-card-image news-card-image-right"
                         }
