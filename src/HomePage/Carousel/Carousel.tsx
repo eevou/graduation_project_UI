@@ -144,13 +144,13 @@ export default function NewsCarousel() {
                       }
                     >
                       <h3 className="news-card-title">{item.title}</h3>
-                      <div className="arrowlinks">
+                      <a href="/" className="arrowlinks">
                         <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#1f1f1f"><path d="m242-246-42-42 412-412H234v-60h480v480h-60v-378L242-246Z" /></svg>
-                      </div>
+                      </a>
                     </div>
                     <div
                       className={
-                        index % 2 === 0
+                        index % 2 !== 0
                           ? "news-card-image-container"
                           : "news-card-image-container news-card-image-container-right"
                       }
@@ -159,7 +159,7 @@ export default function NewsCarousel() {
                         src={item.image}
                         alt={item.title}
                         className={
-                          index % 2 === 0
+                          index % 2 !== 0
                             ? "news-card-image"
                             : "news-card-image news-card-image-right"
                         }

@@ -96,7 +96,7 @@
 }
 
 .news-card-image.news-card-image-right {
-    border-radius: 30px 130px 30px 30px;
+    border-radius: 130px 30px 30px 30px;
 }
 
 .news-card-text {
@@ -105,6 +105,10 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+}
+
+.news-card-text.news-card-text-right {
+    flex-direction: column-reverse;
 }
 
 .news-card-image-container.news-card-image-container-right {
