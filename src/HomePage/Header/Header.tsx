@@ -17,6 +17,7 @@ const Header = (props) => {
     { name: "MNF Uni", link: "news" },
     { name: "Colleges", link: "colleges" },
     { name: "Programs", link: "programs" },
+    { name: "News", link: "news" },
     { name: "Contact Us", link: "contact" },
   ];
 

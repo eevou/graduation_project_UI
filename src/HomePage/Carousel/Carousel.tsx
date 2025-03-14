@@ -145,7 +145,15 @@ export default function NewsCarousel() {
                     >
                       <h3 className="news-card-title">{item.title}</h3>
                       <a href="/" className="arrowlinks">
-                        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#1f1f1f"><path d="m242-246-42-42 412-412H234v-60h480v480h-60v-378L242-246Z" /></svg>
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          height="24px"
+                          viewBox="0 -960 960 960"
+                          width="24px"
+                          fill="#1f1f1f"
+                        >
+                          <path d="m242-246-42-42 412-412H234v-60h480v480h-60v-378L242-246Z" />
+                        </svg>
                       </a>
                     </div>
                     <div
@@ -155,7 +163,14 @@ export default function NewsCarousel() {
                           : "news-card-image-container news-card-image-container-right"
                       }
                     >
+                      <svg width="0" height="0">
+                        <clipPath id="img-container">
+                        <path d="M3.99997 20C3.99997 8.95433 12.9543 0 24 0H170C181.046 0 190 8.95431 190 20V187.088C190 201.067 176.026 210.733 162.946 205.803L16.9462 150.774C9.15647 147.838 3.99997 140.384 3.99997 132.059V20Z" fill="#D9D9D9"/>
+                        </clipPath>
+                      </svg>
+
                       <img
+                      style={{clipPath: 'url(#img-container)'}}
                         src={item.image}
                         alt={item.title}
                         className={

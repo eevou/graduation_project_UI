@@ -1,6 +1,6 @@
 import React from "react";
 import logo from "../../assets/image2.png";
-import line from "../../assets/curveLine.png";
+import line from "../../assets/CurveLine.svg"
 import "./About.css";
 
 function About() {
