@@ -13,7 +13,7 @@ const Header = (props) => {
   ];
 
   const navLinks = [
-    { name: "Home", link: "home" },
+    { name: "Home", link: "/" },
     { name: "MNF Uni", link: "news" },
     { name: "Colleges", link: "colleges" },
     { name: "Programs", link: "programs" },

@@ -1,0 +1,10 @@
+.News-header {
+    margin: 0 64px;
+    padding: 10px 16px;
+    background-color: #F3F4F6;
+    color: #001351;
+    font-family: var(--MNF_Heading_EN);
+    font-size: 60px;
+    font-weight: 800;
+    border-radius: 10px;
+}

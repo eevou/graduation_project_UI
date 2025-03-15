@@ -1,0 +1,133 @@
+.news-section {
+    margin: 0 48px 10px;
+    padding: 16px;
+    display: flex;
+    gap: 15px;
+}
+
+.news-section .news-left-section {
+    flex: 1;
+    position: relative;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.news-section .news-right-section {
+    flex: 1;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+}
+
+.news-section img {
+    width: 100%;
+    height: 100%;
+}
+
+.news-section .card-overlay {
+    position: absolute;
+    bottom: 0;
+    height: 0%;
+    width: 100%;
+    overflow: hidden;
+    background: linear-gradient(360deg, #000000b5 70%, transparent);
+    color: white;
+    display: flex;
+    align-items: flex-end;
+    transition: 0.4s;
+}
+
+.news-section .news-left-section:hover .card-overlay {
+    height: 100%;
+}
+
+.news-section .news-right-section .card:hover .card-overlay {
+    height: 100%;
+}
+
+.news-section .card-overlay .content {
+    width: 100%;
+    font-family: var(--MNF_Body_EN);
+}
+
+.news-section .news-left-section .content {
+    padding: 30px;
+}
+
+.news-section .news-right-section .content {
+    padding: 15px;
+}
+
+.news-section .news-right-section .card {
+    position: relative;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.news-section .news-left-section .content h4 {
+    font-size: 30px;
+    font-weight: 700;
+    margin-bottom: 10px;
+    width: 350px;
+}
+
+.news-section .news-right-section .content h4 {
+    width: 180px;
+    margin-bottom: 10px;
+}
+
+.news-section .news-left-section .content p {
+    font-size: 18px;
+    font-weight: 500;
+    margin-bottom: 10px;
+}
+
+.news-section .news-right-section .content p {
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.news-section .card-overlay .content .date-more {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.news-section .news-left-section .date-more span {
+    font-size: 15px;
+    font-weight: 600;
+}
+
+.news-section .news-right-section .date-more span {
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.news-section .card-overlay .content .date-more a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    transform: rotate(45deg);
+    transition: 0.4s;
+}
+
+.news-section .news-left-section .date-more a {
+    font-size: 18px;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+}
+
+.news-section .news-right-section .card .date-more a {
+    font-size: 16px;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+}
+
+
+.news-section .card-overlay .content .date-more a:hover {
+    background: white;
+    color: black;
+}

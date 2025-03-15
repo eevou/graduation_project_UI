@@ -80,6 +80,10 @@
     z-index: 1;
 }
 
+.nav-lang-container span {
+    font-family: var(--MNF_Body_EN);
+}
+
 .nav-lang-container .lang-dropdown {
     position: absolute;
     z-index: 5;
@@ -98,6 +102,7 @@
     padding: 10px;
     cursor: pointer;
     width: 100px;
+    font-family: var(--MNF_Body_EN);
 }
 
 .nav-icons .menu {
