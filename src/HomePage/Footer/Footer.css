@@ -40,6 +40,11 @@
   margin-bottom: 12px;
   display: inline-block;
   font-weight: 300;
+  transition: 0.3s;
+}
+
+.footer-sector ul li a:hover {
+  color: rgb(108, 110, 250);
 }
 
 @media (min-width: 1500px) {
