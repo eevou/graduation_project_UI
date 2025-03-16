@@ -11,7 +11,7 @@ const Footer = () => {
     <div>
       <div className="footer-container">
         <div className="footer-sector">
-          <h3 className="footer-title">Important Instructions</h3>
+          <h3 className="footer-title">Key Information</h3>
           <div className="ul-container">
             <ul>
               <li>
@@ -103,7 +103,7 @@ const Footer = () => {
         </div>
 
         <div className="footer-sector">
-          <h3 className="footer-title">Services provided to expatriates</h3>
+          <h3 className="footer-title">Service Guide</h3>
           <div className="ul-container">
             <ul>
               <li>
@@ -150,7 +150,7 @@ const Footer = () => {
 
         <div className="footer-sector">
           <h3 className="footer-title">
-            Evaluation, complaints and suggestions
+            Service Review
           </h3>
           <div className="ul-container">
             <ul>
@@ -181,10 +181,18 @@ const Footer = () => {
           <p>All copyrights are reserved at Menofia University {date}. ©</p>
 
           <div className="social">
-          <i className="fa-brands fa-facebook"></i>
-          <i className="fa-brands fa-x-twitter"></i>
-          <i className="fa-brands fa-youtube"></i>
-          <i className="fa-solid fa-envelope"></i>
+          <div className="social-facebook">
+              <i className="fa-brands fa-facebook"></i>
+          </div>
+          <div className="social-x">
+              <i className="fa-brands fa-x-twitter"></i>
+          </div>
+            <div className="social-youtube">
+              <i className="fa-brands fa-youtube"></i>
+          </div>
+            <div className="social-envelope">
+              <i className="fa-solid fa-envelope"></i>
+          </div>
           </div>
         </div>
       </div>

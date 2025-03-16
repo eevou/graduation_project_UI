@@ -111,3 +111,70 @@
   font-size: 20px;
   cursor: pointer
 }
+
+.social-facebook:hover {
+  color: #3b5998;
+}
+.social-x:hover {
+  color: #000000;
+}
+.social-youtube:hover {
+  color: #ff0000;
+}
+.social-envelope:hover {
+  color: #f08067;
+}
+.social i{
+    transition: 0.3s;
+}
+@media (max-width: 768px) {
+  .bottom-footer-container .footer-logos {
+    padding: 20px 0;
+  }
+
+  .bottom-footer-container .footer-logos img:first-of-type {
+    width: 60px;
+  }
+
+  .bottom-footer-container .footer-logos img:not(:first-of-type) {
+    width: 120px;
+    margin-left: 12px;
+  }
+
+  .bottom-footer-container .social-copyRights {
+    flex-direction: column;
+    text-align: center;
+    margin: 0 16px;
+  }
+
+  .bottom-footer-container .social-copyRights p {
+    margin-bottom: 12px;
+  }
+}
+
+/* للأجهزة المتوسطة (تابلت من 769px إلى 1024px) */
+@media (max-width: 1024px) {
+  .bottom-footer-container .footer-logos img:first-of-type {
+    width: 70px;
+  }
+
+  .bottom-footer-container .footer-logos img:not(:first-of-type) {
+    width: 150px;
+    margin-left: 16px;
+  }
+
+  .bottom-footer-container .social-copyRights {
+    margin: 0 32px;
+  }
+}
+
+/* للأجهزة الكبيرة (ديسكتوب أكبر من 1024px) */
+@media (min-width: 1025px) {
+  .bottom-footer-container .footer-logos img:not(:first-of-type) {
+    width: 195px;
+  }
+
+  .bottom-footer-container .social-copyRights {
+    margin: 0 48px;
+  }
+}
