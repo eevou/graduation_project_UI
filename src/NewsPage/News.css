@@ -8,9 +8,3 @@
     font-weight: 800;
     border-radius: 10px;
 }
-
-.pagination {
-    display: flex;
-    justify-content: center;
-    margin-top: 20px;
-}
