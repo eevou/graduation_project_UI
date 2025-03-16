@@ -23,7 +23,7 @@ function News() {
       {totalItems > 1 && (
         <div className="pagination">
         <button
-          className="page-btn"
+          className="page-btn left"
           onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
           disabled={currentPage === 1}
         >
@@ -32,7 +32,7 @@ function News() {
         {[...Array(totalItems)].map((_, i) => (
           <button
             key={i + 1}
-            className={`page-btn ${
+            className={`page-btn number ${
               currentPage === i + 1 ? "active" : ""
             }`}
             onClick={() => setCurrentPage(i + 1)}
@@ -41,7 +41,7 @@ function News() {
           </button>
         ))}
         <button
-          className="page-btn"
+          className="page-btn right"
           onClick={() =>
             setCurrentPage((prev) => Math.min(prev + 1, totalItems))
           }

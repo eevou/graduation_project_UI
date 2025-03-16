@@ -8,3 +8,75 @@
     font-weight: 800;
     border-radius: 10px;
 }
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin: 25px 0;
+}
+
+/* #000820 */
+
+.pagination .page-btn {
+    background-color: #f3f4f6;
+    outline: none;
+    border: 2px solid #DDDDDD;
+    color: black;
+    padding: 10px;
+    cursor: pointer;
+    width: 80px;
+    height: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--MNF_Body_EN);
+    font-weight: 700;
+    font-size: 15px;
+    transition: 0.3S;
+}
+
+.pagination .page-btn.left {
+    border-radius: 10px 0 0 10px;
+}
+
+.pagination .page-btn.right {
+    border-radius: 0 10px 10px 0;
+}
+
+.pagination .page-btn.right:hover {
+    background-color: #F66B15;
+    color: white;
+    border: none;
+}
+
+.pagination .page-btn.left:hover {
+    background-color: #F66B15;
+    color: white;
+    border: none;
+}
+
+
+.pagination .page-btn.number {
+    width: 35px;
+    height: 35px;
+    border-radius: 5px;
+    margin: 0px 4px;
+    background-color: white;
+    color: black;
+    font-weight: 600;
+    transition: 0.3s;
+}
+
+.pagination .page-btn.number:hover {
+    background-color: #000820;
+    color: white;
+    border: none;
+}
+
+.pagination .page-btn.number.active {
+    background-color: #000820;
+    color: white;
+    border: none;
+}
