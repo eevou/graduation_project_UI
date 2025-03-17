@@ -51,7 +51,7 @@ function SectionOne() {
 
             {/* Related News */}
             <div className="related-news">
-              <h3 className="related-news-title">Related News</h3>
+              <h3 className="related-news-title">Latest News</h3>
               <div className="news-grid">
                 {[1, 2, 3, 4].map((item) => (
                   <div key={item} className="news-details-card">
