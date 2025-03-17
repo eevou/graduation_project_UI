@@ -16,7 +16,7 @@ function SectionOne(props) {
             <p>Randall Erickson</p>
             <div className="date-more">
               <span>Aug 15</span>
-              <a href="/" className="about-news">
+              <a href="details" className="about-news">
               <i className="fa-solid fa-arrow-up"></i>
               </a>
             </div>
