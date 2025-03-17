@@ -3,6 +3,9 @@ import "./SectionOne.css";
 import Image from "../../assets/image-940x580 (2).jpg";
 import Image2 from "../../assets/image-940x580 (3).jpg";
 import Image3 from "../../assets/image-940x580 (4).jpg";
+import Header from "../../HomePage/Header/Header";
+import Footer from "../../HomePage/Footer/Footer";
+
 
 function SectionOne() {
   const images = [Image, Image2, Image3];
@@ -19,6 +22,7 @@ function SectionOne() {
 
   return (
     <div>
+      <Header />
       <main className="main">
         <div className="container">
           {/* Carousel Section */}
@@ -72,6 +76,7 @@ function SectionOne() {
           </div>
         </div>
       </main>
+      <Footer/>
     </div>
   );
 }
