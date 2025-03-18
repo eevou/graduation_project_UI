@@ -40,7 +40,7 @@ const Header = (props) => {
       </a>
 
       <nav className={menuActive ? "nav-links nav-active" : "nav-links"}>
-        <i class="fa-solid fa-times close" onClick={navBarMenu}></i>
+        <i className="fa-solid fa-times close" onClick={navBarMenu}></i>
 
         <ul>
           {navLinks.map((link, index) => {
@@ -73,7 +73,7 @@ const Header = (props) => {
             })}
           </div>
         </div>
-        <i class="fa-solid fa-bars menu" onClick={navBarMenu}></i>
+        <i className="fa-solid fa-bars menu" onClick={navBarMenu}></i>
       </div>
     </header>
   );

@@ -2,8 +2,7 @@
     display: grid;
     grid-template-columns: repeat(4, 1fr); 
     gap: 15px;
-    margin: 0 48px;
-    padding: 16px;
+    margin-bottom: 30px;
 }
 
 .news-bottom-section .card {

@@ -1,12 +1,18 @@
+.news-page {
+    margin: 10px 48px;
+    padding: 16px
+}
+
 .News-header {
-    margin: 0 64px;
-    padding: 10px 16px;
-    background-color: #F3F4F6;
+    background-color: #e9e9e9;
     color: #001351;
     font-family: var(--MNF_Heading_EN);
-    font-size: 60px;
+    font-size: 50px;
     font-weight: 800;
     border-radius: 10px;
+    margin-bottom: 30px;
+    padding: 10px;
+    text-align: center;
 }
 
 .pagination {
@@ -57,6 +63,19 @@
     border: none;
 }
 
+.pagination .page-btn.left:disabled {
+    background-color: #f3f4f6;
+    color: rgb(136, 136, 136);
+    border: 2px solid #DDDDDD;
+    cursor: not-allowed;
+}
+
+.pagination .page-btn.right:disabled {
+    background-color: #f3f4f6;
+    color: rgb(136, 136, 136);
+    border: 2px solid #DDDDDD;
+    cursor: not-allowed;
+}
 
 .pagination .page-btn.number {
     width: 35px;
