@@ -10,6 +10,7 @@
     position: relative;
     border-radius: 10px;
     overflow: hidden;
+    height: 500px;
 }
 
 .news-section .news-right-section {
@@ -62,6 +63,7 @@
     position: relative;
     border-radius: 10px;
     overflow: hidden;
+    height: 240px;
 }
 
 .news-section .news-left-section .content h4 {

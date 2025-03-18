@@ -57,6 +57,19 @@
     border: none;
 }
 
+.pagination .page-btn.left:disabled {
+    background-color: #f3f4f6;
+    color: rgb(136, 136, 136);
+    border: 2px solid #DDDDDD;
+    cursor: not-allowed;
+}
+
+.pagination .page-btn.right:disabled {
+    background-color: #f3f4f6;
+    color: rgb(136, 136, 136);
+    border: 2px solid #DDDDDD;
+    cursor: not-allowed;
+}
 
 .pagination .page-btn.number {
     width: 35px;

@@ -1,15 +1,13 @@
 import React from "react";
 import "./Details.css";
 import SectionOne from "./SectionOne/SectionOne.tsx";
-import SectionTow from "./SectionTow/SectionTow.tsx";
 import Header from "../HomePage/Header/Header";
 import Footer from "../HomePage/Footer/Footer";
-function Details() {
+function Details(props) {
     return (
     <div>
         <Header/>
-        <SectionOne />
-        <SectionTow />
+        <SectionOne title={props.title} description={props.description} date={props.date}/>
         <Footer />
     </div>
 );
