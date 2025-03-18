@@ -1,12 +1,9 @@
 import React, { useState, useEffect } from "react";
 import "./SectionTow.css";
-import image1 from "../../assets/image-940x580 (2).jpg";
-import image2 from "../../assets/image-940x580 (3).jpg";
-import api from "../../Services/api"
-
+import { Link } from "react-router-dom";
+import api from "../../Services/api";
 
 function SectionTow(props) {
-
   const News = props.News;
 
   return (
@@ -21,9 +18,9 @@ function SectionTow(props) {
               <p>{news.abbreviation}</p>
               <div className="date-more">
                 <span>{news.date}</span>
-                <a href="/" className="about-news">
+                <Link to={`/details`} state={{ news }} className="about-news">
                   <i className="fa-solid fa-arrow-up"></i>
-                </a>
+                </Link>
               </div>
             </div>
           </div>
