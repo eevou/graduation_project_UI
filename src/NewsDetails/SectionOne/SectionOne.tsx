@@ -26,7 +26,7 @@ function SectionOne() {
       <main className="main">
         <div className="container">
           {/* Carousel Section */}
-          <div className="carousel-container">
+          <div className="carousel-con  tainer">
             {images.map((img, index) => (
               <img
                 key={index}
@@ -76,7 +76,7 @@ function SectionOne() {
           </div>
         </div>
       </main>
-      <Footer/>
+      <Footer />
     </div>
   );
 }
