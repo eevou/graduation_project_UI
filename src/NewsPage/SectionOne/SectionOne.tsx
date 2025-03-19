@@ -20,6 +20,7 @@ function SectionOne(props) {
           </Link>
 
           <div className="card-overlay">
+          </div>
             <div className="content">
               <h4>{News[0].header}</h4>
               <p>{News[0].abbreviation.slice(0, 20)}...</p>
@@ -27,7 +28,6 @@ function SectionOne(props) {
                 <span>{News[0].date}</span>
               </div>
             </div>
-          </div>
         </div>
       )}
 

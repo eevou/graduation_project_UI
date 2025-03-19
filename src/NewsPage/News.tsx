@@ -30,6 +30,8 @@ function News() {
       });
   }, []);
 
+  console.log(News)
+
   return (
     <div>
       <Header index={4} />

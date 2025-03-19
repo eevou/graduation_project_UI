@@ -27,27 +27,39 @@
     object-fit: cover;
 }
 
-.news-section .card-overlay {
+.news-section .card-overlay,
+.news-section .content {
     position: absolute;
     bottom: 0;
-    height: 0%;
-    width: 100%;
     overflow: hidden;
-    background: linear-gradient(360deg, #000000b5 70%, transparent);
     color: white;
-    display: flex;
     align-items: flex-end;
-    transition: 0.4s;
+    transition: 0.3s;
+    right: 0;
+}
+
+.news-section .card-overlay {
+    height: 60%;
+    display: flex;
+    width: 100%;
+    background: linear-gradient(360deg, #000000b0 40%, #00000000);
 }
 
 .news-section .news-left-section:hover .card-overlay,
 .news-section .news-right-section .card:hover .card-overlay {
     height: 100%;
+    background: linear-gradient(360deg, #000000b0 80%, #00000000);
 }
 
-.news-section .card-overlay .content {
+.news-section .content {
     width: 80%;
+    height: 100%;
     font-family: var(--MNF_Body_EN);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    direction: rtl;
+    align-items: flex-start;
 }
 
 .news-section .news-left-section .content {
@@ -115,7 +127,7 @@
     transition: 0.4s;
     border-radius: 50%;
     bottom: 15px;
-    right: 15px;
+    left: 15px;
     z-index: 2;
 }
 
@@ -131,7 +143,7 @@
     height: 30px;
 }
 
-.news-section .about-news:hover {
+.news-section .news-left-section:hover .about-news, .news-section .card:hover .about-news {
     background: #F66B15;
     color: black;
 }
@@ -216,21 +228,25 @@
 }
 
 @media (max-width: 480px) {
+    .news-section .news-left-section {
+        height: 300px;
+    }
+
     .news-section .news-left-section .content h4 {
-        font-size: larger;
+        font-size: 16px;
         font-weight: 700;
-        margin-bottom: 30px;
+        margin-bottom: 20px;
         width: fit-content;
     }
 
     .news-section .news-left-section .content p {
-        font-size: medium;
+        font-size: 14px;
         font-weight: 500;
         margin-bottom: 20px;
     }
 
     .news-section .news-left-section .date-more span {
-        font-size: x-small;
+        font-size: 12px;
         font-weight: 600;
     }
 
