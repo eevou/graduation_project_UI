@@ -2,6 +2,7 @@
     display: flex;
     gap: 15px;
     margin-bottom: 30px;
+    flex-wrap: wrap;
 }
 
 .news-section .news-left-section {
@@ -32,17 +33,14 @@
     height: 0%;
     width: 100%;
     overflow: hidden;
-    background: linear-gradient(360deg, #000000b5 70%, transparent);
+    background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8));
     color: white;
     display: flex;
     align-items: flex-end;
     transition: 0.4s;
 }
 
-.news-section .news-left-section:hover .card-overlay {
-    height: 100%;
-}
-
+.news-section .news-left-section:hover .card-overlay,
 .news-section .news-right-section .card:hover .card-overlay {
     height: 100%;
 }
@@ -63,7 +61,7 @@
 .news-section .news-right-section .card {
     position: relative;
     border-radius: 10px;
-    overflow: hidden;;
+    overflow: hidden;
 }
 
 .news-section .news-left-section .content h4 {
@@ -105,7 +103,7 @@
     font-weight: 600;
 }
 
-.news-section .card-overlay .content .date-more a {
+.news-section .about-news {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -128,10 +126,62 @@
     height: 30px;
 }
 
-
 .news-section .card-overlay .content .date-more a:hover {
     background: #F66B15;
     color: black;
 }
 
+/* Responsive Design */
 
+/* شاشات التابلت */
+@media (max-width: 1024px) {
+    .news-section {
+        display: grid;
+        gap: 15px;
+        margin-bottom: 30px;
+        grid-template-columns: 1fr;
+    }
+}
+
+/* شاشات الموبايل */
+@media (max-width: 768px) {
+    /* الكود هنا لتعديل الموبايل */
+}
+
+/* شاشات صغيرة جدا */
+@media (max-width: 480px) {
+    .news-section .news-left-section .content h4 {
+        font-size: larger;
+        font-weight: 700;
+        margin-bottom: 30px;
+        width: fit-content;
+    }
+
+    .news-section .news-left-section .content p {
+        font-size: medium;
+        font-weight: 500;
+        margin-bottom: 20px;
+    }
+
+    .news-section .news-left-section .date-more span {
+        font-size: x-small;
+        font-weight: 600;
+    }
+
+    .news-section .news-right-section .content h4 {
+        width: fit-content;
+        margin-bottom: 10px;
+        font-size: small;
+    }
+
+    .news-section .news-right-section .content p {
+        margin-bottom: 10px;
+        font-size: x-small;
+        font-weight: 500;
+    }
+
+    .news-section .news-right-section .date-more span {
+        font-size: xx-small;
+        font-weight: 600;
+    }
+}
