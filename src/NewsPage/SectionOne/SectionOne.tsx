@@ -1,13 +1,10 @@
 import React from "react";
 import "./SectionOne.css";
 import { Link } from "react-router-dom";
-import image1 from "../../assets/image-940x580 (2).jpg";
-import image2 from "../../assets/image-940x580 (3).jpg";
-import image3 from "../../assets/image-940x580 (4).jpg";
+
 
 function SectionOne(props) {
   const News = props.News;
-
 
   return (
     <div className="news-section" style={{ flexDirection: props.row }}>

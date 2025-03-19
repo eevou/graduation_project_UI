@@ -1,116 +1,14 @@
-import React, { useRef } from "react";
+import React, { useState, useEffect, useRef} from "react";
 import { ChevronLeft, ChevronRight, ArrowUpRight } from "lucide-react";
+import { Link } from "react-router-dom";
 import "./Carousel.css";
+import api from "../../Services/api";
 
-interface NewsItem {
-  id: number;
-  title: string;
-  image: string;
-  link: string;
-}
-
-const newsItems: NewsItem[] = [
-  {
-    id: 1,
-    title:
-      "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quo libero illo facere adipisci? Eligendi quos, odit unde odio reprehenderit similique.",
-    image:
-      "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&q=80&w=200&h=150",
-    link: "#",
-  },
-  {
-    id: 2,
-    title:
-      "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quo libero illo facere adipisci? Eligendi quos, odit unde odio reprehenderit similique.",
-    image:
-      "https://images.unsplash.com/photo-1517486808906-6ca8b3f04846?auto=format&fit=crop&q=80&w=200&h=150",
-    link: "#",
-  },
-  {
-    id: 3,
-    title:
-      "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quo libero illo facere adipisci? Eligendi quos, odit unde odio reprehenderit similique.",
-    image:
-      "https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&q=80&w=200&h=150",
-    link: "#",
-  },
-  {
-    id: 4,
-    title:
-      "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quo libero illo facere adipisci? Eligendi quos, odit unde odio reprehenderit similique.",
-    image:
-      "https://images.unsplash.com/photo-1532094349884-543bc11b234d?auto=format&fit=crop&q=80&w=200&h=150",
-    link: "#",
-  },
-  {
-    id: 5,
-    title:
-      "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quo libero illo facere adipisci? Eligendi quos, odit unde odio reprehenderit similique.",
-    image:
-      "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&q=80&w=200&h=150",
-    link: "#",
-  },
-  {
-    id: 6,
-    title:
-      "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quo libero illo facere adipisci? Eligendi quos, odit unde odio reprehenderit similique.",
-    image:
-      "https://images.unsplash.com/photo-1461896836934-ffe607ba8211?auto=format&fit=crop&q=80&w=200&h=150",
-    link: "#",
-  },
-  {
-    id: 7,
-    title:
-      "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quo libero illo facere adipisci? Eligendi quos, odit unde odio reprehenderit similique.",
-    image:
-      "https://images.unsplash.com/photo-1460661419201-fd4cecdf8a8b?auto=format&fit=crop&q=80&w=200&h=150",
-    link: "#",
-  },
-  {
-    id: 8,
-    title:
-      "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quo libero illo facere adipisci? Eligendi quos, odit unde odio reprehenderit similique.",
-    image:
-      "https://images.unsplash.com/photo-1532094349884-543bc11b234d?auto=format&fit=crop&q=80&w=200&h=150",
-    link: "#",
-  },
-  {
-    id: 9,
-    title:
-      "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quo libero illo facere adipisci? Eligendi quos, odit unde odio reprehenderit similique.",
-    image:
-      "https://images.unsplash.com/photo-1532094349884-543bc11b234d?auto=format&fit=crop&q=80&w=200&h=150",
-    link: "#",
-  },
-  {
-    id: 10,
-    title:
-      "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quo libero illo facere adipisci? Eligendi quos, odit unde odio reprehenderit similique.",
-    image:
-      "https://images.unsplash.com/photo-1532094349884-543bc11b234d?auto=format&fit=crop&q=80&w=200&h=150",
-    link: "#",
-  },
-  {
-    id: 11,
-    title:
-      "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quo libero illo facere adipisci? Eligendi quos, odit unde odio reprehenderit similique.",
-    image:
-      "https://images.unsplash.com/photo-1532094349884-543bc11b234d?auto=format&fit=crop&q=80&w=200&h=150",
-    link: "#",
-  },
-  {
-    id: 12,
-    title:
-      "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quo libero illo facere adipisci? Eligendi quos, odit unde odio reprehenderit similique.",
-    image:
-      "https://images.unsplash.com/photo-1532094349884-543bc11b234d?auto=format&fit=crop&q=80&w=200&h=150",
-    link: "#",
-  },
-];
 
 export default function NewsCarousel() {
   const scrollRef = useRef<HTMLDivElement>(null);
   const card = useRef<HTMLDivElement>(null);
+  const [News, setNews] = useState([]);
 
   const scroll = (direction: "left" | "right") => {
     if (scrollRef.current && card.current) {
@@ -127,13 +25,24 @@ export default function NewsCarousel() {
     }
   };
 
+  useEffect(() => {
+    api
+      .get(`/News`)
+      .then((response) => {
+        setNews(response.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching News:", error);
+      });
+  }, []);
+
   return (
     <div className="news-carousel">
       <div className="news-carousel-container">
         <div ref={scrollRef} className="news-carousel-scroll custom-scrollbar">
           <div className="news-carousel-content">
-            {newsItems.map((item, index) => (
-              <div key={item.id} className="news-card" ref={card}>
+            {News.map((news, index) => (
+              <div key={index} className="news-card" ref={card}>
                 <div className="news-card-inner">
                   <div className="news-card-content">
                     <div
@@ -143,8 +52,8 @@ export default function NewsCarousel() {
                           : "news-card-text news-card-text-right"
                       }
                     >
-                      <h3 className="news-card-title">{item.title}</h3>
-                      <a href="/" className="arrowlinks">
+                      <h3 className="news-card-title">{news.header}</h3>
+                      <Link to={`/details`} state={{ news }} className="arrowlinks">
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
                           height="24px"
@@ -154,7 +63,7 @@ export default function NewsCarousel() {
                         >
                           <path d="m242-246-42-42 412-412H234v-60h480v480h-60v-378L242-246Z" />
                         </svg>
-                      </a>
+                      </Link>
                     </div>
                     <div
                       className={
@@ -165,14 +74,18 @@ export default function NewsCarousel() {
                     >
                       <svg width="0" height="0">
                         <clipPath id="img-container">
-                        <path d="M3.99997 20C3.99997 8.95433 12.9543 0 24 0H170C181.046 0 190 8.95431 190 20V187.088C190 201.067 176.026 210.733 162.946 205.803L16.9462 150.774C9.15647 147.838 3.99997 140.384 3.99997 132.059V20Z" fill="#D9D9D9"/>
+                          <path
+                            d="M3.99997 20C3.99997 8.95433 12.9543 0 24 0H170C181.046 0 190 8.95431 190 20V187.088C190 201.067 176.026 210.733 162.946 205.803L16.9462 150.774C9.15647 147.838 3.99997 140.384 3.99997 132.059V20Z"
+                            fill="#D9D9D9"
+                            className="svg-path"
+                          />
                         </clipPath>
                       </svg>
 
                       <img
-                      style={{clipPath: 'url(#img-container)'}}
-                        src={item.image}
-                        alt={item.title}
+                        style={{ clipPath: "url(#img-container)" }}
+                        src={news.image}
+                        alt=""
                         className={
                           index % 2 !== 0
                             ? "news-card-image"

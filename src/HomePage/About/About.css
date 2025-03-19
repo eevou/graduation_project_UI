@@ -38,10 +38,71 @@
     z-index: -2;
 }
 
+@media (min-width: 1900px) {
+    .about-container {
+        justify-content: center;
+    }
+}
+
+@media (max-width: 1110px) {
+    .about-container {
+        gap: 160px;
+    }
+
+    .about-container .curveLine {
+        width: 350px;
+        right: -20px;
+    }
+
+    .about-container h1 {
+        font-size: 55px
+    }
+}
+
+
+@media (max-width: 1024px) {
+    .about-container {
+        gap: 120px;
+    }
+
+    .about-container .curveLine {
+        width: 320px;
+        right: -20px;
+    }
+
+    .about-container h1 {
+        font-size: 45px;
+    }
+
+    .about-container .content p {
+        width: 270px;
+    }
+}
+
+@media (max-width: 850px) {
+    .about-container {
+        gap: 80px;
+    }
+
+    .about-container .curveLine {
+        width: 300px;
+        right: -30px;
+    }
+
+    .about-container h1 {
+        font-size: 40px;
+    }
+
+    .about-container .content p {
+        width: 260px;
+        font-size: 15px;
+    }
+}
+
 @media (max-width: 768px) {
     .about-container {
-        flex-direction: column;
-        gap: 32px;
+        flex-direction: column-reverse;
+        gap: 60px;
         text-align: center;
         padding: 16px 20px;
     }
@@ -56,7 +117,7 @@
     }
 
     .about-container h1 {
-        font-size: 22px;
+        font-size: 40px;
         max-width: 100%;
     }
 
@@ -65,30 +126,27 @@
         right: 0;
         top: -80px;
     }
+
+    .about-container .content p {
+        width: 100%;
+        font-size: 15px;
+        padding: 10px;
+        margin: 10px;
+    }
 }
 
-@media (max-width: 1024px) {
-    .about-container {
-        gap: 60px;
-        padding: 16px 40px;
-    }
-
-    .about-container .curveLine {
-        width: 350px;
-        right: -20px;
-    }
-
+@media (max-width: 548px) {
     .about-container h1 {
-        font-size: calc(var(--MNF_Heading_Size1) * 0.9);
-    }
-}
-
-@media (min-width: 1025px) {
-    .about-container {
-        gap: 120px;
+        font-size: 30px;
     }
 
+    .about-container .content p {
+        font-size: 14px;
+    }
+    
     .about-container .curveLine {
-        width: 500px;
+        width: 200px;
+        right: 0;
+        top: -80px;
     }
 }
