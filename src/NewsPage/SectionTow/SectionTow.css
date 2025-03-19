@@ -49,6 +49,7 @@
 .news-bottom-section .content p {
     font-size: 14px;
     font-weight: 500;
+    margin-bottom: 10px
 }
 
 .news-bottom-section .content .date-more {
@@ -59,7 +60,7 @@
 
 .news-bottom-section .date-more span {
     font-size: 15px;
-    font-weight: 600;
+    margin-bottom: 10px
 }
 
 .news-bottom-section .about-news {
@@ -84,20 +85,67 @@
     color: black;
 }
 
+@media (max-width: 1200px) {
+    .news-bottom-section {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .news-bottom-section .content h4 {
+        margin-bottom: 10px;
+    }
+
+    .news-bottom-section .content p {
+        margin-bottom: 10px;
+    }
+}
+
 @media (max-width: 1024px) {
     .news-bottom-section {
         grid-template-columns: repeat(3, 1fr);
+    }
+
+    .news-bottom-section .content h4 {
+        margin-bottom: 10px;
+    }
+
+    .news-bottom-section .content p {
+        margin-bottom: 10px;
     }
 }
 
 @media (max-width: 768px) {
     .news-bottom-section {
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: repeat(1, 1fr);
+    }
+
+    .news-bottom-section .content h4 {
+        width: fit-content;
+        margin-bottom: 10px;
+        font-size: medium;
+    }
+
+    .news-bottom-section .content p {
+        font-size: x-small;
+        font-weight: 500;
+        margin-bottom: 10px;
+    }
+
+    .news-bottom-section .date-more span {
+        font-size: 9px;
+        font-weight: 600;
     }
 }
 
 @media (max-width: 480px) {
     .news-bottom-section {
         grid-template-columns: repeat(1, 1fr);
+    }
+
+    .news-bottom-section .content h4 {
+        margin-bottom: 10px;
+    }
+
+    .news-bottom-section .content p {
+        margin-bottom: 10px;
     }
 }

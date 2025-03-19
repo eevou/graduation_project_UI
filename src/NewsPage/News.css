@@ -15,6 +15,26 @@
     text-align: center;
 }
 
+@media (max-width: 1024px) {
+    .News-header {
+        font-size: 40px;
+    }
+}
+
+@media (max-width: 768px) {
+    .News-header {
+        font-size: 30px;
+    }
+
+    @media (max-width: 480px) {
+        .News-header {
+            font-size: 25px;
+        }
+    }
+}
+
+
+
 .pagination {
     display: flex;
     justify-content: center;

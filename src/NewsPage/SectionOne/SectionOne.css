@@ -72,8 +72,9 @@
 }
 
 .news-section .news-right-section .content h4 {
-    width: 180px;
+    width: fit-content;
     margin-bottom: 10px;
+    font-size: small;
 }
 
 .news-section .news-left-section .content p {
@@ -83,8 +84,9 @@
 }
 
 .news-section .news-right-section .content p {
-    font-size: 14px;
+    font-size: smaller;
     font-weight: 500;
+    margin-bottom: 10px;
 }
 
 .news-section .card-overlay .content .date-more {
@@ -99,7 +101,7 @@
 }
 
 .news-section .news-right-section .date-more span {
-    font-size: 16px;
+    font-size: 9px;
     font-weight: 600;
 }
 
@@ -136,7 +138,25 @@
 
 /* Responsive Design */
 
-/* شاشات التابلت */
+@media (max-width: 1200px) {
+    .news-section .news-right-section .content h4 {
+        width: 180px;
+        margin-bottom: 10px;
+        font-size: medium;
+    }
+
+    .news-section .news-right-section .content p {
+        font-size: x-small;
+        font-weight: 500;
+        margin-bottom: 5px;
+    }
+
+    .news-section .news-right-section .date-more span {
+        font-size: xx-small;
+        font-weight: 600;
+    }
+}
+
 @media (max-width: 1024px) {
     .news-section {
         display: grid;
@@ -144,14 +164,57 @@
         margin-bottom: 30px;
         grid-template-columns: 1fr;
     }
+
+    .news-section .news-left-section .content h4 {
+        font-size: 30px;
+        font-weight: 700;
+        margin-bottom: 20px;
+        width: 450px;
+    }
+
+    .news-section .news-left-section .content p {
+        font-size: 18px;
+        font-weight: 500;
+        margin-bottom: 20px;
+    }
+
+    .news-section .news-right-section .content h4 {
+        width: 180px;
+        margin-bottom: 10px;
+    }
+
+    .news-section .news-right-section .content p {
+        font-size: 14px;
+        font-weight: 500;
+        margin-bottom: 10px;
+    }
+
 }
 
-/* شاشات الموبايل */
 @media (max-width: 768px) {
-    /* الكود هنا لتعديل الموبايل */
+    .news-section .news-left-section .content h4 {
+        font-size: 24px;
+        font-weight: 700;
+        margin-bottom: 20px;
+        width: fit-content;
+
+    }
+
+    .news-section .news-right-section .content h4 {
+        width: fit-content;
+        margin-bottom: 5px;
+        font-size: 12px;
+
+    }
+
+    .news-section .news-right-section .content p {
+        font-size: xx-small;
+        font-weight: 500;
+        margin-bottom: 10px;
+    }
+
 }
 
-/* شاشات صغيرة جدا */
 @media (max-width: 480px) {
     .news-section .news-left-section .content h4 {
         font-size: larger;
@@ -173,13 +236,13 @@
 
     .news-section .news-right-section .content h4 {
         width: fit-content;
-        margin-bottom: 10px;
-        font-size: small;
+        margin-bottom: 5px;
+        font-size: xx-small;
     }
 
     .news-section .news-right-section .content p {
-        margin-bottom: 10px;
-        font-size: x-small;
+        margin-bottom: 5px;
+        font-size: 8px;
         font-weight: 500;
     }
 
@@ -187,4 +250,40 @@
         font-size: xx-small;
         font-weight: 600;
     }
+}
+
+@media (max-width: 360px) {
+    .news-section .news-right-section {
+        flex: 1;
+        display: grid;
+        grid-template-columns: repeat(1, 1fr);
+        gap: 15px;
+        height: 580px;
+    }
+
+    .news-section .news-left-section .content h4 {
+        font-size: 18px;
+        font-weight: 700;
+        margin-bottom: 10px;
+        width: fit-content;
+    }
+
+    .news-section .news-left-section .content p {
+        font-size: medium;
+        font-weight: 500;
+        margin-bottom: 10px;
+    }
+
+    .news-section .news-right-section .content h4 {
+        width: fit-content;
+        margin-bottom: 5px;
+        font-size: x-small;
+    }
+
+    .news-section .news-right-section .content p {
+        margin-bottom: 5px;
+        font-size: xx-small;
+        font-weight: 500;
+    }
+
 }
