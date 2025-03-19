@@ -21,7 +21,7 @@ function News() {
 
   useEffect(() => {
     api
-      .get("/News")
+      .get(`/News`)
       .then((response) => {
         setNews(response.data);
       })

@@ -47,30 +47,6 @@
   color: rgb(108, 110, 250);
 }
 
-@media (min-width: 1500px) {
-  .footer-container {
-    grid-template-columns: repeat(4, 1fr);
-  }
-}
-
-@media (max-width: 1199px) {
-  .footer-container {
-    grid-template-columns: repeat(3, 1fr);
-  }
-}
-
-@media (max-width: 768px) {
-  .footer-container {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-@media (max-width: 480px) {
-  .footer-container {
-    grid-template-columns: 1fr;
-  }
-}
-
 .bottom-footer-container {
   background-color: #DCEDF4;
 }
@@ -115,19 +91,82 @@
 .social-facebook:hover {
   color: #3b5998;
 }
+
 .social-x:hover {
   color: #000000;
 }
+
 .social-youtube:hover {
   color: #ff0000;
 }
+
 .social-envelope:hover {
   color: #f08067;
 }
-.social i{
-    transition: 0.3s;
+
+.social i {
+  transition: 0.3s;
 }
+
+@media (min-width: 1500px) {
+  .footer-container {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+@media (max-width: 1199px) {
+  .footer-container {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 1024px) {
+  .bottom-footer-container .footer-logos img:first-of-type {
+    width: 70px;
+  }
+
+  .bottom-footer-container .footer-logos img:not(:first-of-type) {
+    width: 150px;
+    margin-left: 16px;
+  }
+
+  .bottom-footer-container .social-copyRights {
+    margin: 0 32px;
+  }
+
+  .footer-container {
+    gap: 30px;
+  }
+
+  .footer-sector .ul-container {
+    gap: 20px;
+  }
+
+  .footer-sector ul li a {
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 880px) {
+  .footer-container {
+    gap: 20px;
+  }
+
+  .footer-sector .ul-container {
+    gap: 10px;
+  }
+
+  .footer-sector ul li a {
+    font-size: 11px;
+  }
+}
+
+
 @media (max-width: 768px) {
+  .footer-container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
   .bottom-footer-container .footer-logos {
     padding: 20px 0;
   }
@@ -152,29 +191,17 @@
   }
 }
 
-/* للأجهزة المتوسطة (تابلت من 769px إلى 1024px) */
-@media (max-width: 1024px) {
-  .bottom-footer-container .footer-logos img:first-of-type {
-    width: 70px;
+@media (max-width: 520px) {
+  .footer-container {
+    grid-template-columns: 1fr;
   }
 
-  .bottom-footer-container .footer-logos img:not(:first-of-type) {
-    width: 150px;
-    margin-left: 16px;
+  .footer-sector {
+    margin-bottom: 20px;
   }
 
-  .bottom-footer-container .social-copyRights {
-    margin: 0 32px;
-  }
-}
-
-/* للأجهزة الكبيرة (ديسكتوب أكبر من 1024px) */
-@media (min-width: 1025px) {
-  .bottom-footer-container .footer-logos img:not(:first-of-type) {
-    width: 195px;
+  .footer-sector .ul-container {
+    gap: 20px;
   }
 
-  .bottom-footer-container .social-copyRights {
-    margin: 0 48px;
-  }
 }
