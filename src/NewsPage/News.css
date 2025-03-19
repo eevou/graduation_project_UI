@@ -7,7 +7,7 @@
     background-color: #e9e9e9;
     color: #001351;
     font-family: var(--MNF_Heading_EN);
-    font-size: 50px;
+    font-size: 40px;
     font-weight: 800;
     border-radius: 10px;
     margin-bottom: 30px;
@@ -15,11 +15,6 @@
     text-align: center;
 }
 
-@media (max-width: 1024px) {
-    .News-header {
-        font-size: 40px;
-    }
-}
 
 @media (max-width: 768px) {
     .News-header {
