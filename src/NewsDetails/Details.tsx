@@ -58,7 +58,7 @@ function Details(props) {
                         className="news-image"
                       />
                       <div className="news-content">
-                        <p>{news.abbreviation}</p>
+                        <p>{news.header}</p>
                         <p>{news.date}</p>
                       </div>
                     </div>

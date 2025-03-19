@@ -2,7 +2,6 @@ import React from "react";
 import "./SectionOne.css";
 import { Link } from "react-router-dom";
 
-
 function SectionOne(props) {
   const News = props.News;
 
@@ -12,15 +11,20 @@ function SectionOne(props) {
         <div className="news-left-section">
           <img src={News[0].image} alt="" />
 
+          <Link
+            to={`/details`}
+            state={{ news: News[0] }}
+            className="about-news"
+          >
+            <i className="fa-solid fa-arrow-up"></i>
+          </Link>
+
           <div className="card-overlay">
             <div className="content">
               <h4>{News[0].header}</h4>
               <p>{News[0].abbreviation.slice(0, 20)}...</p>
               <div className="date-more">
                 <span>{News[0].date}</span>
-                <Link to={`/details`} state={{ news: News[0] }} className="about-news">
-                  <i className="fa-solid fa-arrow-up"></i>
-                </Link>
               </div>
             </div>
           </div>
@@ -32,15 +36,16 @@ function SectionOne(props) {
           <div className="card">
             <img src={news.image} alt="" />
 
+            <Link to={`/details`} state={{ news }} className="about-news">
+              <i className="fa-solid fa-arrow-up"></i>
+            </Link>
+            
             <div className="card-overlay">
               <div className="content">
                 <h4>{news.header}</h4>
                 <p>{news.abbreviation.slice(0, 1)}...</p>
                 <div className="date-more">
                   <span>{news.date}</span>
-                  <Link to={`/details`} state={{ news }} className="about-news">
-                    <i className="fa-solid fa-arrow-up"></i>
-                  </Link>
                 </div>
               </div>
             </div>

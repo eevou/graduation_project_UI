@@ -11,6 +11,9 @@ function SectionTow(props) {
       {News.map((news) => (
         <div className="card">
           <img src={news.image} alt="" />
+          <Link to={`/details`} state={{ news }} className="about-news">
+            <i className="fa-solid fa-arrow-up"></i>
+          </Link>
 
           <div className="card-overlay">
             <div className="content">
@@ -18,9 +21,6 @@ function SectionTow(props) {
               <p>{news.abbreviation}</p>
               <div className="date-more">
                 <span>{news.date}</span>
-                <Link to={`/details`} state={{ news }} className="about-news">
-                  <i className="fa-solid fa-arrow-up"></i>
-                </Link>
               </div>
             </div>
           </div>
