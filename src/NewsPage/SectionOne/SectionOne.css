@@ -33,7 +33,7 @@
     height: 0%;
     width: 100%;
     overflow: hidden;
-    background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8));
+    background: linear-gradient(360deg, #000000b5 70%, transparent);
     color: white;
     display: flex;
     align-items: flex-end;
