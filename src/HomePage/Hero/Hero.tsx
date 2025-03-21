@@ -40,8 +40,7 @@ function Hero() {
         <div
           className="carousel-track"
           style={{
-            transform: `translateX(-${currentIndex * 100}%)`,
-            width: `${images.length * 100}%`
+            transform: `translateX(-${currentIndex * 100}%)`
           }}
         >
           {images.map((image, index) => (
