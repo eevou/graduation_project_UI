@@ -227,6 +227,7 @@
 
 }
 
+
 @media (max-width: 480px) {
     .news-section .news-left-section {
         height: 300px;
@@ -265,6 +266,12 @@
     .news-section .news-right-section .date-more span {
         font-size: xx-small;
         font-weight: 600;
+    }
+}
+
+@media (max-width: 450px) {
+    .news-section .news-right-section {
+        height: 380px;
     }
 }
 

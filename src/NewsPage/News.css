@@ -16,20 +16,6 @@
 }
 
 
-@media (max-width: 768px) {
-    .News-header {
-        font-size: 30px;
-    }
-
-    @media (max-width: 480px) {
-        .News-header {
-            font-size: 25px;
-        }
-    }
-}
-
-
-
 .pagination {
     display: flex;
     justify-content: center;
@@ -95,4 +81,28 @@
     background-color: #000820;
     color: white;
     border: none;
+}
+
+@media (max-width: 768px) {
+    .news-page {
+        margin: 10px 24px;
+        padding: 8px;
+    }
+
+    .News-header {
+        font-size: 30px;
+    }
+
+    @media (max-width: 480px) {
+        .News-header {
+            font-size: 25px;
+        }
+    }
+}
+
+@media (max-width: 550px) {
+    .news-page {
+        margin: 10px 5px;
+        padding: 5px;
+    }
 }

@@ -20,7 +20,7 @@ function Hero() {
   const startAutoSlide = useCallback(() => {
     return setInterval(() => {
       setCurrentIndex((prevIndex) => (prevIndex + 1) % images.length);
-    }, 6000);
+    }, 5000);
   }, []);
 
   useEffect(() => {
