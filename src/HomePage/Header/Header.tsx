@@ -7,9 +7,10 @@ const Header = (props) => {
   const [langActive, setlangActive] = useState(false);
   const [menuActive, setMenuActive] = useState(false);
   const [language, setLanguage] = useState("EN");
+  const [langId, setLangId] = useState(1)
   const languages = [
-    { code: "EN", name: "English" },
-    { code: "AR", name: "Arabic" },
+    { code: "EN", name: "English", id: 1 },
+    { code: "AR", name: "Arabic", id: 2},
   ];
 
   const navLinks = [
@@ -23,6 +24,8 @@ const Header = (props) => {
 
   const changeLanguage = (lang) => {
     setLanguage(lang.code);
+    setLangId(lang.id)
+    props.setLanguage(langId)
   };
 
   const dropdownLang = () => {

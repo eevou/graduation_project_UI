@@ -5,7 +5,7 @@ import "./Carousel.css";
 import api from "../../Services/api";
 
 
-export default function NewsCarousel() {
+export default function NewsCarousel(props) {
   const scrollRef = useRef<HTMLDivElement>(null);
   const card = useRef<HTMLDivElement>(null);
   const [News, setNews] = useState([]);
@@ -27,7 +27,7 @@ export default function NewsCarousel() {
 
   useEffect(() => {
     api
-      .get(`/News`)
+      .get(`/News?id=${props.lang}`)
       .then((response) => {
         setNews(response.data);
       })
