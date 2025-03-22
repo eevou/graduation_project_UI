@@ -115,7 +115,7 @@
 
 @media (max-width: 768px) {
     .news-bottom-section {
-        grid-template-columns: repeat(1, 1fr);
+        grid-template-columns: repeat(2, 1fr);
     }
 
     .news-bottom-section .content h4 {
@@ -136,10 +136,13 @@
     }
 }
 
-@media (max-width: 480px) {
+@media (max-width: 550px) {
     .news-bottom-section {
         grid-template-columns: repeat(1, 1fr);
     }
+}
+
+@media (max-width: 480px) {
 
     .news-bottom-section .content h4 {
         margin-bottom: 10px;
