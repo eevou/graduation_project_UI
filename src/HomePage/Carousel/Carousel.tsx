@@ -7,12 +7,12 @@ import api from "../../Services/api";
 
 export default function NewsCarousel(props) {
   const scrollRef = useRef<HTMLDivElement>(null);
-  const card = useRef<HTMLDivElement>(null);
-  const [News, setNews] = useState([]);
 
   const scroll = (direction: "left" | "right") => {
-    if (scrollRef.current && card.current) {
-      const scrollAmount = card.current.clientWidth + 24;
+    const card = scrollRef.current?.childNodes[0].childNodes[0]
+    
+    if (scrollRef.current && card) {
+      const scrollAmount = card.clientWidth + 24;
       const newScrollLeft =
         direction === "left"
           ? scrollRef.current.scrollLeft - scrollAmount
@@ -25,24 +25,15 @@ export default function NewsCarousel(props) {
     }
   };
 
-  useEffect(() => {
-    api
-      .get(`/News?id=${props.lang}`)
-      .then((response) => {
-        setNews(response.data);
-      })
-      .catch((error) => {
-        console.error("Error fetching News:", error);
-      });
-  }, []);
+  console.log(props.News[0])
 
   return (
     <div className="news-carousel">
       <div className="news-carousel-container">
         <div ref={scrollRef} className="news-carousel-scroll custom-scrollbar">
           <div className="news-carousel-content">
-            {News.map((news, index) => (
-              <div key={index} className="news-card" ref={card}>
+            {props.News.map((news, index) => (
+              <div key={index} className="news-card">
                 <div className="news-card-inner">
                   <div className="news-card-content">
                     <div
@@ -52,7 +43,7 @@ export default function NewsCarousel(props) {
                           : "news-card-text news-card-text-right"
                       }
                     >
-                      <h3 className="news-card-title">{news.header}</h3>
+                      <h3 className="news-card-title">{news.translations.body}</h3>
                       <Link to={`/details`} state={{ news }} className="arrowlinks">
                         <svg
                           xmlns="http://www.w3.org/2000/svg"

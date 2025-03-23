@@ -1,16 +1,17 @@
-import React from "react";
+import React, { useState, useEffect, useRef } from "react";
 import "./Header.css";
-import { useState } from "react";
 import logo from "../../assets/image.png";
+import api from "../../Services/api";
 
 const Header = (props) => {
   const [langActive, setlangActive] = useState(false);
   const [menuActive, setMenuActive] = useState(false);
   const [language, setLanguage] = useState("EN");
-  const [langId, setLangId] = useState(1)
+
   const languages = [
-    { code: "EN", name: "English", id: 1 },
-    { code: "AR", name: "Arabic", id: 2},
+    { code: "AR", name: "Arabic", id: 1 },
+    { code: "EN", name: "English", id: 2 },
+    { code: "AS", name: "Spanish", id: 3 },
   ];
 
   const navLinks = [
@@ -22,10 +23,28 @@ const Header = (props) => {
     { name: "Contact Us", link: "contact" },
   ];
 
+  useEffect(() => {
+    const savedLang = JSON.parse(localStorage.getItem("lang"));
+    if (savedLang) {
+      setLanguage(savedLang.code);
+    }
+  }, []);
+
+  const CallAPI = (lang) => {
+    api
+      .get(`/News?id=${lang.id}`)
+      .then((response) => {
+        props.setFilteredNews(response.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching News:", error);
+      });
+  }
+
   const changeLanguage = (lang) => {
     setLanguage(lang.code);
-    setLangId(lang.id)
-    props.setLanguage(langId)
+    localStorage.setItem("lang", JSON.stringify(lang));
+    CallAPI(lang);
   };
 
   const dropdownLang = () => {
