@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 function SectionOne(props) {
   const News = props.News;
 
+
   return (
     <div className="news-section" style={{ flexDirection: props.row }}>
       {News[0] && (
@@ -21,18 +22,17 @@ function SectionOne(props) {
 
           <div className="card-overlay"></div>
           <div className="content">
-            <h4>{News[0].translations[0].header}</h4>
-            <p>{News[0].translations[0].abbreviation}...</p>
+            <h4>{News[0].header[0].slice(0, 100)}...</h4>
             <div className="date-more">
-              <span>{News[0].translations[0].date}</span>
+              <span>{News[0].date}</span>
             </div>
           </div>
         </Link>
       )}
 
       <div className="news-right-section">
-        {News.slice(1, 5).map((news) => (
-          <Link to={`/details`} state={{ news }} className="card">
+        {News.slice(1, 5).map((news, index) => (
+          <Link to={`/details`} state={{ news }} className="card" key={index}>
             <img src={news.image} alt="" />
 
             <div className="about-news">
@@ -41,8 +41,7 @@ function SectionOne(props) {
             <div className="card-overlay"></div>
 
             <div className="content">
-              <h4>{news.translations[0].header}</h4>
-              <p>{news.translations[0].abbreviation}...</p>
+              <h4>{news.header[0].slice(0, 100)}...</h4>
               <div className="date-more">
                 <span>{news.date}</span>
               </div>

@@ -1,0 +1,53 @@
+{
+    "header": {
+      "home": "الرئسيه",
+      "MNF Uni": "جامعه المنوفية",
+      "Colleges": "الكليات",
+      "Programs": "البرامج",
+      "News": "الاخبار",
+      "contact US": "تواصل معنا"
+    },
+    "hero": {
+      "title": "نرحب بالطلاب الوافدين فيجامعه المنوفيه"
+    },
+    "about": {
+      "title": "مكتب شؤون الطلاب الوافدين",
+      "subtitle": "تقديم الدعم للطلاب الوافدين في مجالات التسجيل، الفيزا، والاندماج الثقافي، لضمان انتقال سلس ورحلة أكاديمية ممتعة في جامعة المنوفية."
+    },
+    "footer": {
+      "keyInformation": "المعلومات الرئيسية",
+      "latestDecisions": "أحدث القرارات",
+      "conditionsTransfers": "شروط التحويل الداخلي والخارجي",
+      "administrativeDirectives": "التوجيهات الإدارية",
+      "financialTransferControls": "ضوابط التحويل المالي",
+      "quarterlyExamResults": "نتائج الامتحانات الفصلية",
+      "generalGuidelines": "الإرشادات العامة",
+      "paperServices": "الخدمات الورقية والبيانات المقدمة للطلاب",
+      "stoppingRegistration": "إيقاف التسجيل والتجميد",
+  
+      "importantLinks": "روابط هامة",
+      "importantLatestDecisions": "أحدث القرارات",
+      "importantConditionsTransfers": "شروط التحويل الداخلي والخارجي",
+      "importantAdministrativeDirectives": "التوجيهات الإدارية",
+      "importantFinancialTransferControls": "ضوابط التحويل المالي",
+      "importantQuarterlyExamResults": "نتائج الامتحانات الفصلية",
+      "importantGeneralGuidelines": "الإرشادات العامة",
+      "importantPaperServices": "الخدمات الورقية والبيانات المقدمة للطلاب",
+      "importantStoppingRegistration": "إيقاف التسجيل والتجميد",
+  
+      "serviceGuide": "دليل الخدمات",
+      "serviceGuideLatestDecisions": "أحدث القرارات",
+      "serviceGuideConditionsTransfers": "شروط التحويل الداخلي والخارجي",
+      "serviceGuideAdministrativeDirectives": "التوجيهات الإدارية",
+      "serviceGuideFinancialTransferControls": "ضوابط التحويل المالي",
+      "serviceGuideQuarterlyExamResults": "نتائج الامتحانات الفصلية",
+      "serviceGuideGeneralGuidelines": "الإرشادات العامة",
+      "serviceGuidePaperServices": "الخدمات الورقية والبيانات المقدمة للطلاب",
+      "serviceGuideStoppingRegistration": "إيقاف التسجيل والتجميد",
+  
+      "serviceReview": "مراجعة الخدمة",
+      "performanceEvaluation": "تقييم الأداء",
+      "generalComplaints": "الشكاوى العامة",
+      "sendSuggestions": "أرسل اقتراحاتك"
+    }
+  }

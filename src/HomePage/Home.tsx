@@ -4,7 +4,10 @@ import Hero from "./Hero/Hero";
 import About from "./About/About";
 import Carousel from "./Carousel/Carousel";
 import Footer from "./Footer/Footer";
-import api from "../Services/api"
+import api from "../Services/api" ;
+import i18n from "../i18n";
+import { useTranslation } from 'react-i18next';
+
 
 function Home() {
   const savedLang = JSON.parse(localStorage.getItem("lang"));
