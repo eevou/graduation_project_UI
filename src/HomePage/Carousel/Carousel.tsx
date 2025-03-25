@@ -24,9 +24,7 @@ export default function NewsCarousel(props) {
       });
     }
   };
-
-  console.log(props.News[0])
-
+  
   return (
     <div className="news-carousel">
       <div className="news-carousel-container">
@@ -43,8 +41,8 @@ export default function NewsCarousel(props) {
                           : "news-card-text news-card-text-right"
                       }
                     >
-                      <h3 className="news-card-title">{news.translations.body}</h3>
-                      <Link to={`/details`} state={{ news }} className="arrowlinks">
+                      <h3 className="news-card-title">{news.header}</h3>
+                      <Link to={`/details`} state={{ news }} className="arrowlinks" onClick={() => window.scrollTo(0, 0)}>
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
                           height="24px"

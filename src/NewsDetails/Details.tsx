@@ -2,45 +2,47 @@ import React, { useState, useEffect } from "react";
 import "./Details.css";
 import { Link } from "react-router-dom";
 import { useLocation, useParams } from "react-router-dom";
-import Image from "../assets/image-940x580 (2).jpg";
-import Image2 from "../assets/image-940x580 (3).jpg";
-import Image3 from "../assets/image-940x580 (4).jpg";
 import Header from "../HomePage/Header/Header";
 import Footer from "../HomePage/Footer/Footer";
 import api from "../Services/api";
 
 function Details(props) {
+  const savedLang = JSON.parse(localStorage.getItem("lang"));
   const location = useLocation();
   const news = location.state?.news;
-  const [News, setNews] = useState([]);
+  const [filteredNews, setFilteredNews] = useState([]);
+  const [langId, setLangId] = useState(savedLang?.id || 2);
 
   useEffect(() => {
-    api
-      .get(`/News`)
+    if (savedLang) {
+      setLangId(savedLang.id)
+    }
+
+   api
+      .get(`/News?id=${langId}`)
       .then((response) => {
-        setNews(response.data);
+        setFilteredNews(response.data);
       })
       .catch((error) => {
         console.error("Error fetching News:", error);
       });
   }, []);
-
   return (
     <div>
-      <Header index={4} />
+      <Header index={4} setFilteredNews={setFilteredNews}/>
 
       <main className="main">
         <div className="container">
           {/* Carousel Section */}
-          <div className="image">
-            <img src={news.image} alt="" />
-          </div>
 
           {/* Content Section */}
+          {/* Text Content */}
           <div className="content-wrapper">
-            {/* Text Content */}
             <div className="event-text-content">
               <h2 className="event-title">{news.header}</h2>
+              <div className="image">
+                <img src={news.image} alt="" />
+              </div>
               <p className="event-description">{news.body}</p>
               <p className="event-date">{news.date}</p>
             </div>
@@ -49,17 +51,16 @@ function Details(props) {
             <div className="related-news">
               <h3 className="related-news-title">Latest News</h3>
               <div className="news-grid">
-                {News.slice(0, 4).map((news, index) => (
-                  <Link to={`/details`} state={{ news }} className="about-news">
-                    <div key={index} className="news-details-card">
+                {filteredNews.slice(0, 6).map((news, index) => (
+                  <Link to={`/details`} state={{ news }} className="about-news" onClick={() => window.scrollTo(0, 0)} key={index}>
+                    <div className="news-details-card">
                       <img
                         src={news.image}
                         alt={`News ${index}`}
                         className="news-image"
                       />
                       <div className="news-content">
-                        <h4>{news.header}</h4>
-                        <p>{news.abbreviation}</p>
+                        <h4>{news.header[0].slice(0, 100)}...</h4>
                         <p>{news.date}</p>
                       </div>
                     </div>

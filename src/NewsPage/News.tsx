@@ -10,20 +10,26 @@ import api from "../Services/api";
 const ITEMS_PER_PAGE = 14;
 
 function News() {
+  const savedLang = JSON.parse(localStorage.getItem("lang"));
   const [currentPage, setCurrentPage] = useState(1);
-  const [News, setNews] = useState([]);
+  const [filteredNews, setFilteredNews] = useState([]);
+  const [langId, setLangId] = useState(savedLang?.id || 2)
 
-  const totalItems = Math.ceil(News.length / ITEMS_PER_PAGE);
+  const totalItems = Math.ceil(filteredNews.length / ITEMS_PER_PAGE);
 
   const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
 
-  const paginatedNews = News.slice(startIndex, startIndex + ITEMS_PER_PAGE);
+  const paginatedNews = filteredNews.slice(startIndex, startIndex + ITEMS_PER_PAGE);
 
   useEffect(() => {
-    api
-      .get(`/News`)
+    if (savedLang) {
+      setLangId(savedLang.id)
+    }
+
+   api
+      .get(`/News?id=${langId}`)
       .then((response) => {
-        setNews(response.data);
+        setFilteredNews(response.data);
       })
       .catch((error) => {
         console.error("Error fetching News:", error);
@@ -32,7 +38,7 @@ function News() {
 
   return (
     <div>
-      <Header index={4} />
+      <Header index={4} setFilteredNews={setFilteredNews}/>
       <div className="news-page">
         <h1 className="News-header">News</h1>
         <SectionOne row="row" News={paginatedNews.slice(0, 5)} />
@@ -43,7 +49,7 @@ function News() {
           <div className="pagination">
             <button
               className="page-btn left"
-              onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
+              onClick={() => {setCurrentPage((prev) => Math.max(prev - 1, 1)); window.scrollTo(0, 0);}}
               disabled={currentPage === 1}
             >
               Previous
@@ -54,7 +60,7 @@ function News() {
                 className={`page-btn number ${
                   currentPage === i + 1 ? "active" : ""
                 }`}
-                onClick={() => setCurrentPage(i + 1)}
+                onClick={() => {setCurrentPage(i + 1); window.scrollTo(0, 0);}}
               >
                 {i + 1}
               </button>
@@ -62,7 +68,7 @@ function News() {
             <button
               className="page-btn right"
               onClick={() =>
-                setCurrentPage((prev) => Math.min(prev + 1, totalItems))
+                {setCurrentPage((prev) => Math.min(prev + 1, totalItems)); window.scrollTo(0, 0);}
               }
               disabled={currentPage === totalItems}
             >

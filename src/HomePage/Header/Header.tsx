@@ -2,26 +2,35 @@ import React, { useState, useEffect, useRef } from "react";
 import "./Header.css";
 import logo from "../../assets/image.png";
 import api from "../../Services/api";
+import { useTranslation } from 'react-i18next';
+
 
 const Header = (props) => {
+  const { i18n, t } = useTranslation();
+  
   const [langActive, setlangActive] = useState(false);
   const [menuActive, setMenuActive] = useState(false);
   const [language, setLanguage] = useState("EN");
 
   const languages = [
-    { code: "AR", name: "Arabic", id: 1 },
-    { code: "EN", name: "English", id: 2 },
-    { code: "AS", name: "Spanish", id: 3 },
+    { code: "ar", name: "Arabic", id: 1 },
+    { code: "en", name: "English", id: 2 },
+    { code: "as", name: "Spanish", id: 3 },
   ];
 
   const navLinks = [
-    { name: "Home", link: "/" },
-    { name: "MNF Uni", link: "news" },
-    { name: "Colleges", link: "colleges" },
-    { name: "Programs", link: "programs" },
-    { name: "News", link: "news" },
-    { name: "Contact Us", link: "contact" },
+    { name: `Home`, link: "/" },
+    { name: `MNF Uni`, link: "news" },
+    { name: `Colleges`, link: "/" },
+    { name: `Programs`, link: "/" },
+    { name: `News`, link: "news" },
+    { name: `Contact Us`, link: "/" },
   ];
+
+  const changeAllLanguage = (lng: string) => {
+    i18n.changeLanguage(lng);
+    document.documentElement.dir = lng === 'ar' ? 'rtl' : 'ltr';
+  };
 
   useEffect(() => {
     const savedLang = JSON.parse(localStorage.getItem("lang"));
@@ -68,10 +77,11 @@ const Header = (props) => {
           {navLinks.map((link, index) => {
             return (
               <li key={index} className={props.index === index ? "active" : ""}>
-                <a href={link.link}>{link.name}</a>
+                <a href={link.link}>{t(`${link.name}`)}</a>
               </li>
             );
           })}
+
         </ul>
       </nav>
 
@@ -88,7 +98,7 @@ const Header = (props) => {
           >
             {languages.map((lang) => {
               return (
-                <div key={lang.code} onClick={() => changeLanguage(lang)}>
+                <div key={lang.code} onClick={() => { changeLanguage(lang); changeAllLanguage(lang.code); }}>
                   {lang.name}
                 </div>
               );
