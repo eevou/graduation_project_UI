@@ -21,10 +21,10 @@ function SectionOne(props) {
 
           <div className="card-overlay"></div>
           <div className="content">
-            <h4>{News[0].header}</h4>
-            <p>{News[0].abbreviation.slice(0, 20)}...</p>
+            <h4>{News[0].translations[0].header}</h4>
+            <p>{News[0].translations[0].abbreviation}...</p>
             <div className="date-more">
-              <span>{News[0].date}</span>
+              <span>{News[0].translations[0].date}</span>
             </div>
           </div>
         </Link>
@@ -41,8 +41,8 @@ function SectionOne(props) {
             <div className="card-overlay"></div>
 
             <div className="content">
-              <h4>{news.header}</h4>
-              <p>{news.abbreviation.slice(0, 1)}...</p>
+              <h4>{news.translations[0].header}</h4>
+              <p>{news.translations[0].abbreviation}...</p>
               <div className="date-more">
                 <span>{news.date}</span>
               </div>

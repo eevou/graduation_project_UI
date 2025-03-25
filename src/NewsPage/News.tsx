@@ -10,8 +10,10 @@ import api from "../Services/api";
 const ITEMS_PER_PAGE = 14;
 
 function News() {
+  const savedLang = JSON.parse(localStorage.getItem("lang"));
   const [currentPage, setCurrentPage] = useState(1);
   const [News, setNews] = useState([]);
+  const [langId, setLangId] = useState(savedLang?.id || 2)
 
   const totalItems = Math.ceil(News.length / ITEMS_PER_PAGE);
 
@@ -20,8 +22,12 @@ function News() {
   const paginatedNews = News.slice(startIndex, startIndex + ITEMS_PER_PAGE);
 
   useEffect(() => {
-    api
-      .get(`/News`)
+    if (savedLang) {
+      setLangId(savedLang.id)
+    }
+
+   api
+      .get(`/News?id=${langId}`)
       .then((response) => {
         setNews(response.data);
       })

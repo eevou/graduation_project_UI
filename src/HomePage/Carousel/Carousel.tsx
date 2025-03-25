@@ -24,9 +24,7 @@ export default function NewsCarousel(props) {
       });
     }
   };
-
-  console.log(props.News[0])
-
+  
   return (
     <div className="news-carousel">
       <div className="news-carousel-container">
@@ -43,7 +41,7 @@ export default function NewsCarousel(props) {
                           : "news-card-text news-card-text-right"
                       }
                     >
-                      <h3 className="news-card-title">{news.translations.body}</h3>
+                      <h3 className="news-card-title">{news.translations[0].header}</h3>
                       <Link to={`/details`} state={{ news }} className="arrowlinks">
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
