@@ -17,7 +17,6 @@
 }
 
 .footer-sector .footer-title {
-  font-family: var(--MNF_Body_EN);
   color: white;
   margin-bottom: 20px;
   position: relative;
@@ -35,9 +34,14 @@
   background-color: gray;
 }
 
+.footer-sector .footer-title.footer-titleAr::after {
+  right: 0;
+  bottom: -4px;
+}
+
+
 .footer-sector ul li a {
   color: white;
-  font-family: var(--MNF_Body_EN);
   font-size: 13px;
   margin-bottom: 12px;
   display: inline-block;
@@ -60,6 +64,7 @@
   text-align: center;
   border-bottom: 2px solid #424749;
   padding: 30px 0;
+  direction: ltr !important;
 }
 
 .bottom-footer-container .footer-logos img:first-of-type {
@@ -80,7 +85,6 @@
 }
 
 .bottom-footer-container .social-copyRights p {
-  font-family: var(--MNF_Body_EN);
   font-size: 14px;
 }
 

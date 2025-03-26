@@ -5,10 +5,14 @@
       "Colleges": "الكليات",
       "Programs": "البرامج",
       "News": "الاخبار",
-      "contact US": "تواصل معنا"
+      "contact US": "تواصل معنا",
+      "Arabic": "العربية",
+      "English": "الانجليزية",
+      "Spanish": "الاسبانية",
+      "code": "ع"
     },
     "hero": {
-      "title": "نرحب بالطلاب الوافدين فيجامعه المنوفيه"
+      "title": "نرحب بالطلاب الوافدين في جامعة المنوفيه"
     },
     "about": {
       "title": "مكتب شؤون الطلاب الوافدين",
@@ -48,6 +52,8 @@
       "serviceReview": "مراجعة الخدمة",
       "performanceEvaluation": "تقييم الأداء",
       "generalComplaints": "الشكاوى العامة",
-      "sendSuggestions": "أرسل اقتراحاتك"
+      "sendSuggestions": "أرسل اقتراحاتك",
+
+      "copyrights": "جميع الحقوق محفوظة لجامعة المنوفية"
     }
   }
