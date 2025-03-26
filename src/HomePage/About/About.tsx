@@ -42,9 +42,9 @@ function About() {
 
       <h1 style={savedLang?.code === `ar` ? headArStyle : headEnStyle} >{t("about.title")}</h1>
 
-      <img src={line} alt="Curve line" className="curveLine" style={savedLang?.code === `ar` ? lineArStyle : lineEnStyle}/>
+      <img src={line} alt="Curve line" className={savedLang?.code === `ar` ? "curveLine curveLinear" : "curveLine"} style={savedLang?.code === `ar` ? lineArStyle : lineEnStyle} />
     </div>
   );
 }
 
-export default About;gi
+export default About;
