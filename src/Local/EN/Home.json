@@ -5,7 +5,11 @@
       "Colleges": "Colleges",
       "Programs": "Programs",
       "News": "News",
-      "contact US": "Contact Us"
+      "contact US": "Contact Us",
+      "Arabic": "Ababic",
+      "English": "English",
+      "Spanish": "Spanish",
+      "code": "EN"
     },
     "hero": {
       "title": "Welcome to MNF University for International Students"
@@ -48,7 +52,9 @@
       "serviceReview": "Service Review",
       "performanceEvaluation": "Performance Evaluation",
       "generalComplaints": "General Complaints",
-      "sendSuggestions": "Send Your Suggestions"
+      "sendSuggestions": "Send Your Suggestions",
+
+      "copyrights": "All rights reserved to Menoufia University"
     }
   }
   

@@ -19,20 +19,17 @@
 
 .about-container .content p {
     width: 310px;
-    font-family: var(--MNF_Body_EN);
     font-weight: 500;
 }
 
 .about-container h1 {
-    width: 450px;
-    font-family: var(--MNF_Heading_EN);
+    width: 510px;
     font-size: var(--MNF_Heading_Size1);
     color: #001351;
 }
 
 .about-container .curveLine {
     position: absolute;
-    right: -60px;
     top: -140px;
     width: 500px;
     z-index: -2;

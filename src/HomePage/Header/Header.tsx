@@ -5,6 +5,18 @@ import api from "../../Services/api";
 import { useTranslation } from "react-i18next";
 
 const Header = (props) => {
+  const ARstyle = {
+    fontFamily: "var(--MNF_Body_AR)",
+    fontSize: "14px",
+  };
+  
+  const ENstyle = {
+    fontFamily: "var(--MNF_Body_EN)",
+    fontSize: "16px",
+  };
+  
+  const savedLang = JSON.parse(localStorage.getItem("lang"));
+
   const { i18n, t } = useTranslation();
 
   const [langActive, setlangActive] = useState(false);
@@ -12,9 +24,9 @@ const Header = (props) => {
   const [language, setLanguage] = useState("EN");
 
   const languages = [
-    { code: "ar", name: "Arabic", id: 1 },
-    { code: "en", name: "English", id: 2 },
-    { code: "as", name: "Spanish", id: 3 },
+    { code: "ar", name: t("header.Arabic"), id: 1 },
+    { code: "en", name: t("header.English"), id: 2 },
+    { code: "as", name: t("header.Spanish"), id: 3 },
   ];
 
   const navLinks = [
@@ -32,9 +44,9 @@ const Header = (props) => {
   };
 
   useEffect(() => {
-    const savedLang = JSON.parse(localStorage.getItem("lang"));
     if (savedLang) {
       setLanguage(savedLang.code);
+      changeAllLanguage(savedLang.code);
     }
   }, []);
 
@@ -76,7 +88,12 @@ const Header = (props) => {
           {navLinks.map((link, index) => {
             return (
               <li key={index} className={props.index === index ? "active" : ""}>
-                <a href={link.link}>{t(`${link.name}`)}</a>
+                <a
+                  href={link.link}
+                  style={savedLang?.code === `ar` ? ARstyle : ENstyle}
+                >
+                  {t(`${link.name}`)}
+                </a>
               </li>
             );
           })}
@@ -87,7 +104,7 @@ const Header = (props) => {
         <i className="fa-solid fa-magnifying-glass"></i>
         <div className="nav-lang-container" onClick={dropdownLang}>
           <i className="fa-solid fa-globe"></i>
-          <span>{language}</span>
+          <span>{language.toUpperCase()}</span>
 
           <div
             className={
@@ -97,6 +114,7 @@ const Header = (props) => {
             {languages.map((lang) => {
               return (
                 <div
+                  style={savedLang?.code === `ar` ? ARstyle : ENstyle}
                   key={lang.code}
                   onClick={() => {
                     changeLanguage(lang);
