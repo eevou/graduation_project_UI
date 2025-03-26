@@ -2,12 +2,11 @@ import React, { useState, useEffect, useRef } from "react";
 import "./Header.css";
 import logo from "../../assets/image.png";
 import api from "../../Services/api";
-import { useTranslation } from 'react-i18next';
-
+import { useTranslation } from "react-i18next";
 
 const Header = (props) => {
   const { i18n, t } = useTranslation();
-  
+
   const [langActive, setlangActive] = useState(false);
   const [menuActive, setMenuActive] = useState(false);
   const [language, setLanguage] = useState("EN");
@@ -19,17 +18,17 @@ const Header = (props) => {
   ];
 
   const navLinks = [
-    { name: `Home`, link: "/" },
-    { name: `MNF Uni`, link: "news" },
-    { name: `Colleges`, link: "/" },
-    { name: `Programs`, link: "/" },
-    { name: `News`, link: "news" },
-    { name: `Contact Us`, link: "/" },
+    { name: t("header.home"), link: "/" },
+    { name: t("header.MNF Uni"), link: "/" },
+    { name: t("header.Colleges"), link: "/" },
+    { name: t("header.Programs"), link: "/" },
+    { name: t("header.News"), link: "/news" },
+    { name: t("header.contact US"), link: "/" },
   ];
 
   const changeAllLanguage = (lng: string) => {
     i18n.changeLanguage(lng);
-    document.documentElement.dir = lng === 'ar' ? 'rtl' : 'ltr';
+    document.documentElement.dir = lng === "ar" ? "rtl" : "ltr";
   };
 
   useEffect(() => {
@@ -48,7 +47,7 @@ const Header = (props) => {
       .catch((error) => {
         console.error("Error fetching News:", error);
       });
-  }
+  };
 
   const changeLanguage = (lang) => {
     setLanguage(lang.code);
@@ -81,7 +80,6 @@ const Header = (props) => {
               </li>
             );
           })}
-
         </ul>
       </nav>
 
@@ -98,7 +96,13 @@ const Header = (props) => {
           >
             {languages.map((lang) => {
               return (
-                <div key={lang.code} onClick={() => { changeLanguage(lang); changeAllLanguage(lang.code); }}>
+                <div
+                  key={lang.code}
+                  onClick={() => {
+                    changeLanguage(lang);
+                    changeAllLanguage(lang.code);
+                  }}
+                >
                   {lang.name}
                 </div>
               );
