@@ -1,16 +1,28 @@
-import React, { useState, useEffect, useRef} from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { ChevronLeft, ChevronRight, ArrowUpRight } from "lucide-react";
 import { Link } from "react-router-dom";
 import "./Carousel.css";
 import api from "../../Services/api";
+import { useTranslation } from "react-i18next";
 
 
 export default function NewsCarousel(props) {
   const scrollRef = useRef<HTMLDivElement>(null);
+  const savedLang = JSON.parse(localStorage.getItem("lang"));
+  const { i18n, t } = useTranslation();
+
+  const ArStyle = {
+    fontFamily: "var(--MNF_Body_AR)",
+    fontSize: "16px"
+  }
+  
+  const EnStyle = {
+    fontFamily: "var(--MNF_Body_EN)",
+  }
 
   const scroll = (direction: "left" | "right") => {
-    const card = scrollRef.current?.childNodes[0].childNodes[0]
-    
+    const card = scrollRef.current?.childNodes[0].childNodes[0];
+
     if (scrollRef.current && card) {
       const scrollAmount = card.clientWidth + 24;
       const newScrollLeft =
@@ -24,7 +36,7 @@ export default function NewsCarousel(props) {
       });
     }
   };
-  
+
   return (
     <div className="news-carousel">
       <div className="news-carousel-container">
@@ -41,8 +53,13 @@ export default function NewsCarousel(props) {
                           : "news-card-text news-card-text-right"
                       }
                     >
-                      <h3 className="news-card-title">{news.header}</h3>
-                      <Link to={`/details`} state={{ news }} className="arrowlinks" onClick={() => window.scrollTo(0, 0)}>
+                      <h3 className="news-card-title" style={savedLang?.code === `ar`? ArStyle : EnStyle}>{news.header[0].slice(0, 75)}...</h3>
+                      <Link
+                        to={`/details`}
+                        state={{ news }}
+                        className="arrowlinks"
+                        onClick={() => window.scrollTo(0, 0)}
+                      >
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
                           height="24px"

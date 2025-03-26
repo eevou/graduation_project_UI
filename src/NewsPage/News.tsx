@@ -40,7 +40,6 @@ function News() {
     <div>
       <Header index={4} setFilteredNews={setFilteredNews}/>
       <div className="news-page">
-        <h1 className="News-header">News</h1>
         <SectionOne row="row" News={paginatedNews.slice(0, 5)} />
         <SectionOne row="row-reverse" News={paginatedNews.slice(5, 10)} />
         <SectionTwo News={paginatedNews.slice(9, 13)} />
