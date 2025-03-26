@@ -152,7 +152,7 @@
     }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 800px) {
     .nav-container{
         margin: 0 24px;
         padding: 8px;
