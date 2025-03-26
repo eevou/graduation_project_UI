@@ -2,7 +2,7 @@ import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
 import LanguageDetector from 'i18next-browser-languagedetector';
 
-import enHome from './local/EN/Home.json';
+import enHome from './Local/EN/Home.json';
 import arHome from './local/AR/Home.json';
 import asHome from './local/AS/Home.json';
 
@@ -12,13 +12,13 @@ i18n
   .init({
     resources: {
       ar: {
-        home: arHome,
+        translation: arHome,
       },
       en: {
-        home: enHome,
+        translation: enHome,
       },
       as: {
-        home: asHome,
+        translation: asHome,
       },
     },
     fallbackLng: 'en',
