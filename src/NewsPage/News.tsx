@@ -47,7 +47,7 @@ function News() {
         {totalItems > 1 && (
           <div className="pagination">
             <button
-              className="page-btn left"
+              className={savedLang?.code === `ar` ? "page-btn leftar" : "page-btn left"}
               onClick={() => {setCurrentPage((prev) => Math.max(prev - 1, 1)); window.scrollTo(0, 0);}}
               disabled={currentPage === 1}
             >
@@ -65,7 +65,7 @@ function News() {
               </button>
             ))}
             <button
-              className="page-btn right"
+              className={savedLang?.code === `ar` ? "page-btn rightar" : "page-btn right"}
               onClick={() =>
                 {setCurrentPage((prev) => Math.min(prev + 1, totalItems)); window.scrollTo(0, 0);}
               }

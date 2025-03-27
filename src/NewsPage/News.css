@@ -45,9 +45,16 @@
 .pagination .page-btn.left {
     border-radius: 10px 0 0 10px;
 }
+.pagination .page-btn.leftar {
+    border-radius: 0 10px 10px 0;
+}
+
 
 .pagination .page-btn.right {
     border-radius: 0 10px 10px 0;
+}
+.pagination .page-btn.rightar {
+    border-radius: 10px 0 0 10px;
 }
 
 .pagination .page-btn.right:hover,

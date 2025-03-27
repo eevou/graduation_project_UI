@@ -57,7 +57,7 @@ function Details(props) {
                       <img
                         src={news.image}
                         alt={`News ${index}`}
-                        className="news-image"
+                        className={savedLang?.code === `ar` ? "news-imagear" : "news-image"}
                       />
                       <div className="news-content">
                         <h4>{news.header[0].slice(0, 100)}...</h4>
