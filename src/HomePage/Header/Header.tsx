@@ -12,7 +12,7 @@ const Header = (props) => {
   
   const ENstyle = {
     fontFamily: "var(--MNF_Body_EN)",
-    fontSize: "16px",
+    fontSize: "13px",
   };
   
   const savedLang = JSON.parse(localStorage.getItem("lang"));

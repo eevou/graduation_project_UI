@@ -13,7 +13,7 @@ export default function NewsCarousel(props) {
 
   const ArStyle = {
     fontFamily: "var(--MNF_Body_AR)",
-    fontSize: "16px"
+    // fontSize: "16px"
   }
   
   const EnStyle = {
