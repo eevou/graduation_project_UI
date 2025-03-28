@@ -81,7 +81,7 @@ const Header = (props) => {
         <img src={logo} alt="International Students Affairs office Logo" />
       </a>
 
-      <nav className={menuActive ? "nav-links nav-active" : "nav-links"}>
+      <nav className={`${menuActive ? "nav-links nav-active" : "nav-links"} ${{ savedLang?.code === `ar` && menuActive ? "nav-links nav-active nav-linksar" : "nav-links nav-active nav-linksen"}}`}>
         <i className="fa-solid fa-times close" onClick={navBarMenu}></i>
 
         <ul>
