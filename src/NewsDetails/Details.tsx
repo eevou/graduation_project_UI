@@ -5,6 +5,8 @@ import { useLocation, useParams } from "react-router-dom";
 import Header from "../HomePage/Header/Header";
 import Footer from "../HomePage/Footer/Footer";
 import api from "../Services/api";
+import { useTranslation } from "react-i18next";
+
 
 function Details(props) {
   const savedLang = JSON.parse(localStorage.getItem("lang"));
@@ -12,13 +14,14 @@ function Details(props) {
   const news = location.state?.news;
   const [filteredNews, setFilteredNews] = useState([]);
   const [langId, setLangId] = useState(savedLang?.id || 2);
+  const { i18n, t } = useTranslation();
 
   useEffect(() => {
     if (savedLang) {
-      setLangId(savedLang.id)
+      setLangId(savedLang.id);
     }
 
-   api
+    api
       .get(`/News?id=${langId}`)
       .then((response) => {
         setFilteredNews(response.data);
@@ -29,7 +32,7 @@ function Details(props) {
   }, []);
   return (
     <div>
-      <Header index={4} setFilteredNews={setFilteredNews}/>
+      <Header index={4} setFilteredNews={setFilteredNews} />
 
       <main className="main">
         <div className="container">
@@ -49,15 +52,25 @@ function Details(props) {
 
             {/* Related News */}
             <div className="related-news">
-              <h3 className="related-news-title">Latest News</h3>
+              <h3 className="related-news-title">{t("details.latest")}</h3>
               <div className="news-grid">
                 {filteredNews.slice(0, 6).map((news, index) => (
-                  <Link to={`/details`} state={{ news }} className="about-news" onClick={() => window.scrollTo(0, 0)} key={index}>
+                  <Link
+                    to={`/details`}
+                    state={{ news }}
+                    className="about-news"
+                    onClick={() => window.scrollTo(0, 0)}
+                    key={index}
+                  >
                     <div className="news-details-card">
                       <img
                         src={news.image}
                         alt={`News ${index}`}
-                        className={savedLang?.code === `ar` ? "news-imagear" : "news-image"}
+                        className={
+                          savedLang?.code === `ar`
+                            ? "news-imagear"
+                            : "news-image"
+                        }
                       />
                       <div className="news-content">
                         <h4>{news.header[0].slice(0, 100)}...</h4>

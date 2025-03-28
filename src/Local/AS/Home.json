@@ -1,60 +1,63 @@
 {
-    "header": {
-      "home": "Inicio",
-      "MNF Uni": "Universidad MNF",
-      "Colleges": "Facultades",
-      "Programs": "Programas",
-      "News": "Noticias",
-      "contact US": "Contáctenos",
-      "Arabic": "Ababic",
-      "English": "Inglesa",
-      "Spanish": "Española",
-      "code": "ES"
-    },
-    "hero": {
-      "title": "Bienvenidos a la Universidad MNF para Estudiantes Internacionales"
-    },
-    "about": {
-      "title": "Oficina de Asuntos de Estudiantes Internacionales",
-      "subtitle": "Brindando apoyo a los estudiantes internacionales en el registro, visas e integración cultural para garantizar una transición sin problemas y un viaje académico agradable en la Universidad MNF."
-    },
-    "footer": {
-      "keyInformation": "Información clave",
-      "latestDecisions": "Últimas decisiones",
-      "conditionsTransfers": "Condiciones para transferencias internas y externas",
-      "administrativeDirectives": "Directivas administrativas",
-      "financialTransferControls": "Controles de transferencia financiera",
-      "quarterlyExamResults": "Resultados de exámenes trimestrales",
-      "generalGuidelines": "Directrices generales",
-      "paperServices": "Servicios y documentos proporcionados a los estudiantes",
-      "stoppingRegistration": "Detención del registro y congelación",
-  
-      "importantLinks": "Enlaces importantes",
-      "importantLatestDecisions": "Últimas decisiones",
-      "importantConditionsTransfers": "Condiciones para transferencias internas y externas",
-      "importantAdministrativeDirectives": "Directivas administrativas",
-      "importantFinancialTransferControls": "Controles de transferencia financiera",
-      "importantQuarterlyExamResults": "Resultados de exámenes trimestrales",
-      "importantGeneralGuidelines": "Directrices generales",
-      "importantPaperServices": "Servicios y documentos proporcionados a los estudiantes",
-      "importantStoppingRegistration": "Detención del registro y congelación",
-  
-      "serviceGuide": "Guía de servicios",
-      "serviceGuideLatestDecisions": "Últimas decisiones",
-      "serviceGuideConditionsTransfers": "Condiciones para transferencias internas y externas",
-      "serviceGuideAdministrativeDirectives": "Directivas administrativas",
-      "serviceGuideFinancialTransferControls": "Controles de transferencia financiera",
-      "serviceGuideQuarterlyExamResults": "Resultados de exámenes trimestrales",
-      "serviceGuideGeneralGuidelines": "Directrices generales",
-      "serviceGuidePaperServices": "Servicios y documentos proporcionados a los estudiantes",
-      "serviceGuideStoppingRegistration": "Detención del registro y congelación",
-  
-      "serviceReview": "Revisión del servicio",
-      "performanceEvaluation": "Evaluación del rendimiento",
-      "generalComplaints": "Quejas generales",
-      "sendSuggestions": "Envíe sus sugerencias",
+  "header": {
+    "home": "Inicio",
+    "MNF Uni": "Universidad MNF",
+    "Colleges": "Facultades",
+    "Programs": "Programas",
+    "News": "Noticias",
+    "contact US": "Contáctenos",
+    "Arabic": "Ababic",
+    "English": "Inglesa",
+    "Spanish": "Española",
+    "code": "ES"
+  },
+  "hero": {
+    "title": "Bienvenidos a la Universidad MNF para Estudiantes Internacionales"
+  },
+  "about": {
+    "title": "Oficina de Asuntos de Estudiantes Internacionales",
+    "subtitle": "Brindando apoyo a los estudiantes internacionales en el registro, visas e integración cultural para garantizar una transición sin problemas y un viaje académico agradable en la Universidad MNF.",
+    "latest": "Últimas noticias"
+  },
+  "footer": {
+    "keyInformation": "Información clave",
+    "latestDecisions": "Últimas decisiones",
+    "conditionsTransfers": "Condiciones para transferencias internas y externas",
+    "administrativeDirectives": "Directivas administrativas",
+    "financialTransferControls": "Controles de transferencia financiera",
+    "quarterlyExamResults": "Resultados de exámenes trimestrales",
+    "generalGuidelines": "Directrices generales",
+    "paperServices": "Servicios y documentos proporcionados a los estudiantes",
+    "stoppingRegistration": "Detención del registro y congelación",
 
-      "copyrights": "Todos los derechos reservados a la Universidad de Menoufia"
-    }
-  }
-  
+    "importantLinks": "Enlaces importantes",
+    "importantLatestDecisions": "Últimas decisiones",
+    "importantConditionsTransfers": "Condiciones para transferencias internas y externas",
+    "importantAdministrativeDirectives": "Directivas administrativas",
+    "importantFinancialTransferControls": "Controles de transferencia financiera",
+    "importantQuarterlyExamResults": "Resultados de exámenes trimestrales",
+    "importantGeneralGuidelines": "Directrices generales",
+    "importantPaperServices": "Servicios y documentos proporcionados a los estudiantes",
+    "importantStoppingRegistration": "Detención del registro y congelación",
+
+    "serviceGuide": "Guía de servicios",
+    "serviceGuideLatestDecisions": "Últimas decisiones",
+    "serviceGuideConditionsTransfers": "Condiciones para transferencias internas y externas",
+    "serviceGuideAdministrativeDirectives": "Directivas administrativas",
+    "serviceGuideFinancialTransferControls": "Controles de transferencia financiera",
+    "serviceGuideQuarterlyExamResults": "Resultados de exámenes trimestrales",
+    "serviceGuideGeneralGuidelines": "Directrices generales",
+    "serviceGuidePaperServices": "Servicios y documentos proporcionados a los estudiantes",
+    "serviceGuideStoppingRegistration": "Detención del registro y congelación",
+
+    "serviceReview": "Revisión del servicio",
+    "performanceEvaluation": "Evaluación del rendimiento",
+    "generalComplaints": "Quejas generales",
+    "sendSuggestions": "Envíe sus sugerencias",
+
+    "copyrights": "Todos los derechos reservados a la Universidad de Menoufia"
+  },
+  "details": {
+    "latest": "Últimas noticias"
+}
+}

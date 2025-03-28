@@ -1,60 +1,62 @@
 {
-    "header": {
-      "home": "Home",
-      "MNF Uni": "MNF University",
-      "Colleges": "Colleges",
-      "Programs": "Programs",
-      "News": "News",
-      "contact US": "Contact Us",
-      "Arabic": "Ababic",
-      "English": "English",
-      "Spanish": "Spanish",
-      "code": "EN"
-    },
-    "hero": {
-      "title": "Welcome to MNF University for International Students"
-    },
-    "about": {
-      "title": "International Students Affairs Office",
-      "subtitle": "Providing support for international students in registration, visas, and cultural integration to ensure a smooth transition and an enjoyable academic journey at MNF University."
-    },
-    "footer": {
-      "keyInformation": "Key Information",
-      "latestDecisions": "Latest Decisions",
-      "conditionsTransfers": "Conditions for Internal and External Transfers",
-      "administrativeDirectives": "Administrative Directives",
-      "financialTransferControls": "Financial Transfer Controls",
-      "quarterlyExamResults": "Quarterly Exam Results",
-      "generalGuidelines": "General Guidelines",
-      "paperServices": "Paper Services and Statements Provided to Students",
-      "stoppingRegistration": "Stopping the Registration and Freezing",
-  
-      "importantLinks": "Important Links",
-      "importantLatestDecisions": "Latest Decisions",
-      "importantConditionsTransfers": "Conditions for Internal and External Transfers",
-      "importantAdministrativeDirectives": "Administrative Directives",
-      "importantFinancialTransferControls": "Financial Transfer Controls",
-      "importantQuarterlyExamResults": "Quarterly Exam Results",
-      "importantGeneralGuidelines": "General Guidelines",
-      "importantPaperServices": "Paper Services and Statements Provided to Students",
-      "importantStoppingRegistration": "Stopping the Registration and Freezing",
-  
-      "serviceGuide": "Service Guide",
-      "serviceGuideLatestDecisions": "Latest Decisions",
-      "serviceGuideConditionsTransfers": "Conditions for Internal and External Transfers",
-      "serviceGuideAdministrativeDirectives": "Administrative Directives",
-      "serviceGuideFinancialTransferControls": "Financial Transfer Controls",
-      "serviceGuideQuarterlyExamResults": "Quarterly Exam Results",
-      "serviceGuideGeneralGuidelines": "General Guidelines",
-      "serviceGuidePaperServices": "Paper Services and Statements Provided to Students",
-      "serviceGuideStoppingRegistration": "Stopping the Registration and Freezing",
-  
-      "serviceReview": "Service Review",
-      "performanceEvaluation": "Performance Evaluation",
-      "generalComplaints": "General Complaints",
-      "sendSuggestions": "Send Your Suggestions",
+  "header": {
+    "home": "Home",
+    "MNF Uni": "MNF University",
+    "Colleges": "Colleges",
+    "Programs": "Programs",
+    "News": "News",
+    "contact US": "Contact Us",
+    "Arabic": "Ababic",
+    "English": "English",
+    "Spanish": "Spanish",
+    "code": "EN"
+  },
+  "hero": {
+    "title": "Welcome to MNF University for International Students"
+  },
+  "about": {
+    "title": "International Students Affairs Office",
+    "subtitle": "Providing support for international students in registration, visas, and cultural integration to ensure a smooth transition and an enjoyable academic journey at MNF University."
+  },
+  "footer": {
+    "keyInformation": "Key Information",
+    "latestDecisions": "Latest Decisions",
+    "conditionsTransfers": "Conditions for Internal and External Transfers",
+    "administrativeDirectives": "Administrative Directives",
+    "financialTransferControls": "Financial Transfer Controls",
+    "quarterlyExamResults": "Quarterly Exam Results",
+    "generalGuidelines": "General Guidelines",
+    "paperServices": "Paper Services and Statements Provided to Students",
+    "stoppingRegistration": "Stopping the Registration and Freezing",
 
-      "copyrights": "All rights reserved to Menoufia University"
-    }
+    "importantLinks": "Important Links",
+    "importantLatestDecisions": "Latest Decisions",
+    "importantConditionsTransfers": "Conditions for Internal and External Transfers",
+    "importantAdministrativeDirectives": "Administrative Directives",
+    "importantFinancialTransferControls": "Financial Transfer Controls",
+    "importantQuarterlyExamResults": "Quarterly Exam Results",
+    "importantGeneralGuidelines": "General Guidelines",
+    "importantPaperServices": "Paper Services and Statements Provided to Students",
+    "importantStoppingRegistration": "Stopping the Registration and Freezing",
+
+    "serviceGuide": "Service Guide",
+    "serviceGuideLatestDecisions": "Latest Decisions",
+    "serviceGuideConditionsTransfers": "Conditions for Internal and External Transfers",
+    "serviceGuideAdministrativeDirectives": "Administrative Directives",
+    "serviceGuideFinancialTransferControls": "Financial Transfer Controls",
+    "serviceGuideQuarterlyExamResults": "Quarterly Exam Results",
+    "serviceGuideGeneralGuidelines": "General Guidelines",
+    "serviceGuidePaperServices": "Paper Services and Statements Provided to Students",
+    "serviceGuideStoppingRegistration": "Stopping the Registration and Freezing",
+
+    "serviceReview": "Service Review",
+    "performanceEvaluation": "Performance Evaluation",
+    "generalComplaints": "General Complaints",
+    "sendSuggestions": "Send Your Suggestions",
+
+    "copyrights": "All rights reserved to Menoufia University"
+  },
+  "details": {
+    "latest": "Latest news"
   }
-  
+}

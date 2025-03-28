@@ -88,6 +88,13 @@
     }
 }
 
+@media (max-width: 930px) {
+    .carousel-container {
+        margin: 0 36px;
+        padding: 14px;
+    }
+}
+
 @media (max-width: 880px) {
     .carousel-heading {
         width: 550px;

@@ -90,6 +90,13 @@
     border: none;
 }
 
+@media (max-width: 930px) {
+    .news-page {
+        margin: 10px 36px;
+        padding: 14px;
+    }
+}
+
 @media (max-width: 768px) {
     .news-page {
         margin: 10px 24px;

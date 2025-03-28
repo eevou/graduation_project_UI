@@ -4,7 +4,15 @@ import { Link } from "react-router-dom";
 
 function SectionOne(props) {
   const News = props.News;
+  const savedLang = JSON.parse(localStorage.getItem("lang"));
 
+  const ArStyle = {
+    fontFamily: "var(--MNF_Heading_AR)",
+  }
+  
+  const EnStyle = {
+    fontFamily: "var(--MNF_Heading_EN)",
+  }
 
   return (
     <div className="news-section" style={{ flexDirection: props.row }}>
@@ -13,6 +21,7 @@ function SectionOne(props) {
           to={`/details`}
           state={{ news: News[0] }}
           className="news-left-section"
+          
         >
           <img src={News[0].image} alt="" />
 
@@ -21,7 +30,7 @@ function SectionOne(props) {
           </div>
 
           <div className="card-overlay"></div>
-          <div className="content">
+          <div className="content" style={savedLang?.code === `ar` ? ArStyle : EnStyle}>
             <h4>{News[0].header[0].slice(0, 100)}...</h4>
             <div className="date-more">
               <span>{News[0].date}</span>
@@ -40,7 +49,7 @@ function SectionOne(props) {
             </div>
             <div className="card-overlay"></div>
 
-            <div className="content">
+            <div className="content" style={savedLang?.code === `ar` ? ArStyle : EnStyle}>
               <h4>{news.header[0].slice(0, 100)}...</h4>
               <div className="date-more">
                 <span>{news.date}</span>

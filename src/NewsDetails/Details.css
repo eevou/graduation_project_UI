@@ -199,6 +199,13 @@
   }
 }
 
+@media (max-width: 930px) {
+  .main {
+    margin: 10px 36px;
+    padding: 14px;
+  }
+}
+
 @media (max-width: 850px) {
   .news-grid {
     grid-template-columns: repeat(3, 30%);

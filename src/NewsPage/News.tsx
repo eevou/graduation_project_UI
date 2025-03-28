@@ -21,6 +21,7 @@ function News() {
 
   const paginatedNews = filteredNews.slice(startIndex, startIndex + ITEMS_PER_PAGE);
 
+
   useEffect(() => {
     if (savedLang) {
       setLangId(savedLang.id)

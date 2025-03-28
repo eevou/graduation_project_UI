@@ -7,12 +7,10 @@ import { useTranslation } from "react-i18next";
 const Header = (props) => {
   const ARstyle = {
     fontFamily: "var(--MNF_Body_AR)",
-    fontSize: "14px",
   };
   
   const ENstyle = {
     fontFamily: "var(--MNF_Body_EN)",
-    fontSize: "13px",
   };
   
   const savedLang = JSON.parse(localStorage.getItem("lang"));

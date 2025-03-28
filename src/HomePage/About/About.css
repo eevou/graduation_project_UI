@@ -82,6 +82,13 @@
     }
 }
 
+@media (max-width: 930px) {
+    .about-container {
+        margin: 0 36px;
+        padding: 14px;
+    }
+}
+
 @media (max-width: 850px) {
     .about-container {
         gap: 80px;

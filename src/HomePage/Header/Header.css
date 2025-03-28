@@ -124,6 +124,21 @@
     }
 }
 
+@media (max-width: 930px) {
+    .nav-container {
+        margin: 0 36px;
+        padding: 14px;
+    }
+    
+    .nav-icons {
+        gap: 15px;
+    }
+
+    .nav-links ul {
+        gap: 22px
+    }
+}
+
 @media (max-width: 850px) {
     .nav-links {
         padding: 8px 16px;
@@ -142,8 +157,12 @@
         max-width: 55px;
     }
 
+    .nav-links ul {
+        gap: 20px;
+    }
+
     .nav-icons {
-        gap: 17px;
+        gap: 16px;
     }
 
     .nav-lang-container {

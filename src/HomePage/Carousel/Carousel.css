@@ -211,6 +211,16 @@
     }
 }
 
+@media (max-width: 930px) {
+    .news-carousel {
+        margin: 0 36px 20px;
+    }
+
+    .news-carousel-content {
+        padding: 14px;
+    }
+}
+
 @media (max-width: 920px) {
     .news-card {
         width: 410px;
