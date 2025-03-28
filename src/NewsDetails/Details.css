@@ -134,6 +134,12 @@
   }
 }
 
+@media (max-width: 1100px) {
+  .container .image {
+    height: 500px;
+  }
+}
+
 @media (max-width: 1024px) {
   .content-wrapper {
     flex-direction: column;
