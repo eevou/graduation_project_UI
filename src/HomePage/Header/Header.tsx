@@ -12,6 +12,14 @@ const Header = (props) => {
   const ENstyle = {
     fontFamily: "var(--MNF_Body_EN)",
   };
+
+  const closeStyleAr = {
+    right: "170px",
+  }
+
+  const closeStyleEn = {
+    left: "170px"
+  }
   
   const savedLang = JSON.parse(localStorage.getItem("lang"));
 
@@ -79,8 +87,10 @@ const Header = (props) => {
         <img src={logo} alt="International Students Affairs office Logo" />
       </a>
 
-      <nav className={`${menuActive ? "nav-links nav-active" : "nav-links"}`}>
-        <i className="fa-solid fa-times close" onClick={navBarMenu}></i>
+      {/* ${{ savedLang?.code === `ar` && menuActive ? "nav-links nav-active nav-linksar" : "nav-links nav-active nav-linksen"}} */}
+
+      <nav className={`${menuActive ? "nav-links nav-active" : "nav-links"} ${savedLang?.code === `ar` ? "nav-linksar" : "nav-linksen"}`}>
+        <i className="fa-solid fa-times close" onClick={navBarMenu} style={savedLang?.code === `ar` ? closeStyleAr : closeStyleEn}></i>
 
         <ul>
           {navLinks.map((link, index) => {

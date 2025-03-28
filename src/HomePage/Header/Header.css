@@ -27,7 +27,6 @@
     width: fit-content;
     margin: 10px 0;
     position: relative;
-    left: 150px;
 }
 
 .nav-links .close {
@@ -56,6 +55,8 @@
     color: black;
     font-family: var(--MNF_Body_EN);
     font-weight: 600;
+    width: 100%;
+    display: inline-block
 }
 
 .nav-icons {
@@ -221,20 +222,20 @@
     }
 
     .nav-links ul li.active {
-        width: 100%;
+        width: 120px;
         padding: 5px 10px;
         box-shadow: 9px 9px 10px -14px;
     }
 
     .nav-links ul li {
-        width: 100%;
+        width: 120px;
         cursor: pointer;
         transition: 0.2s;
         padding: 5px 0;
     }
 
     .nav-links ul li:hover {
-        width: 100%;
+        width: 130px;
         padding: 5px 10px;
         box-shadow: 9px 9px 10px -14px;
         background-color: #ffffff;
