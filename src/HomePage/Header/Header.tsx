@@ -82,7 +82,7 @@ const Header = (props) => {
   
 
   const changeLanguage = (lang) => {
-    setLanguage(lang.code);
+    setLanguage(lang.code); 
     localStorage.setItem("lang", JSON.stringify(lang));
     GetAllNews(lang);
 
