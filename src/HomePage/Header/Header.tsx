@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
+import { useLocation, useParams } from "react-router-dom";
 import "./Header.css";
 import logo from "../../assets/image.png";
 import api from "../../Services/api";
@@ -28,6 +29,7 @@ const Header = (props) => {
   const [langActive, setlangActive] = useState(false);
   const [menuActive, setMenuActive] = useState(false);
   const [language, setLanguage] = useState("EN");
+  const location = useLocation();
 
   const languages = [
     { code: "ar", name: t("header.Arabic"), id: 1 },
@@ -56,9 +58,9 @@ const Header = (props) => {
     }
   }, []);
 
-  const CallAPI = (lang) => {
+  const GetAllNews = (lang) => {
     api
-      .get(`/News?id=${lang.id}`)
+      .get(`/News?id=${lang?.id}`)
       .then((response) => {
         props.setFilteredNews(response.data);
       })
@@ -67,10 +69,27 @@ const Header = (props) => {
       });
   };
 
+  const GetNewsById = (lang) => {
+    api
+      .get(`/News/Id?newsId=${location.state?.news.newsId}&langdId=${lang?.id}`)
+      .then((response) => {
+        props.setCurrentNews(response.data);
+        console.log(response.data)
+      })
+      .catch((error) => {
+        console.error("Error fetching News:", error);
+      });
+  }
+  
+
   const changeLanguage = (lang) => {
     setLanguage(lang.code);
     localStorage.setItem("lang", JSON.stringify(lang));
-    CallAPI(lang);
+    GetAllNews(lang);
+
+    if (location.pathname === `/details`) {
+      GetNewsById(lang)
+    }
   };
 
   const dropdownLang = () => {

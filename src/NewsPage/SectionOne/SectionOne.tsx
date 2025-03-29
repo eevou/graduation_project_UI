@@ -14,6 +14,14 @@ function SectionOne(props) {
     fontFamily: "var(--MNF_Heading_EN)",
   }
 
+  const arrowAr = {
+    left: "15px"
+  }
+
+  const arrowEn = {
+    right: "15px"
+  }
+
   return (
     <div className="news-section" style={{ flexDirection: props.row }}>
       {News[0] && (
@@ -25,7 +33,7 @@ function SectionOne(props) {
         >
           <img src={News[0].image} alt="" />
 
-          <div className="about-news">
+          <div className="about-news" style={savedLang?.code === `ar` ? arrowAr : arrowEn}>
             <i className="fa-solid fa-arrow-up"></i>
           </div>
 
@@ -44,7 +52,7 @@ function SectionOne(props) {
           <Link to={`/details`} state={{ news }} className="card" key={index}>
             <img src={news.image} alt="" />
 
-            <div className="about-news">
+            <div className="about-news" style={savedLang?.code === `ar` ? arrowAr : arrowEn}>
               <i className="fa-solid fa-arrow-up"></i>
             </div>
             <div className="card-overlay"></div>

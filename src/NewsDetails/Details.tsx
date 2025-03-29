@@ -7,19 +7,47 @@ import Footer from "../HomePage/Footer/Footer";
 import api from "../Services/api";
 import { useTranslation } from "react-i18next";
 
-
 function Details(props) {
+  const headerArStyle = {
+    fontFamily: "var(--MNF_Heading_AR)",
+  }
+  
+  const headerEnStyle = {
+    fontFamily: "var(--MNF_Heading_EN)",
+  }
+
+  const pArStyle = {
+    fontFamily: "var(--MNF_Heading_AR)",
+  }
+  
+  const pEnStyle = {
+    fontFamily: "var(--MNF_Heading_EN)",
+  }
+
   const savedLang = JSON.parse(localStorage.getItem("lang"));
   const location = useLocation();
-  const news = location.state?.news;
   const [filteredNews, setFilteredNews] = useState([]);
+  const [currentNews, setCurrentNews] = useState();
   const [langId, setLangId] = useState(savedLang?.id || 2);
   const { i18n, t } = useTranslation();
+
+  const GetNewsById = () => {
+    api
+      .get(`/News/Id?newsId=${location.state?.news.newsId}&langdId=${langId}`)
+      .then((response) => {
+        setCurrentNews(response.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching News:", error);
+      });
+  };
 
   useEffect(() => {
     if (savedLang) {
       setLangId(savedLang.id);
     }
+
+    GetNewsById()
 
     api
       .get(`/News?id=${langId}`)
@@ -30,9 +58,14 @@ function Details(props) {
         console.error("Error fetching News:", error);
       });
   }, []);
+
   return (
     <div>
-      <Header index={4} setFilteredNews={setFilteredNews} />
+      <Header
+        index={4}
+        setFilteredNews={setFilteredNews}
+        setCurrentNews={setCurrentNews}
+      />
 
       <main className="main">
         <div className="container">
@@ -42,17 +75,17 @@ function Details(props) {
           {/* Text Content */}
           <div className="content-wrapper">
             <div className="event-text-content">
-              <h2 className="event-title">{news.header}</h2>
+              <h2 className="event-title" style={savedLang?.code === `ar` ? headerArStyle : headerEnStyle}>{currentNews?.header}</h2>
               <div className="image">
-                <img src={news.image} alt="" />
+                <img src={currentNews?.image} alt="" />
               </div>
-              <p className="event-description">{news.body}</p>
-              <p className="event-date">{news.date}</p>
+              <p className="event-description" style={savedLang?.code === `ar` ? pArStyle : pEnStyle}>{currentNews?.body}</p>
+              <p className="event-date" style={savedLang?.code === `ar` ? pArStyle : pEnStyle}>{currentNews?.date}</p>
             </div>
 
             {/* Related News */}
             <div className="related-news">
-              <h3 className="related-news-title">{t("details.latest")}</h3>
+              <h3 className="related-news-title" style={savedLang?.code === `ar` ? headerArStyle : headerEnStyle} >{t("details.latest")}</h3>
               <div className="news-grid">
                 {filteredNews.slice(0, 6).map((news, index) => (
                   <Link
@@ -73,8 +106,8 @@ function Details(props) {
                         }
                       />
                       <div className="news-content">
-                        <h4>{news.header[0].slice(0, 100)}...</h4>
-                        <p>{news.date}</p>
+                        <h4 style={savedLang?.code === `ar` ? pArStyle : pEnStyle}>{news.header[0].slice(0, 100)}...</h4>
+                        <p style={savedLang?.code === `ar` ? pArStyle : pEnStyle} >{news.date}</p>
                       </div>
                     </div>
                   </Link>

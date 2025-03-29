@@ -31,11 +31,9 @@
 .news-section .content {
     position: absolute;
     bottom: 0;
-    overflow: hidden;
     color: white;
     align-items: flex-end;
     transition: 0.3s;
-    right: 0;
 }
 
 .news-section .card-overlay {
@@ -58,7 +56,6 @@
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
-    direction: rtl;
     align-items: flex-start;
 }
 
@@ -80,11 +77,10 @@
     font-size: 30px;
     font-weight: 700;
     margin-bottom: 10px;
-    width: 350px;
 }
 
 .news-section .news-right-section .content h4 {
-    width: fit-content;
+    
     margin-bottom: 10px;
     font-size: small;
 }
@@ -127,7 +123,6 @@
     transition: 0.4s;
     border-radius: 50%;
     bottom: 15px;
-    left: 15px;
     z-index: 2;
 }
 
@@ -152,7 +147,7 @@
 
 @media (max-width: 1200px) {
     .news-section .news-right-section .content h4 {
-        width: 180px;
+        
         margin-bottom: 10px;
         font-size: medium;
     }
@@ -181,7 +176,6 @@
         font-size: 30px;
         font-weight: 700;
         margin-bottom: 20px;
-        width: 450px;
     }
 
     .news-section .news-left-section .content p {
@@ -191,7 +185,7 @@
     }
 
     .news-section .news-right-section .content h4 {
-        width: 180px;
+        
         margin-bottom: 10px;
     }
 
