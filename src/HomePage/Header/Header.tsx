@@ -71,10 +71,9 @@ const Header = (props) => {
 
   const GetNewsById = (lang) => {
     api
-      .get(`/News/Id?newsId=${location.state?.news.newsId}&langdId=${lang?.id}`)
+      .get(`News/Id?newsId=${location.state?.news.newsId}&langId=${lang.id}`)
       .then((response) => {
         props.setCurrentNews(response.data);
-        console.log(response.data)
       })
       .catch((error) => {
         console.error("Error fetching News:", error);

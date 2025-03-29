@@ -10,19 +10,19 @@ import { useTranslation } from "react-i18next";
 function Details(props) {
   const headerArStyle = {
     fontFamily: "var(--MNF_Heading_AR)",
-  }
-  
+  };
+
   const headerEnStyle = {
     fontFamily: "var(--MNF_Heading_EN)",
-  }
+  };
 
   const pArStyle = {
     fontFamily: "var(--MNF_Heading_AR)",
-  }
-  
+  };
+
   const pEnStyle = {
     fontFamily: "var(--MNF_Heading_EN)",
-  }
+  };
 
   const savedLang = JSON.parse(localStorage.getItem("lang"));
   const location = useLocation();
@@ -32,9 +32,11 @@ function Details(props) {
   const { i18n, t } = useTranslation();
 
   const GetNewsById = () => {
+    console.log(location.state?.news.newsId); 
     api
-      .get(`/News/Id?newsId=${location.state?.news.newsId}&langdId=${langId}`)
+      .get(`News/Id?newsId=${location.state?.news.newsId}&langId=${langId}`)
       .then((response) => {
+        console.log(response.data);
         setCurrentNews(response.data);
       })
       .catch((error) => {
@@ -47,7 +49,7 @@ function Details(props) {
       setLangId(savedLang.id);
     }
 
-    GetNewsById()
+    GetNewsById();
 
     api
       .get(`/News?id=${langId}`)
@@ -75,24 +77,44 @@ function Details(props) {
           {/* Text Content */}
           <div className="content-wrapper">
             <div className="event-text-content">
-              <h2 className="event-title" style={savedLang?.code === `ar` ? headerArStyle : headerEnStyle}>{currentNews?.header}</h2>
+              <h2
+                className="event-title"
+                style={savedLang?.code === `ar` ? headerArStyle : headerEnStyle}
+              >
+                {currentNews?.header}
+              </h2>
               <div className="image">
                 <img src={currentNews?.image} alt="" />
               </div>
-              <p className="event-description" style={savedLang?.code === `ar` ? pArStyle : pEnStyle}>{currentNews?.body}</p>
-              <p className="event-date" style={savedLang?.code === `ar` ? pArStyle : pEnStyle}>{currentNews?.date}</p>
+              <p
+                className="event-description"
+                style={savedLang?.code === `ar` ? pArStyle : pEnStyle}
+              >
+                {currentNews?.body}
+              </p>
+              <p
+                className="event-date"
+                style={savedLang?.code === `ar` ? pArStyle : pEnStyle}
+              >
+                {currentNews?.date}
+              </p>
             </div>
 
             {/* Related News */}
             <div className="related-news">
-              <h3 className="related-news-title" style={savedLang?.code === `ar` ? headerArStyle : headerEnStyle} >{t("details.latest")}</h3>
+              <h3
+                className="related-news-title"
+                style={savedLang?.code === `ar` ? headerArStyle : headerEnStyle}
+              >
+                {t("details.latest")}
+              </h3>
               <div className="news-grid">
                 {filteredNews.slice(0, 6).map((news, index) => (
                   <Link
                     to={`/details`}
                     state={{ news }}
                     className="about-news"
-                    onClick={() => window.scrollTo(0, 0)}
+                    onClick={() => {window.scrollTo(0, 0), GetNewsById()}}
                     key={index}
                   >
                     <div className="news-details-card">
@@ -106,8 +128,16 @@ function Details(props) {
                         }
                       />
                       <div className="news-content">
-                        <h4 style={savedLang?.code === `ar` ? pArStyle : pEnStyle}>{news.header[0].slice(0, 100)}...</h4>
-                        <p style={savedLang?.code === `ar` ? pArStyle : pEnStyle} >{news.date}</p>
+                        <h4
+                          style={savedLang?.code === `ar` ? pArStyle : pEnStyle}
+                        >
+                          {news.header[0].slice(0, 100)}...
+                        </h4>
+                        <p
+                          style={savedLang?.code === `ar` ? pArStyle : pEnStyle}
+                        >
+                          {news.date}
+                        </p>
                       </div>
                     </div>
                   </Link>
