@@ -29,20 +29,24 @@ function Details() {
 
   const savedLang = JSON.parse(localStorage.getItem("lang") || '{"id": 2, "code": "en"}');
   const location = useLocation();
+  const news = location.state?.news;
+  console.log(news)
   const [filteredNews, setFilteredNews] = useState([]);
   const [currentNews, setCurrentNews] = useState();
   const [langId, setLangId] = useState(savedLang?.id || 2);
   const { t } = useTranslation();
 
-  const GetNewsById = async () => {
-    try {
-      const response = await api.get(
-        `News/Id?newsId=${location.state?.news.newsId || 1}&langId=${langId}`
-      );
-      setCurrentNews(response.data);
-    } catch (error) {
-      console.error("Error fetching News:", error);
-    }
+  const GetNewsById = () => {
+    console.log(location.state?.news.newsId); 
+    api
+      .get(`News/Id?newsId=${location.state?.news.newsId}&langId=${langId}`)
+      .then((response) => {
+        console.log(response.data);
+        setCurrentNews(response.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching News:", error);
+      });
   };
 
   useEffect(() => {
@@ -117,12 +121,10 @@ function Details() {
                 {filteredNews.slice(0, 6).map((news, index) => (
                   <Link
                     to={`/details`}
-                    state={{ news }}
+                    state={{ news: news }}
+                    onClick={() => {window.scrollTo(0, 0), setCurrentNews(news)}}
                     className="about-news"
-                    onClick={() => {
-                      window.scrollTo(0, 0);
-                      GetNewsById();
-                    }}
+                    onClick={() => {window.scrollTo(0, 0), GetNewsById()}}
                     key={index}
                   >
                     <div className="news-details-card">
