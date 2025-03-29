@@ -26,17 +26,17 @@ function Details(props) {
 
   const savedLang = JSON.parse(localStorage.getItem("lang"));
   const location = useLocation();
+  const news = location.state?.news;
+  console.log(news)
   const [filteredNews, setFilteredNews] = useState([]);
   const [currentNews, setCurrentNews] = useState();
   const [langId, setLangId] = useState(savedLang?.id || 2);
   const { i18n, t } = useTranslation();
 
   const GetNewsById = () => {
-    console.log(location.state?.news.newsId); 
     api
-      .get(`News/Id?newsId=${location.state?.news.newsId}&langId=${langId}`)
+      .get(`News/Id?newsId=${news.newsId}&langId=${langId}`)
       .then((response) => {
-        console.log(response.data);
         setCurrentNews(response.data);
       })
       .catch((error) => {
@@ -112,9 +112,9 @@ function Details(props) {
                 {filteredNews.slice(0, 6).map((news, index) => (
                   <Link
                     to={`/details`}
-                    state={{ news }}
+                    state={{ news: news }}
+                    onClick={() => {window.scrollTo(0, 0), setCurrentNews(news)}}
                     className="about-news"
-                    onClick={() => {window.scrollTo(0, 0), GetNewsById()}}
                     key={index}
                   >
                     <div className="news-details-card">
