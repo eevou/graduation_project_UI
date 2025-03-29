@@ -1,13 +1,16 @@
 import React, { useState, useEffect } from "react";
 import "./Details.css";
 import { Link } from "react-router-dom";
-import { useLocation, useParams } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import Header from "../HomePage/Header/Header";
 import Footer from "../HomePage/Footer/Footer";
 import api from "../Services/api";
 import { useTranslation } from "react-i18next";
+import Image1 from "../assets/image-940x580 (2).jpg"
+import Image2 from "../assets/image-940x580 (3).jpg"
+import Image3 from "../assets/image-940x580 (4).jpg"
 
-function Details(props) {
+function Details() {
   const headerArStyle = {
     fontFamily: "var(--MNF_Heading_AR)",
   };
@@ -24,24 +27,22 @@ function Details(props) {
     fontFamily: "var(--MNF_Heading_EN)",
   };
 
-  const savedLang = JSON.parse(localStorage.getItem("lang"));
+  const savedLang = JSON.parse(localStorage.getItem("lang") || '{"id": 2, "code": "en"}');
   const location = useLocation();
   const [filteredNews, setFilteredNews] = useState([]);
   const [currentNews, setCurrentNews] = useState();
   const [langId, setLangId] = useState(savedLang?.id || 2);
-  const { i18n, t } = useTranslation();
+  const { t } = useTranslation();
 
-  const GetNewsById = () => {
-    console.log(location.state?.news.newsId); 
-    api
-      .get(`News/Id?newsId=${location.state?.news.newsId}&langId=${langId}`)
-      .then((response) => {
-        console.log(response.data);
-        setCurrentNews(response.data);
-      })
-      .catch((error) => {
-        console.error("Error fetching News:", error);
-      });
+  const GetNewsById = async () => {
+    try {
+      const response = await api.get(
+        `News/Id?newsId=${location.state?.news.newsId || 1}&langId=${langId}`
+      );
+      setCurrentNews(response.data);
+    } catch (error) {
+      console.error("Error fetching News:", error);
+    }
   };
 
   useEffect(() => {
@@ -59,7 +60,10 @@ function Details(props) {
       .catch((error) => {
         console.error("Error fetching News:", error);
       });
-  }, []);
+  }, [langId]);
+
+  // Local carousel images
+  const carouselImages = [Image1,Image2,Image3];
 
   return (
     <div>
@@ -71,10 +75,6 @@ function Details(props) {
 
       <main className="main">
         <div className="container">
-          {/* Carousel Section */}
-
-          {/* Content Section */}
-          {/* Text Content */}
           <div className="content-wrapper">
             <div className="event-text-content">
               <h2
@@ -83,8 +83,14 @@ function Details(props) {
               >
                 {currentNews?.header}
               </h2>
-              <div className="image">
-                <img src={currentNews?.image} alt="" />
+              <div className="carousel">
+                <div className="carousel-inner">
+                  {carouselImages.map((image, index) => (
+                    <div key={index} className="carousel-slide">
+                      <img src={image} alt={`Slide ${index + 1}`} />
+                    </div>
+                  ))}
+                </div>
               </div>
               <p
                 className="event-description"
@@ -100,7 +106,6 @@ function Details(props) {
               </p>
             </div>
 
-            {/* Related News */}
             <div className="related-news">
               <h3
                 className="related-news-title"
@@ -114,7 +119,10 @@ function Details(props) {
                     to={`/details`}
                     state={{ news }}
                     className="about-news"
-                    onClick={() => {window.scrollTo(0, 0), GetNewsById()}}
+                    onClick={() => {
+                      window.scrollTo(0, 0);
+                      GetNewsById();
+                    }}
                     key={index}
                   >
                     <div className="news-details-card">
