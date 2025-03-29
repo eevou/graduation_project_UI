@@ -14,7 +14,7 @@ const Footer = () => {
     fontFamily: "var(--MNF_Body_AR)",
     lineHeight: "1.5",
   }
-  
+
   const EnStyle = {
     fontFamily: "var(--MNF_Body_EN)",
   }
@@ -102,6 +102,14 @@ const Footer = () => {
                 {" "}
                 <a href="#">{t("footer.importantStoppingRegistration")}</a>{" "}
               </li>
+              <li>
+                {" "}
+                <a href="#">{t("footer.MinistryofHigherEducation")}</a>{" "}
+              </li>
+              <li>
+                {" "}
+                <a href="#">{t("footer.NationalAuthorityforQualityAssuranceandAccreditation")}</a>{" "}
+              </li>
             </ul>
           </div>
         </div>
@@ -144,13 +152,21 @@ const Footer = () => {
                 {" "}
                 <a href="#">{t("footer.serviceGuideStoppingRegistration")}</a>{" "}
               </li>
+              <li>
+                {" "}
+                <a href="#">{t("footer.serviceReview")}</a>{" "}
+              </li>
+              <li>
+                {" "}
+                <a href="#">{t("footer.EntertainmentCorner")}</a>{" "}
+              </li>
             </ul>
           </div>
         </div>
 
         <div className="footer-sector">
           <h3 className={savedLang?.code === `ar` ? "footer-title footer-titleAr" : "footer-title"}>
-            {t("footer.serviceReview")}
+            {t("footer.Evaluationcomplaintsandsuggestions")}
           </h3>
           <div className="ul-container">
             <ul>
@@ -181,18 +197,18 @@ const Footer = () => {
           <p>{t("footer.copyrights")} {date}. ©</p>
 
           <div className="social">
-          <div className="social-facebook">
+            <div className="social-facebook">
               <i className="fa-brands fa-facebook"></i>
-          </div>
-          <div className="social-x">
+            </div>
+            <div className="social-x">
               <i className="fa-brands fa-x-twitter"></i>
-          </div>
+            </div>
             <div className="social-youtube">
               <i className="fa-brands fa-youtube"></i>
-          </div>
+            </div>
             <div className="social-envelope">
               <i className="fa-solid fa-envelope"></i>
-          </div>
+            </div>
           </div>
         </div>
       </div>
