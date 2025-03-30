@@ -5,12 +5,12 @@ import "./About.css";
 import { useTranslation } from "react-i18next";
 
 const lineArStyle = {
-  left: "-60px",
+  left: "-38px",
   transform: 'rotateY(180deg)'
 }
 
 const lineEnStyle = {
-  right: "-60px"
+  right: "-38px"
 }
 
 const pArStyle = {

@@ -8,8 +8,6 @@ import { useTranslation } from "react-i18next";
 
 const images = [Image1, Image2, Image3, Image4];
 
-
-
 function Hero() {
   const ARstyle = {
     direction: "rtl",
@@ -38,7 +36,7 @@ function Hero() {
   const startAutoSlide = useCallback(() => {
     return setInterval(() => {
       setCurrentIndex((prevIndex) => (prevIndex + 1) % images.length);
-    }, 5000);
+    }, 3500);
   }, []);
 
   useEffect(() => {

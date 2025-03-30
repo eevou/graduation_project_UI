@@ -30,7 +30,7 @@
 
 .about-container .curveLine {
     position: absolute;
-    top: -140px;
+    top: -300px;
     width: 500px;
     z-index: -2;
 }
@@ -48,10 +48,13 @@
 
     .about-container .curveLine {
         width: 350px;
+        top: -150px;
+
     }
 
     .about-container .curveLine.curveLinear {
         left: -60px;
+        transform: rotateY(180deg);
     }
 
     .about-container h1 {
@@ -135,7 +138,7 @@
     }
 
     .about-container .curveLine {
-        width: 250px;
+        width: 280px;
     }
 
     .about-container .curveLine.curveLinear {
@@ -159,10 +162,21 @@
         font-size: 14px;
     }
 
-    .about-container .curveLine {
-        width: 200px;
-    }
     .about-container .curveLine.curveLinear {
         left: -60px;
+    }
+}
+
+@media (max-width: 450px) {
+    .about-container .curveLine {
+        width: 220px;
+        top: -110px;
+    }
+}
+
+@media (max-width: 370px) {
+    .about-container .curveLine {
+        width: 210px;
+        top: -110px;
     }
 }

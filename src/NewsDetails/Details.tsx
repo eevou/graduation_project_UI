@@ -1,16 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import "./Details.css";
 import { Link } from "react-router-dom";
-import { useLocation } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import Header from "../HomePage/Header/Header";
 import Footer from "../HomePage/Footer/Footer";
 import api from "../Services/api";
 import { useTranslation } from "react-i18next";
-import Image1 from "../assets/image-940x580 (2).jpg"
-import Image2 from "../assets/image-940x580 (3).jpg"
-import Image3 from "../assets/image-940x580 (4).jpg"
 
-function Details() {
+function Details(props) {
   const headerArStyle = {
     fontFamily: "var(--MNF_Heading_AR)",
   };
@@ -27,27 +24,47 @@ function Details() {
     fontFamily: "var(--MNF_Heading_EN)",
   };
 
-  const savedLang = JSON.parse(localStorage.getItem("lang") || '{"id": 2, "code": "en"}');
+  const savedLang = JSON.parse(localStorage.getItem("lang"));
   const location = useLocation();
   const news = location.state?.news;
-  console.log(news)
   const [filteredNews, setFilteredNews] = useState([]);
   const [currentNews, setCurrentNews] = useState();
   const [langId, setLangId] = useState(savedLang?.id || 2);
-  const { t } = useTranslation();
+  const { i18n, t } = useTranslation();
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [isPaused, setIsPaused] = useState(false);
+
+  const images = [
+    currentNews?.images[0],
+    currentNews?.images[1],
+    currentNews?.images[2],
+  ];
+
+  console.log(filteredNews)
 
   const GetNewsById = () => {
-    console.log(location.state?.news.newsId); 
     api
-      .get(`News/Id?newsId=${location.state?.news.newsId}&langId=${langId}`)
+      .get(`News/Id?newsId=${news.newsId}&langId=${langId}`)
       .then((response) => {
-        console.log(response.data);
         setCurrentNews(response.data);
       })
       .catch((error) => {
         console.error("Error fetching News:", error);
       });
   };
+
+  const startAutoSlide = useCallback(() => {
+    return setInterval(() => {
+      setCurrentIndex((prevIndex) => (prevIndex + 1) % images.length);
+    }, 3500);
+  }, []);
+
+  useEffect(() => {
+    if (!isPaused) {
+      const interval = startAutoSlide();
+      return () => clearInterval(interval);
+    }
+  }, [isPaused, startAutoSlide]);
 
   useEffect(() => {
     if (savedLang) {
@@ -64,10 +81,7 @@ function Details() {
       .catch((error) => {
         console.error("Error fetching News:", error);
       });
-  }, [langId]);
-
-  // Local carousel images
-  const carouselImages = [Image1,Image2,Image3];
+  }, []);
 
   return (
     <div>
@@ -87,21 +101,50 @@ function Details() {
               >
                 {currentNews?.header}
               </h2>
-              <div className="carousel">
-                <div className="carousel-inner">
-                  {carouselImages.map((image, index) => (
+
+              <div
+                className="image carousel"
+                onMouseEnter={() => setIsPaused(true)}
+                onMouseLeave={() => setIsPaused(false)}
+              >
+                <div
+                  className="carousel-track"
+                  style={{
+                    transform: `translateX(-${currentIndex * 100}%)`,
+                  }}
+                >
+                  {images.map((image, index) => (
                     <div key={index} className="carousel-slide">
-                      <img src={image} alt={`Slide ${index + 1}`} />
+                      <img
+                        src={image}
+                        alt={`University slide ${index + 1}`}
+                        className="carousel-image"
+                      />
                     </div>
                   ))}
                 </div>
+
+                <div className="carousel-dots">
+                  {images.map((_, index) => (
+                    <button
+                      key={index}
+                      onClick={() => setCurrentIndex(index)}
+                      className={`carousel-dot ${
+                        currentIndex === index ? "active" : ""
+                      }`}
+                      aria-label={`Go to slide ${index + 1}`}
+                    />
+                  ))}
+                </div>
               </div>
+
               <p
                 className="event-description"
                 style={savedLang?.code === `ar` ? pArStyle : pEnStyle}
               >
                 {currentNews?.body}
               </p>
+
               <p
                 className="event-date"
                 style={savedLang?.code === `ar` ? pArStyle : pEnStyle}
@@ -109,7 +152,6 @@ function Details() {
                 {currentNews?.date}
               </p>
             </div>
-
             <div className="related-news">
               <h3
                 className="related-news-title"
@@ -122,9 +164,10 @@ function Details() {
                   <Link
                     to={`/details`}
                     state={{ news: news }}
-                    onClick={() => {window.scrollTo(0, 0), setCurrentNews(news)}}
+                    onClick={() => {
+                      window.scrollTo(0, 0), setCurrentNews(news);
+                    }}
                     className="about-news"
-                    onClick={() => {window.scrollTo(0, 0), GetNewsById()}}
                     key={index}
                   >
                     <div className="news-details-card">
