@@ -3,8 +3,8 @@ import { initReactI18next } from 'react-i18next';
 import LanguageDetector from 'i18next-browser-languagedetector';
 
 import enHome from './Local/EN/Home.json';
-import arHome from './local/AR/Home.json';
-import asHome from './local/AS/Home.json';
+import arHome from './Local/AR/Home.json';
+import asHome from './Local/AS/Home.json';
 
 i18n
   .use(LanguageDetector)
