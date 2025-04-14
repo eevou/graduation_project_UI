@@ -32,7 +32,7 @@ function Home() {
   return (
     <div>
       <Header index={0} setFilteredNews={setFilteredNews}/>
-      <Hero />
+      <Hero News={filteredNews}/>
       <About />
       <Carousel News={filteredNews}/>
       <Footer />

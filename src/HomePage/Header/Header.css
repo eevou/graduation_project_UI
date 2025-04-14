@@ -248,7 +248,7 @@
 
     }
 
-    .nav-links ul li:hover::after {
+    .nav-links ul li:not(.active):hover::after {
         width: 130px;
     }
 }
