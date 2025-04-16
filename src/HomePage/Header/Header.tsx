@@ -4,20 +4,18 @@ import "./Header.css";
 import logo from "../../assets/image.png";
 import api from "../../Services/api";
 import { useTranslation } from "react-i18next";
+import { Search } from "lucide-react";
 
 const Header = (props) => {
   const ARstyle = {
     fontFamily: "var(--MNF_Body_AR)",
   };
-
   const ENstyle = {
     fontFamily: "var(--MNF_Body_EN)",
   };
-
   const closeStyleAr = {
     right: "170px",
   };
-
   const closeStyleEn = {
     left: "170px",
   };
@@ -29,6 +27,8 @@ const Header = (props) => {
   const [langActive, setlangActive] = useState(false);
   const [menuActive, setMenuActive] = useState(false);
   const [language, setLanguage] = useState("EN");
+  const [searchValue, setSearchValue] = useState("");
+  const inputRef = useRef();
   const location = useLocation();
 
   const languages = [
@@ -60,13 +60,18 @@ const Header = (props) => {
 
   const GetAllNews = (lang) => {
     api
-      .get(`/News?id=${lang?.id}`)
+      .get(`/News?id=${lang?.id}&search=${inputRef.current.value}`)
       .then((response) => {
         props.setFilteredNews(response.data);
+        console.log(response.data)
       })
       .catch((error) => {
         console.error("Error fetching News:", error);
       });
+  };
+
+  const Search = () => {
+    GetAllNews(savedLang);
   };
 
   const GetNewsById = (lang) => {
@@ -132,7 +137,10 @@ const Header = (props) => {
       </nav>
 
       <div className="nav-icons">
-        <i className="fa-solid fa-magnifying-glass"></i>
+      <div className="search-container">
+        <input type="search" className="search-input" ref={inputRef}></input>
+        <i className="fa-solid fa-magnifying-glass" onClick={Search}></i>
+      </div>
         <div className="nav-lang-container" onClick={dropdownLang}>
           <i className="fa-solid fa-globe"></i>
           <span>{language.toUpperCase()}</span>

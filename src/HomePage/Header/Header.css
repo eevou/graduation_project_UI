@@ -4,6 +4,7 @@
     align-items: center;
     margin: 0 48px;
     padding: 16px;
+    gap: 5px;
 }
 
 .nav-logo {
@@ -38,6 +39,7 @@
     justify-content: center;
     align-items: center;
     gap: 24px;
+    text-align: center;
 }
 
 .nav-links ul li.active {
@@ -93,6 +95,21 @@
     border-radius: 10px;
     left: 0;
     display: none;
+}
+
+.search-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+}
+
+.search-input {
+    width: 120px;
+    padding: 5px;
+    border: 2px solid #dbdbdb;
+    border-radius: 10px;
+    outline: none;
 }
 
 .nav-lang-container .lang-dropdown.lang-active {
