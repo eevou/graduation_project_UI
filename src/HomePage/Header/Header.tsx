@@ -7,6 +7,8 @@ import { useTranslation } from "react-i18next";
 import { Search } from "lucide-react";
 
 const Header = (props) => {
+  const [displaySearch, setDisplaySearch] = useState(props.display || false);
+
   const ARstyle = {
     fontFamily: "var(--MNF_Body_AR)",
   };
@@ -63,7 +65,6 @@ const Header = (props) => {
       .get(`/News?id=${lang?.id}&search=${inputRef.current.value}`)
       .then((response) => {
         props.setFilteredNews(response.data);
-        console.log(response.data)
       })
       .catch((error) => {
         console.error("Error fetching News:", error);
@@ -137,10 +138,10 @@ const Header = (props) => {
       </nav>
 
       <div className="nav-icons">
-      <div className="search-container">
-        <input type="search" className="search-input" ref={inputRef}></input>
-        <i className="fa-solid fa-magnifying-glass" onClick={Search}></i>
-      </div>
+        <div className="search-container" style={displaySearch? {display: "flex"} : {display: "none"}}>
+          <input type="search" className="search-input" ref={inputRef}></input>
+          <i className="fa-solid fa-magnifying-glass" onClick={Search}></i>
+        </div>
         <div className="nav-lang-container" onClick={dropdownLang}>
           <i className="fa-solid fa-globe"></i>
           <span>{language.toUpperCase()}</span>

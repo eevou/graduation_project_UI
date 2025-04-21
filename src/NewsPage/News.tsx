@@ -39,7 +39,7 @@ function News() {
 
   return (
     <div>
-      <Header index={4} setFilteredNews={setFilteredNews}/>
+      <Header index={4} setFilteredNews={setFilteredNews} display={true}/>
       <div className="news-page">
         <SectionOne row="row" News={paginatedNews.slice(0, 5)} />
         <SectionOne row="row-reverse" News={paginatedNews.slice(5, 10)} />
