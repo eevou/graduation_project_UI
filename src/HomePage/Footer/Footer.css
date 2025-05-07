@@ -96,6 +96,11 @@
   cursor: pointer
 }
 
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
 .social-facebook:hover {
   color: #3b5998;
 }
