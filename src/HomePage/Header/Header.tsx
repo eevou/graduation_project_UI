@@ -45,7 +45,7 @@ const Header = (props) => {
     { name: t("header.Colleges"), link: "/" },
     { name: t("header.Programs"), link: "/" },
     { name: t("header.News"), link: "/news" },
-    { name: t("header.contact US"), link: "/" },
+    { name: t("header.contact US"), link: "/contactUs" },
   ];
 
   const changeAllLanguage = (lng: string) => {
