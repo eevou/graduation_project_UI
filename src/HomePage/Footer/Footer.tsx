@@ -70,45 +70,45 @@ const Footer = () => {
             <ul>
               <li>
                 {" "}
-                <a href="#">{t("footer.importantLatestDecisions")}</a>{" "}
+                <a target="blank" href="https://scu.eg/eksc_units/%d8%b4%d8%a8%d9%83%d8%a9-%d8%a7%d9%84%d8%ac%d8%a7%d9%85%d8%b9%d8%a7%d8%aa-%d8%a7%d9%84%d9%85%d8%b5%d8%b1%d9%8a%d9%87/">{t("footer.importantLatestDecisions")}</a>{" "}
               </li>
               <li>
                 {" "}
-                <a href="#">{t("footer.importantConditionsTransfers")}</a>{" "}
+                <a target="blank" href="https://nelc.gov.sa/">{t("footer.importantConditionsTransfers")}</a>{" "}
               </li>
               <li>
                 {" "}
-                <a href="#">{t("footer.importantAdministrativeDirectives")}</a>{" "}
+                <a target="blank" href="https://digital.gov.eg/">{t("footer.importantAdministrativeDirectives")}</a>{" "}
               </li>
               <li>
                 {" "}
-                <a href="#">{t("footer.importantFinancialTransferControls")}</a>{" "}
+                <a target="blank" href="http://www.monofeya.gov.eg/Default.aspx">{t("footer.importantFinancialTransferControls")}</a>{" "}
               </li>
               <li>
                 {" "}
-                <a href="#">{t("footer.importantQuarterlyExamResults")}</a>{" "}
+                <a target="blank" href="https://stdf.eg/">{t("footer.importantQuarterlyExamResults")}</a>{" "}
               </li>
             </ul>
             <ul>
               <li>
                 {" "}
-                <a href="#">{t("footer.importantGeneralGuidelines")}</a>{" "}
+                <a target="blank" href="http://srv4.eulc.edu.eg/eulc_v5/libraries/start.aspx">{t("footer.importantGeneralGuidelines")}</a>{" "}
               </li>
               <li>
                 {" "}
-                <a href="#">{t("footer.importantPaperServices")}</a>{" "}
+                <a target="blank" href="https://www.aaru.edu.jo/home.aspx">{t("footer.importantPaperServices")}</a>{" "}
               </li>
               <li>
                 {" "}
-                <a href="#">{t("footer.importantStoppingRegistration")}</a>{" "}
+                <a target="blank" href="https://scu.eg/">{t("footer.importantStoppingRegistration")}</a>{" "}
               </li>
               <li>
                 {" "}
-                <a href="#">{t("footer.MinistryofHigherEducation")}</a>{" "}
+                <a target="blank" href="https://mohesr.gov.eg/ar-eg/Pages/Home.aspx">{t("footer.MinistryofHigherEducation")}</a>{" "}
               </li>
               <li>
                 {" "}
-                <a href="#">{t("footer.NationalAuthorityforQualityAssuranceandAccreditation")}</a>{" "}
+                <a target="blank" href="https://naqaae.eg/">{t("footer.NationalAuthorityforQualityAssuranceandAccreditation")}</a>{" "}
               </li>
             </ul>
           </div>
@@ -197,18 +197,21 @@ const Footer = () => {
           <p>{t("footer.copyrights")} {date}. ©</p>
 
           <div className="social">
-            <div className="social-facebook">
+            <a target="blank" href="https://www.facebook.com"><div className="social-facebook">
               <i className="fa-brands fa-facebook"></i>
-            </div>
-            <div className="social-x">
+            </div></a>
+
+            <a target="blank" href="https://x.com/X."><div className="social-x">
               <i className="fa-brands fa-x-twitter"></i>
-            </div>
-            <div className="social-youtube">
+            </div></a>
+
+            <a target="blank" href="https://www.youtube.com"><div className="social-youtube">
               <i className="fa-brands fa-youtube"></i>
-            </div>
-            <div className="social-envelope">
+            </div></a>
+
+            <a target="blank" href="https://mail.google.com/"><div className="social-envelope">
               <i className="fa-solid fa-envelope"></i>
-            </div>
+            </div></a>
           </div>
         </div>
       </div>
