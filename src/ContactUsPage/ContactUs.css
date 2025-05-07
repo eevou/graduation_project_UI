@@ -273,11 +273,11 @@
 }
 
 .submit-button:hover:not(:disabled) {
-  background-color: var(--primary-dark);
+  background-color: #000f3f
 }
 
 .submit-button:disabled {
-  background-color: var(--primary-light);
+  background-color: #000f3f;
   cursor: not-allowed;
 }
 

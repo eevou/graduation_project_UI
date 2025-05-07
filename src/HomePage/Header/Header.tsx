@@ -11,6 +11,7 @@ const Header = (props) => {
 
   const ARstyle = {
     fontFamily: "var(--MNF_Body_AR)",
+    fontSize: "14px"
   };
   const ENstyle = {
     fontFamily: "var(--MNF_Body_EN)",
@@ -42,7 +43,7 @@ const Header = (props) => {
   const navLinks = [
     { name: t("header.home"), link: "/" },
     { name: t("header.MNF Uni"), link: "/" },
-    { name: t("header.Colleges"), link: "/" },
+    { name: t("header.Colleges"), link: "/collage" },
     { name: t("header.Programs"), link: "/" },
     { name: t("header.News"), link: "/news" },
     { name: t("header.contact US"), link: "/contactUs" },
