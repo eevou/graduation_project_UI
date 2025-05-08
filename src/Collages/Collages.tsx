@@ -38,7 +38,7 @@ const Sector = () => {
       icon: "medical",
       description: t("Medical colleges and teaching hospitals"),
       detailText: t("Medical Description"),
-      Colleges: [{ name: t("Medicine"), Link: "https://www.menofia.edu.eg/MED/Home/ar" }, { name: t("Dentistry"), link: "https://mu.menofia.edu.eg/dent/Home/ar" }, { name: t("Pharmacy"), link: "http://mu.menofia.edu.eg/pharm/Home/ar" }, { name: t("Nursing"), link: "https://www.menofia.edu.eg/NUR/Home/ar" }, { name: t("Bitary"), link: "https://mu.menofia.edu.eg/vmed/Home/ar" }, { name: t("MahadTamrid"), link: "https://mu.menofia.edu.eg/NCI/SectorsHome/ar" }],
+      Colleges: [{ name: t("Medicine"), link: "https://www.menofia.edu.eg/MED/Home/ar" }, { name: t("Dentistry"), link: "https://mu.menofia.edu.eg/dent/Home/ar" }, { name: t("Pharmacy"), link: "http://mu.menofia.edu.eg/pharm/Home/ar" }, { name: t("Nursing"), link: "https://www.menofia.edu.eg/NUR/Home/ar" }, { name: t("Bitary"), link: "https://mu.menofia.edu.eg/vmed/Home/ar" }, { name: t("MahadTamrid"), link: "https://mu.menofia.edu.eg/NCI/SectorsHome/ar" }],
     },
     {
       id: "technical",
