@@ -193,20 +193,16 @@ const Footer = () => {
           <p>{t("footer.copyrights")} {date}. ©</p>
 
           <div className="social">
-            <a target="blank" href="https://www.facebook.com"><div className="social-facebook">
+            <a target="blank" href="https://www.facebook.com/menofia.edu.eg?locale=ar_AR"><div className="social-facebook">
               <i className="fa-brands fa-facebook"></i>
             </div></a>
 
-            <a target="blank" href="https://x.com/X."><div className="social-x">
+            <a target="blank" href="https://x.com/mediamenoufiaun?t=ZwQujlS2aAqMHCSmbJNk7A&s=09"><div className="social-x">
               <i className="fa-brands fa-x-twitter"></i>
             </div></a>
 
-            <a target="blank" href="https://www.youtube.com"><div className="social-youtube">
+            <a target="blank" href="https://youtube.com/@menoufiauniversitychannel9727"><div className="social-youtube">
               <i className="fa-brands fa-youtube"></i>
-            </div></a>
-
-            <a target="blank" href="https://mail.google.com/"><div className="social-envelope">
-              <i className="fa-solid fa-envelope"></i>
             </div></a>
           </div>
         </div>

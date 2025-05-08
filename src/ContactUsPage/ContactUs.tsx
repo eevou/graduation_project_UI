@@ -219,12 +219,11 @@ function ContactUs(props) {
                   </div>
                   <div className="info-content">
                     <p className="info-label">{t("address")}</p>
-                    <p className="info-value">Menoufia Governorate , Egypt</p>
+                    <p className="info-value"><a target="blank" href="https://maps.app.goo.gl/mQuJdCCYEvuoZkQDA">Menoufia Governorate , Egypt</a></p>
                   </div>
                 </div>
               </div>
             </div>
-
             {/* Main Content */}
             <div className="main-content">
               {/* Tabs */}
