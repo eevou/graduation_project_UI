@@ -105,7 +105,8 @@
 }
 
 .search-input {
-    width: 120px;
+    width: 140px;
+    height: 30px;
     padding: 5px;
     border: 2px solid #dbdbdb;
     border-radius: 10px;

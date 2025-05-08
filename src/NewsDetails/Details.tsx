@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useCallback } from "react";
 import "./Details.css";
-import { Link } from "react-router-dom";
-import { useLocation, useParams } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import Header from "../HomePage/Header/Header";
 import Footer from "../HomePage/Footer/Footer";
 import api from "../Services/api";
@@ -35,12 +34,18 @@ function Details(props) {
   const [isPaused, setIsPaused] = useState(false);
 
   const images = [
-    currentNews?.images[0],
-    currentNews?.images[1],
-    currentNews?.images[2],
-  ];
+    currentNews?.images?.[0],
+    currentNews?.images?.[1],
+    currentNews?.images?.[2],
+  ].filter(Boolean); 
 
-  console.log(filteredNews)
+  const formatDate = (rawDate: string) => {
+    const date = new Date(rawDate);
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, "0");
+    const day = String(date.getDate()).padStart(2, "0");
+    return `${year} - ${month} - ${day}`;
+  };
 
   const GetNewsById = () => {
     api
@@ -57,7 +62,7 @@ function Details(props) {
     return setInterval(() => {
       setCurrentIndex((prevIndex) => (prevIndex + 1) % images.length);
     }, 3500);
-  }, []);
+  }, [images.length]);
 
   useEffect(() => {
     if (!isPaused) {
@@ -129,9 +134,8 @@ function Details(props) {
                     <button
                       key={index}
                       onClick={() => setCurrentIndex(index)}
-                      className={`carousel-dot ${
-                        currentIndex === index ? "active" : ""
-                      }`}
+                      className={`carousel-dot ${currentIndex === index ? "active" : ""
+                        }`}
                       aria-label={`Go to slide ${index + 1}`}
                     />
                   ))}
@@ -149,9 +153,10 @@ function Details(props) {
                 className="event-date"
                 style={savedLang?.code === `ar` ? pArStyle : pEnStyle}
               >
-                {currentNews?.date}
+                {currentNews?.date && formatDate(currentNews.date)}
               </p>
             </div>
+
             <div className="related-news">
               <h3
                 className="related-news-title"
@@ -159,13 +164,15 @@ function Details(props) {
               >
                 {t("details.latest")}
               </h3>
+
               <div className="news-grid">
                 {filteredNews.slice(0, 6).map((news, index) => (
                   <Link
                     to={`/details`}
                     state={{ news: news }}
                     onClick={() => {
-                      window.scrollTo(0, 0), setCurrentNews(news);
+                      window.scrollTo(0, 0);
+                      setCurrentNews(news);
                     }}
                     className="about-news"
                     key={index}
@@ -189,7 +196,7 @@ function Details(props) {
                         <p
                           style={savedLang?.code === `ar` ? pArStyle : pEnStyle}
                         >
-                          {news.date}
+                          {news.date && formatDate(news.date)}
                         </p>
                       </div>
                     </div>

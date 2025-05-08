@@ -62,7 +62,7 @@ function ContactUs(props) {
 
     try {
       const response = await axios.post(
-        "https://localhost:7260/api/ContactUs/contact-us",
+        "http://193.227.24.31:5050/api",
         messageData
       );
       setStatus("Message sent successfully!");
