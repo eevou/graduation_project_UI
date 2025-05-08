@@ -28,8 +28,6 @@ const Sector = () => {
       Colleges: [
         t("Graduate Studies"),
         t("Scientific Research"),
-        t("Innovation and Entrepreneurship"),
-        t("Environmental Studies"),
       ],
     },
     {
@@ -38,7 +36,7 @@ const Sector = () => {
       icon: "medical",
       description: t("Medical colleges and teaching hospitals"),
       detailText: t("Medical Description"),
-      Colleges: [t("Medicine"), t("Dentistry"), t("Pharmacy"), t("Nursing")],
+      Colleges: [t("Medicine"), t("Dentistry"), t("Pharmacy"), t("Nursing"), t("Bitary"), t("MahadTamrid")],
     },
     {
       id: "technical",
@@ -51,6 +49,9 @@ const Sector = () => {
         t("Engineering"),
         t("Information Technology"),
         t("Applied Sciences"),
+        t("Tigara"),
+        t("Ealam"),
+        t("Hoqoq"),
       ],
     },
   ];

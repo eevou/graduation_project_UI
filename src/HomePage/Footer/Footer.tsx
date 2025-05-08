@@ -28,37 +28,37 @@ const Footer = () => {
             <ul>
               <li>
                 {" "}
-                <a href="#">{t("footer.latestDecisions")}</a>{" "}
+                <a target="blank" href="https://www.menofia.edu.eg/View/39378/ar">{t("footer.latestDecisions")}</a>{" "}
               </li>
               <li>
                 {" "}
-                <a href="#">{t("footer.conditionsTransfers")}</a>{" "}
+                <a target="blank" href="https://mu.menofia.edu.eg/AllFacResults/ar">{t("footer.conditionsTransfers")}</a>{" "}
               </li>
               <li>
                 {" "}
-                <a href="#">{t("footer.administrativeDirectives")}</a>{" "}
+                <a target="blank" href="https://www.menofia.edu.eg/View/172590/ar">{t("footer.administrativeDirectives")}</a>{" "}
               </li>
               <li>
                 {" "}
-                <a href="#">{t("footer.financialTransferControls")}</a>{" "}
+                <a target="blank" href="https://mu.menofia.edu.eg/News/ar">{t("footer.financialTransferControls")}</a>{" "}
               </li>
               <li>
                 {" "}
-                <a href="#">{t("footer.quarterlyExamResults")}</a>{" "}
+                <a target="blank" href="https://mu.menofia.edu.eg/View/13755/ar">{t("footer.quarterlyExamResults")}</a>{" "}
               </li>
             </ul>
             <ul>
               <li>
                 {" "}
-                <a href="#">{t("footer.generalGuidelines")}</a>{" "}
+                <a target="blank" href="https://mu.menofia.edu.eg/View/13753/ar">{t("footer.generalGuidelines")}</a>{" "}
               </li>
               <li>
                 {" "}
-                <a href="#">{t("footer.paperServices")}</a>{" "}
+                <a target="blank" href="https://www.menofia.edu.eg/View/135683/ar">{t("footer.paperServices")}</a>{" "}
               </li>
               <li>
                 {" "}
-                <a href="#">{t("footer.stoppingRegistration")}</a>{" "}
+                <a target="blank" href="https://www.menofia.edu.eg/View/39381/ar">{t("footer.stoppingRegistration")}</a>{" "}
               </li>
             </ul>
           </div>
@@ -120,45 +120,41 @@ const Footer = () => {
             <ul>
               <li>
                 {" "}
-                <a href="#">{t("footer.serviceGuideLatestDecisions")}</a>{" "}
+                <a target="blank" href="https://www.menofia.edu.eg/View/39388/ar">{t("footer.serviceGuideLatestDecisions")}</a>{" "}
               </li>
               <li>
                 {" "}
-                <a href="#">{t("footer.serviceGuideConditionsTransfers")}</a>{" "}
+                <a target="blank" href="https://www.menofia.edu.eg/View/39378/ar">{t("footer.serviceGuideConditionsTransfers")}</a>{" "}
               </li>
               <li>
                 {" "}
-                <a href="#">{t("footer.serviceGuideAdministrativeDirectives")}</a>{" "}
+                <a target="blank" href="https://www.menofia.edu.eg/View/39393/ar">{t("footer.serviceGuideAdministrativeDirectives")}</a>{" "}
               </li>
               <li>
                 {" "}
-                <a href="#">{t("footer.serviceGuideFinancialTransferControls")}</a>{" "}
+                <a target="blank" href="https://www.topuniversitiesegypt.com/ar/%D8%AC%D8%A7%D9%85%D8%B9%D8%A9-%D8%A7%D9%84%D9%85%D9%86%D9%88%D9%81%D9%8A%D8%A9/%D8%AC%D9%87%D8%A7%D8%AA_%D8%A7%D9%84%D8%A7%D8%AA%D8%B5%D8%A7%D9%84">{t("footer.serviceGuideFinancialTransferControls")}</a>{" "}
               </li>
               <li>
                 {" "}
-                <a href="#">{t("footer.serviceGuideQuarterlyExamResults")}</a>{" "}
+                <a target="blank" href="https://admission.study-in-egypt.gov.eg/">{t("footer.serviceGuideGeneralGuidelines")}</a>{" "}
               </li>
             </ul>
             <ul>
               <li>
                 {" "}
-                <a href="#">{t("footer.serviceGuideGeneralGuidelines")}</a>{" "}
+                <a target="blank" href="https://admission.study-in-egypt.gov.eg/">{t("footer.serviceGuidePaperServices")}</a>{" "}
               </li>
               <li>
                 {" "}
-                <a href="#">{t("footer.serviceGuidePaperServices")}</a>{" "}
+                <a target="blank" href="https://mu.menofia.edu.eg/MUIS/View/140688/ar">{t("footer.serviceGuideStoppingRegistration")}</a>{" "}
               </li>
               <li>
                 {" "}
-                <a href="#">{t("footer.serviceGuideStoppingRegistration")}</a>{" "}
+                <a target="blank" href="https://mu.menofia.edu.eg/educ/View/61892/ar">{t("footer.serviceReview")}</a>{" "}
               </li>
               <li>
                 {" "}
-                <a href="#">{t("footer.serviceReview")}</a>{" "}
-              </li>
-              <li>
-                {" "}
-                <a href="#">{t("footer.EntertainmentCorner")}</a>{" "}
+                <a target="blank" href="https://mu.menofia.edu.eg/educ/View/61891/ar">{t("footer.EntertainmentCorner")}</a>{" "}
               </li>
             </ul>
           </div>
@@ -172,7 +168,7 @@ const Footer = () => {
             <ul>
               <li>
                 {" "}
-                <a href="#">{t("footer.performanceEvaluation")}</a>{" "}
+                <a href="/src/ContactUsPage/ContactUs.tsx">{t("footer.performanceEvaluation")}</a>{" "}
               </li>
               <li>
                 {" "}

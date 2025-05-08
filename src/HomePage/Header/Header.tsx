@@ -42,7 +42,7 @@ const Header = (props) => {
 
   const navLinks = [
     { name: t("header.home"), link: "/" },
-    { name: t("header.MNF Uni"), link: "/" },
+    { name: t("header.MNF Uni"), link: "https://www.menofia.edu.eg/Home/ar" },
     { name: t("header.Colleges"), link: "/collage" },
     { name: t("header.Programs"), link: "/" },
     { name: t("header.News"), link: "/news" },
