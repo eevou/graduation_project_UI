@@ -4,10 +4,16 @@ import "./ContactUs.css";
 import Header from "../HomePage/Header/Header";
 import Footer from "../HomePage/Footer/Footer";
 import { useTranslation } from "react-i18next";
+import axios from "axios";
 
 function ContactUs(props) {
   const savedLang = JSON.parse(localStorage.getItem("lang"));
   const { i18n, t } = useTranslation("Contact");
+
+  const [email, setEmail] = useState("");
+  const [description, setDescription] = useState("");
+  const [rate, SetRate] = useState(0);
+  const [status, setStatus] = useState("");
 
   const [activeTab, setActiveTab] = useState(props.currentTap || "suggestions");
   const [formData, setFormData] = useState({
@@ -16,12 +22,13 @@ function ContactUs(props) {
     rating: 0,
     message: "",
   });
+
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
 
   const pArStyle = {
     fontFamily: "var(--MNF_Body_AR)",
-    fontSize: "14px"
+    fontSize: "14px",
   };
 
   const pEnStyle = {
@@ -34,16 +41,7 @@ function ContactUs(props) {
     { id: "ratings", label: t("ratings") },
   ];
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
-  };
-
-  const handleRatingChange = (rating) => {
-    setFormData((prev) => ({ ...prev, rating }));
-  };
-
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
 
@@ -54,6 +52,37 @@ function ContactUs(props) {
 
       setTimeout(() => setSubmitted(false), 3000);
     }, 1000);
+
+    const messageData = {
+      email,
+      description,
+      rate,
+    };
+    
+
+    try {
+      const response = await axios.post(
+        "https://localhost:7260/api/ContactUs/contact-us",
+        messageData
+      );
+      setStatus("Message sent successfully!");
+    } catch (error) {
+      console.error("Error sending message:", error);
+      setStatus("Failed to send message.");
+    }
+  };
+
+  const handleEmailChange = (e) => {
+    setEmail(e.target.value);
+  };
+
+  const handleMessageChange = (e) => {
+    setDescription(e.target.value);
+  };
+
+  const handleRatingChange = (rating) => {
+    setFormData((prev) => ({ ...prev, rating }));
+    SetRate(rating)
   };
 
   const renderForm = () => {
@@ -76,8 +105,8 @@ function ContactUs(props) {
           <input
             type="email"
             name="email"
-            value={formData.email}
-            onChange={handleChange}
+            value={email}
+            onChange={handleEmailChange}
             required
             placeholder={t("email-placeholder")}
           />
@@ -91,7 +120,9 @@ function ContactUs(props) {
                 <button
                   key={star}
                   type="button"
-                  onClick={() => handleRatingChange(star)}
+                  onClick={() => {
+                    handleRatingChange(star);
+                  }}
                   className="star-button"
                 >
                   <Star
@@ -112,8 +143,8 @@ function ContactUs(props) {
           </label>
           <textarea
             name="message"
-            value={formData.message}
-            onChange={handleChange}
+            value={description}
+            onChange={handleMessageChange}
             required
             rows={5}
             placeholder={
