@@ -4,6 +4,7 @@ import News from "./NewsPage/News"
 import Details from "./NewsDetails/Details";
 import ContactUs from "./ContactUsPage/ContactUs"
 import Collage from "./Collages/Collages"
+import Programs from "./ProgramsPage/Programs";
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
         <Route path="/details" element={<Details />} />
         <Route path="/contactUs" element={<ContactUs />} />
         <Route path="/collage" element={<Collage />} />
+        <Route path="/programs" element={<Programs />} />
       </Routes>
     </Router>
   );

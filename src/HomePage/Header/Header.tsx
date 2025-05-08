@@ -44,7 +44,7 @@ const Header = (props) => {
     { name: t("header.home"), link: "/" },
     { name: t("header.MNF Uni"), link: "https://www.menofia.edu.eg/Home/ar" },
     { name: t("header.Colleges"), link: "/collage" },
-    { name: t("header.Programs"), link: "/" },
+    { name: t("header.Programs"), link: "/programs" },
     { name: t("header.News"), link: "/news" },
     { name: t("header.contact US"), link: "/contactUs" },
   ];

@@ -502,7 +502,7 @@ button {
   .classification-box {
     width: 320px;
   }
-  
+
   .classification-title {
     width: 200px;
     margin: 0px auto 10px;
@@ -543,5 +543,5 @@ button {
 @media (max-width: 430px) {
   .hero-container {
     margin: 16px 16px 80px;
-}
+  }
 }

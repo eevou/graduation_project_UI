@@ -5,11 +5,11 @@ import Header from "../HomePage/Header/Header";
 import Footer from "../HomePage/Footer/Footer";
 import { useTranslation } from "react-i18next";
 
-function ContactUs() {
+function ContactUs(props) {
   const savedLang = JSON.parse(localStorage.getItem("lang"));
   const { i18n, t } = useTranslation("Contact");
 
-  const [activeTab, setActiveTab] = useState("suggestions");
+  const [activeTab, setActiveTab] = useState(props.currentTap || "suggestions");
   const [formData, setFormData] = useState({
     email: "",
     orderNumber: "",

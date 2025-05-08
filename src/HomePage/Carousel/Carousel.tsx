@@ -42,7 +42,7 @@ export default function NewsCarousel(props) {
       <div className="news-carousel-container">
         <div ref={scrollRef} className="news-carousel-scroll custom-scrollbar">
           <div className="news-carousel-content">
-            {props.News.map((news, index) => (
+            {props.News.slice(0, 10).map((news, index) => (
               <div key={index} className="news-card">
                 <div className="news-card-inner">
                   <div className="news-card-content">

@@ -90,7 +90,7 @@ const Sector = () => {
 
   return (
     <div className="page-container">
-      <Header></Header>
+      <Header index={2}></Header>
 
       <div
         className="hero-container"

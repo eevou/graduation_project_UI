@@ -168,15 +168,15 @@ const Footer = () => {
             <ul>
               <li>
                 {" "}
-                <a href="/src/ContactUsPage/ContactUs.tsx">{t("footer.performanceEvaluation")}</a>{" "}
+                <a href="/contactUs">{t("footer.performanceEvaluation")}</a>{" "}
               </li>
               <li>
                 {" "}
-                <a href="#">{t("footer.generalComplaints")}</a>{" "}
+                <a href="/contactUs">{t("footer.generalComplaints")}</a>{" "}
               </li>
               <li>
                 {" "}
-                <a href="#">{t("footer.sendSuggestions")}</a>{" "}
+                <a href="/contactUs">{t("footer.sendSuggestions")}</a>{" "}
               </li>
             </ul>
           </div>
