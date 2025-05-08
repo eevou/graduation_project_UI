@@ -3,6 +3,7 @@ import "./Collages.css";
 import Header from "../HomePage/Header/Header";
 import Footer from "../HomePage/Footer/Footer";
 import { useTranslation } from "react-i18next";
+import { Link } from "react-router-dom";
 
 const Sector = () => {
   const savedLang = JSON.parse(localStorage.getItem("lang"));
@@ -16,7 +17,7 @@ const Sector = () => {
       description: t("academic-sector-desc"),
       detailText: t("academic-sector-about"),
       Colleges: [
-        { name: t("art"), link:"youtube.come"},t("science"), t("education"), t("business")],
+        { name: t("art"), link: "https://www.menofia.edu.eg/ENG/Home/ar" }, { name: t("science"), link: "https://www.menofia.edu.eg/FEE/Home/ar" }, { name: t("education"), link: "https://www.menofia.edu.eg/fci/Home/ar" }, { name: t("business"), link: "https://mu.menofia.edu.eg/ai/Home/ar" }],
     },
     {
       id: "research",
@@ -27,8 +28,8 @@ const Sector = () => {
       ),
       detailText: t("Research Description"),
       Colleges: [
-        t("Graduate Studies"),
-        t("Scientific Research"),
+        { name: t("Graduate Studies"), link: "https://www.menofia.edu.eg/SCI/Home/ar" },
+        { name: t("Scientific Research"), link: "https://www.menofia.edu.eg/AGR/Home/ar" },
       ],
     },
     {
@@ -37,7 +38,7 @@ const Sector = () => {
       icon: "medical",
       description: t("Medical colleges and teaching hospitals"),
       detailText: t("Medical Description"),
-      Colleges: [t("Medicine"), t("Dentistry"), t("Pharmacy"), t("Nursing"), t("Bitary"), t("MahadTamrid")],
+      Colleges: [{ name: t("Medicine"), Link: "https://www.menofia.edu.eg/MED/Home/ar" }, { name: t("Dentistry"), link: "https://mu.menofia.edu.eg/dent/Home/ar" }, { name: t("Pharmacy"), link: "http://mu.menofia.edu.eg/pharm/Home/ar" }, { name: t("Nursing"), link: "https://www.menofia.edu.eg/NUR/Home/ar" }, { name: t("Bitary"), link: "https://mu.menofia.edu.eg/vmed/Home/ar" }, { name: t("MahadTamrid"), link: "https://mu.menofia.edu.eg/NCI/SectorsHome/ar" }],
     },
     {
       id: "technical",
@@ -46,13 +47,13 @@ const Sector = () => {
       description: t("Computer and e-learning laboratories"),
       detailText: t("Technical Description"),
       Colleges: [
-        t("Computer Science"),
-        t("Engineering"),
-        t("Information Technology"),
-        t("Applied Sciences"),
-        t("Tigara"),
-        t("Ealam"),
-        t("Hoqoq"),
+        { name: t("Computer Science"), link: "https://www.menofia.edu.eg/EDU/Home/ar" },
+        { name: t("Engineering"), link: "https://www.menofia.edu.eg/EDV/Home/ar" },
+        { name: t("Information Technology"), link: "https://mu.menofia.edu.eg/fpe/Home/ar" },
+        { name: t("Applied Sciences"), link: "http://mu.menofia.edu.eg/media/Home/ar" },
+        { name: t("Tigara"), link: "https://www.menofia.edu.eg/COM/Home/ar" },
+        { name: t("Ealam"), link: "https://www.menofia.edu.eg/ART/Home/ar" },
+        { name: t("Hoqoq"), link: "https://www.menofia.edu.eg/LAW/Home/ar" },
       ],
     },
   ];
@@ -60,19 +61,19 @@ const Sector = () => {
   const pArStyle = {
     fontFamily: "var(--MNF_Body_AR)",
   }
-  
+
   const pEnStyle = {
     fontFamily: "var(--MNF_Body_EN)",
   }
-  
+
   const headArStyle = {
     fontFamily: "var(--MNF_Heading_AR)",
   }
-  
+
   const headEnStyle = {
     fontFamily: "var(--MNF_Heading_EN)",
   }
-  
+
 
   const [mounted, setMounted] = useState(false);
   const [expandedSector, setExpandedSector] = useState<string | null>(null);
@@ -133,18 +134,16 @@ const Sector = () => {
             >
               <div className="sector-panel">
                 <div
-                  className={`sector-header ${
-                    expandedSector === sector.id ? "expanded" : ""
-                  }`}
+                  className={`sector-header ${expandedSector === sector.id ? "expanded" : ""
+                    }`}
                   onClick={() => toggleSector(sector.id)}
                 >
                   <div className="sector-content">
                     <h3 className="sector-title">{sector.title}</h3>
                     <p className="sector-description">{sector.description}</p>
                     <div
-                      className={`sector-chevron ${
-                        expandedSector === sector.id ? "expanded" : ""
-                      }`}
+                      className={`sector-chevron ${expandedSector === sector.id ? "expanded" : ""
+                        }`}
                     >
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -164,14 +163,12 @@ const Sector = () => {
                 </div>
 
                 <div
-                  className={`sector-expandable ${
-                    expandedSector === sector.id ? "expanded" : ""
-                  }`}
+                  className={`sector-expandable ${expandedSector === sector.id ? "expanded" : ""
+                    }`}
                 >
                   <div
-                    className={`sector-expandable-content ${
-                      expandedSector === sector.id ? "expanded" : ""
-                    }`}
+                    className={`sector-expandable-content ${expandedSector === sector.id ? "expanded" : ""
+                      }`}
                   >
                     <div className="about-sector">
                       <h2>{t("sector-about")}</h2>
