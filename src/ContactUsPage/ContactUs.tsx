@@ -151,8 +151,8 @@ function ContactUs(props) {
               activeTab === "suggestions"
                 ? t("message-placeholder-suggestions")
                 : activeTab === "complaints"
-                ? t("message-placeholder-complaints")
-                : t("message-placeholder-ratings")
+                  ? t("message-placeholder-complaints")
+                  : t("message-placeholder-ratings")
             }
           />
         </div>
@@ -199,7 +199,7 @@ function ContactUs(props) {
                   </div>
                   <div className="info-content">
                     <p className="info-label">{t("phone")}</p>
-                    <p className="info-value">+1 123 456 7890</p>
+                    <p className="info-value">0482222170</p>
                   </div>
                 </div>
 
@@ -209,7 +209,7 @@ function ContactUs(props) {
                   </div>
                   <div className="info-content">
                     <p className="info-label">{t("email")}</p>
-                    <p className="info-value">Support@uprangly.com</p>
+                    <p className="info-value">info@menofia.edu.eg</p>
                   </div>
                 </div>
 
@@ -219,7 +219,7 @@ function ContactUs(props) {
                   </div>
                   <div className="info-content">
                     <p className="info-label">{t("address")}</p>
-                    <p className="info-value">New York, USA</p>
+                    <p className="info-value">Menoufia Governorate , Egypt</p>
                   </div>
                 </div>
               </div>
@@ -234,9 +234,8 @@ function ContactUs(props) {
                     <button
                       key={tab.id}
                       onClick={() => setActiveTab(tab.id)}
-                      className={`tab-button ${
-                        activeTab === tab.id ? "active" : ""
-                      }`}
+                      className={`tab-button ${activeTab === tab.id ? "active" : ""
+                        }`}
                     >
                       {tab.label}
                     </button>
