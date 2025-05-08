@@ -142,7 +142,7 @@ const Footer = () => {
             <ul>
               <li>
                 {" "}
-                <a target="blank" href="https://admission.study-in-egypt.gov.eg/">{t("footer.serviceGuidePaperServices")}</a>{" "}
+                <a target="blank" href="https://mu.menofia.edu.eg/educ/View/63355/ar">{t("footer.serviceGuidePaperServices")}</a>{""}
               </li>
               <li>
                 {" "}
