@@ -122,7 +122,6 @@ button {
 }
 
 .sectors-container {
-  max-width: 1200px;
   margin: 0 auto;
   padding: 48px 16px;
 }
@@ -232,7 +231,7 @@ button {
 }
 
 .sector-expandable.expanded {
-  max-height: 300px;
+  max-height: 1000px;
   opacity: 1;
   border-top: 0;
 }

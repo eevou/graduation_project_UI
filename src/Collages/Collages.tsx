@@ -15,7 +15,8 @@ const Sector = () => {
       icon: "academic",
       description: t("academic-sector-desc"),
       detailText: t("academic-sector-about"),
-      Colleges: [t("art"), t("science"), t("education"), t("business")],
+      Colleges: [
+        { name: t("art"), link:"youtube.come"},t("science"), t("education"), t("business")],
     },
     {
       id: "research",
@@ -181,8 +182,8 @@ const Sector = () => {
                       <h2>{t("college")}</h2>
                       <div>
                         {sector.Colleges.map((college, index) => (
-                          <a href="" key={index}>
-                            {college}
+                          <a href={college.link} key={index}>
+                            {college.name}
                           </a>
                         ))}
                       </div>
