@@ -63,7 +63,7 @@ const Header = (props) => {
 
   const GetAllNews = (lang) => {
     api
-      .get(`/News?id=${lang?.id}&search=${inputRef.current.value}`)
+      .get(`/News?langId=${lang?.id}&search=${inputRef.current.value}`)
       .then((response) => {
         props.setFilteredNews(response.data);
       })

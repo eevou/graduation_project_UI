@@ -20,7 +20,7 @@ function Home() {
     }
 
     api
-      .get(`/News?id=${langId}`)
+      .get(`/News?langId=${langId}`)
       .then((response) => {
         setFilteredNews(response.data);
       })

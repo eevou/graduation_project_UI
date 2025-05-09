@@ -6,7 +6,7 @@ import Footer from "../HomePage/Footer/Footer";
 import { useTranslation } from "react-i18next";
 import axios from "axios";
 
-function ContactUs(props) {
+function ContactUs() {
   const savedLang = JSON.parse(localStorage.getItem("lang"));
   const { i18n, t } = useTranslation("Contact");
 
@@ -15,7 +15,7 @@ function ContactUs(props) {
   const [rate, SetRate] = useState(0);
   const [status, setStatus] = useState("");
 
-  const [activeTab, setActiveTab] = useState(props.currentTap || "suggestions");
+  const [activeTab, setActiveTab] = useState("suggestions");
   const [formData, setFormData] = useState({
     email: "",
     orderNumber: "",
@@ -53,16 +53,22 @@ function ContactUs(props) {
       setTimeout(() => setSubmitted(false), 3000);
     }, 1000);
 
+    const type =
+      activeTab === "suggestions"? 0
+        : activeTab === "complaints"? 1
+        : activeTab === "ratings"? 2 : 0;
+
     const messageData = {
       email,
       description,
       rate,
+      type
     };
-    
 
     try {
       const response = await axios.post(
-        "http://193.227.24.31:5050/api",
+         "http://193.227.24.31:5050/api",
+        //"https://localhost:7260/api/ContactUs/contact-us",
         messageData
       );
       setStatus("Message sent successfully!");
@@ -82,7 +88,7 @@ function ContactUs(props) {
 
   const handleRatingChange = (rating) => {
     setFormData((prev) => ({ ...prev, rating }));
-    SetRate(rating)
+    SetRate(rating);
   };
 
   const renderForm = () => {
@@ -108,6 +114,7 @@ function ContactUs(props) {
             value={email}
             onChange={handleEmailChange}
             required
+            style={savedLang?.code === `ar` ? pArStyle : pEnStyle}
             placeholder={t("email-placeholder")}
           />
         </div>
@@ -146,13 +153,14 @@ function ContactUs(props) {
             value={description}
             onChange={handleMessageChange}
             required
+            style={savedLang?.code === `ar` ? pArStyle : pEnStyle}
             rows={5}
             placeholder={
               activeTab === "suggestions"
                 ? t("message-placeholder-suggestions")
                 : activeTab === "complaints"
-                  ? t("message-placeholder-complaints")
-                  : t("message-placeholder-ratings")
+                ? t("message-placeholder-complaints")
+                : t("message-placeholder-ratings")
             }
           />
         </div>
@@ -219,7 +227,14 @@ function ContactUs(props) {
                   </div>
                   <div className="info-content">
                     <p className="info-label">{t("address")}</p>
-                    <p className="info-value"><a target="blank" href="https://maps.app.goo.gl/mQuJdCCYEvuoZkQDA">Menoufia Governorate , Egypt</a></p>
+                    <p className="info-value">
+                      <a
+                        target="blank"
+                        href="https://maps.app.goo.gl/mQuJdCCYEvuoZkQDA"
+                      >
+                        Menoufia Governorate , Egypt
+                      </a>
+                    </p>
                   </div>
                 </div>
               </div>
@@ -233,8 +248,9 @@ function ContactUs(props) {
                     <button
                       key={tab.id}
                       onClick={() => setActiveTab(tab.id)}
-                      className={`tab-button ${activeTab === tab.id ? "active" : ""
-                        }`}
+                      className={`tab-button ${
+                        activeTab === tab.id ? "active" : ""
+                      }`}
                     >
                       {tab.label}
                     </button>
