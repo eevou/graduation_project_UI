@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { useLocation, useParams } from "react-router-dom";
+import { useLocation, useParams, Link } from "react-router-dom";
 import "./Header.css";
 import logo from "../../assets/image.png";
 import api from "../../Services/api";
@@ -107,14 +107,22 @@ const Header = (props) => {
 
   return (
     <header className="nav-container">
-      <a href="\" className="nav-logo">
-        <img src={logo} alt="International Students Affairs office Logo" />
-      </a>
+      <div className="rightHeader">
+        <a href="\" className="nav-logo">
+          <img src={logo} alt="International Students Affairs office Logo" />
+        </a>
+
+        <Link to="/login">
+          <button className="login-button">
+            <span>Login</span>
+          </button>
+        </Link>
+
+      </div>
 
       <nav
-        className={`${menuActive ? "nav-links nav-active" : "nav-links"} ${
-          savedLang?.code === `ar` ? "nav-linksar" : "nav-linksen"
-        }`}
+        className={`${menuActive ? "nav-links nav-active" : "nav-links"} ${savedLang?.code === `ar` ? "nav-linksar" : "nav-linksen"
+          }`}
       >
         <i
           className="fa-solid fa-times close"
@@ -139,7 +147,7 @@ const Header = (props) => {
       </nav>
 
       <div className="nav-icons">
-        <div className="search-container" style={displaySearch? {display: "flex"} : {display: "none"}}>
+        <div className="search-container" style={displaySearch ? { display: "flex" } : { display: "none" }}>
           <input type="search" className="search-input" ref={inputRef}></input>
           <i className="fa-solid fa-magnifying-glass" onClick={Search}></i>
         </div>
@@ -148,9 +156,7 @@ const Header = (props) => {
           <span>{language.toUpperCase()}</span>
 
           <div
-            className={
-              langActive ? "lang-dropdown lang-active" : "lang-dropdown"
-            }
+            className={langActive ? "lang-dropdown lang-active" : "lang-dropdown"}
           >
             {languages.map((lang) => {
               return (

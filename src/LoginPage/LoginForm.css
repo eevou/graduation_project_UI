@@ -1,0 +1,226 @@
+.login-container {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    animation: fadeBg 1s ease-in;
+    background: linear-gradient(135deg, #dbeafe, #f0fdf4);
+}
+
+@keyframes fadeBg {
+    from {
+        background-color: #eaeaea;
+    }
+
+    to {
+        background-color: #f5f5f5;
+    }
+}
+
+.login-box {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 16px 30px rgba(0, 0, 0, 0.1);
+    padding: 40px;
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+    /* خلي البوكس كله وسط */
+    opacity: 0;
+    transform: translateY(50px) scale(0.98);
+    animation: boxEnter 1s ease forwards;
+}
+
+@keyframes boxEnter {
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.crown-icon {
+    font-size: 32px;
+    margin-bottom: 20px;
+    display: block;
+    animation: fadeUp 0.6s ease forwards;
+    animation-delay: 0.2s;
+    opacity: 0;
+}
+
+.crown-icon img {
+    width: 80px;
+    height: 70px;
+}
+
+.login-title {
+    font-size: 24px;
+    font-weight: 600;
+    color: #333;
+    margin-top: 0;
+    opacity: 0;
+    animation: fadeUp 0.6s ease forwards;
+    animation-delay: 0.4s;
+}
+
+/* هنا المهم: خلي محتوى الفورم محاذاته شمال */
+.login-form {
+    text-align: left;
+    /* علشان اللابلز تبقى على الشمال */
+}
+
+.login-form>* {
+    opacity: 0;
+    transform: translateY(10px);
+    animation: fadeUp 0.5s ease forwards;
+}
+
+.login-form>*:nth-child(1) {
+    animation-delay: 0.6s;
+}
+
+.login-form>*:nth-child(2) {
+    animation-delay: 0.7s;
+}
+
+.login-form>*:nth-child(3) {
+    animation-delay: 0.8s;
+}
+
+.login-form>*:nth-child(4) {
+    animation-delay: 0.9s;
+}
+
+.login-form>*:nth-child(5) {
+    animation-delay: 1s;
+}
+
+@keyframes fadeUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.input-group {
+    margin-bottom: 20px;
+}
+
+.input-label {
+    display: block;
+    font-size: 14px;
+    font-weight: 500;
+    color: #333;
+    margin-bottom: 8px;
+    text-align: left;
+    /* دي اللي بتخلي الكلمات مش في النص */
+}
+
+.input-field {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 14px;
+    background-color: #fff;
+    transition: border-color 0.2s, box-shadow 0.3s ease;
+    box-sizing: border-box;
+}
+
+.input-field:focus {
+    outline: none;
+    border-color: #4285f4;
+    box-shadow: 0 0 6px rgba(66, 133, 244, 0.3);
+}
+
+.input-field::placeholder {
+    color: #999;
+}
+
+.checkbox-group {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+.checkbox-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.checkbox-input {
+    width: 16px;
+    height: 16px;
+    accent-color: #3b4cb8;
+}
+
+.checkbox-label {
+    font-size: 14px;
+    color: #333;
+    cursor: pointer;
+}
+
+.forgot-password {
+    font-size: 14px;
+    color: #4285f4;
+    text-decoration: none;
+}
+
+.forgot-password:hover {
+    text-decoration: underline;
+}
+
+.signin-button {
+    width: 100%;
+    background-color: #3b4cb8;
+    color: white;
+    border: none;
+    padding: 14px;
+    border-radius: 6px;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-bottom: 25px;
+}
+
+.signin-button:hover {
+    background-color: #2d3a9f;
+}
+
+.new-admin {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 15px;
+}
+
+.create-account-button {
+    width: 100%;
+    background-color: transparent;
+    color: #3b4cb8;
+    border: 1px solid #3b4cb8;
+    padding: 12px;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.create-account-button:hover {
+    background-color: #3b4cb8;
+    color: white;
+}
+
+@media (max-width: 480px) {
+    .login-box {
+        margin: 20px;
+        padding: 30px 20px;
+    }
+
+    .login-title {
+        font-size: 20px;
+    }
+}
