@@ -27,7 +27,7 @@ const SignUp = () => {
     };
 
     const handleBackToLogin = () => {
-        navigate('/login'); // ✅ هنا بيروح على صفحة اللوج إن
+        navigate('/login'); 
     };
 
     return (

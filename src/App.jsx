@@ -19,7 +19,7 @@ function App() {
         <Route path="/collage" element={<Collage />} />
         <Route path="/programs" element={<Programs />} />
         <Route path="/login" element={<LoginForm />} />
-        <Route path="/signup" element={<SignUp />} /> {/* ✅ path صغير وحروف ثابتة */}
+        <Route path="/signup" element={<SignUp />} /> 
       </Routes>
     </Router>
   );

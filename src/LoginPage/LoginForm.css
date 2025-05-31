@@ -26,7 +26,6 @@
     width: 100%;
     max-width: 400px;
     text-align: center;
-    /* خلي البوكس كله وسط */
     opacity: 0;
     transform: translateY(50px) scale(0.98);
     animation: boxEnter 1s ease forwards;
@@ -54,6 +53,7 @@
 }
 
 .login-title {
+    margin-bottom: 20px;
     font-size: 24px;
     font-weight: 600;
     color: #333;
@@ -63,10 +63,8 @@
     animation-delay: 0.4s;
 }
 
-/* هنا المهم: خلي محتوى الفورم محاذاته شمال */
 .login-form {
     text-align: left;
-    /* علشان اللابلز تبقى على الشمال */
 }
 
 .login-form>* {
@@ -113,7 +111,6 @@
     color: #333;
     margin-bottom: 8px;
     text-align: left;
-    /* دي اللي بتخلي الكلمات مش في النص */
 }
 
 .input-field {

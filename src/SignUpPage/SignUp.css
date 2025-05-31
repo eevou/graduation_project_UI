@@ -1,4 +1,4 @@
-/* Main container */
+
 .create-account-container {
     min-height: 100vh;
     display: flex;
@@ -11,7 +11,7 @@
     overflow: hidden;
 }
 
-/* Fade on load */
+
 @keyframes fadeInPage {
     from {
         opacity: 0;
@@ -24,7 +24,7 @@
     }
 }
 
-/* Slide up and fade in for children */
+
 .create-account-container>* {
     animation: slideUpFade 0.8s ease forwards;
     opacity: 0;
@@ -58,7 +58,7 @@
     }
 }
 
-/* Container styling */
+
 .create-account-container>* {
     width: 100%;
     max-width: 480px;
@@ -73,7 +73,7 @@
     transform: scale(1.015);
 }
 
-/* Lightbulb icon */
+
 .lightbulb-icon {
     height: 90px;
     font-size: 48px;
@@ -96,14 +96,14 @@
     }
 }
 
-/* Title */
+
 .title {
     font-size: 26px;
     font-weight: 700;
     color: #111827;
 }
 
-/* Form */
+
 .form {
     display: flex;
     flex-direction: column;

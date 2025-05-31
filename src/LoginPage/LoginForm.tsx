@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom'; // ✅ أضف ده
+import { Link } from 'react-router-dom'; 
 import './LoginForm.css';
 import image1 from '../assets/image2.png';
 
@@ -64,10 +64,9 @@ const LoginForm = () => {
                 </form>
 
                 <div className="new-admin">
-                    <span>New administrator?</span>
+                    <span>New administrator ?</span>
                 </div>
 
-                {/* ✅ استخدم Link بدل <a href> */}
                 <Link to="/signup">
                     <button type="button" className="create-account-button">
                         Create new account
