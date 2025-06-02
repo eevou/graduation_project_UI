@@ -1,18 +1,18 @@
 import "./Hero.css";
 import React, { useState, useEffect, useCallback, useMemo } from "react";
 import { useTranslation } from "react-i18next";
+import { useNews } from "../../Services/NewsContext";
 
-function Hero(props) {
+function Hero() {
+  const { news } = useNews();
+
   const isFeaturedimages = useMemo(() => {
-    return props.News
-      .filter(news => news.isFeatured === true)
-      .map(news => news.image);
-  }, [props.News]);
+    return news?.filter((item) => item.isFeatured).map((item) => item.image);
+  }, [news]);
 
   const ARstyle = {
     direction: "rtl",
     fontFamily: "var(--MNF_Heading_AR)",
-    
   };
   const ENstyle = {
     direction: "ltr",
@@ -34,7 +34,7 @@ function Hero(props) {
     return setInterval(() => {
       setCurrentIndex((prevIndex) => (prevIndex + 1) % isFeaturedimages.length);
     }, 3500);
-  }, [isFeaturedimages.length]);
+  }, [isFeaturedimages?.length]);
 
   useEffect(() => {
     if (!isPaused) {
@@ -57,11 +57,11 @@ function Hero(props) {
             transform: `translateX(-${currentIndex * 100}%)`,
           }}
         >
-          {isFeaturedimages.map((image, index) => (
+          {isFeaturedimages?.map((item, index) => (
             <div key={index} className="carousel-slide">
               <img
-                src={image}
-                alt={`University slide ${index + 1}`}
+                src={item}
+                alt={`News slide ${index + 1}`}
                 className="carousel-image"
               />
               <div className="carousel-overlay" />
@@ -72,7 +72,7 @@ function Hero(props) {
         <h1 className="carousel-heading" style={savedLang?.code === `ar`? ARstyle : ENstyle}>{t("hero.title")}</h1>
 
         <div className="carousel-dots">
-          {isFeaturedimages.map((_, index) => (
+          {isFeaturedimages?.map((_, index) => (
             <button
               key={index}
               onClick={() => setCurrentIndex(index)}

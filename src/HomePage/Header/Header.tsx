@@ -4,14 +4,14 @@ import "./Header.css";
 import logo from "../../assets/image.png";
 import api from "../../Services/api";
 import { useTranslation } from "react-i18next";
-import { Search } from "lucide-react";
+import { useAuth } from "../../Services/authContext";
 
 const Header = (props) => {
   const [displaySearch, setDisplaySearch] = useState(props.display || false);
 
   const ARstyle = {
     fontFamily: "var(--MNF_Body_AR)",
-    fontSize: "14px"
+    fontSize: "13px",
   };
   const ENstyle = {
     fontFamily: "var(--MNF_Body_EN)",
@@ -23,7 +23,10 @@ const Header = (props) => {
     left: "170px",
   };
 
-  const savedLang = JSON.parse(localStorage.getItem("lang"));
+  const langString = localStorage.getItem("lang");
+  const savedLang = langString ? JSON.parse(langString) : null;
+
+  const { user, loading } = useAuth();
 
   const { i18n, t } = useTranslation();
 
@@ -105,24 +108,22 @@ const Header = (props) => {
     setMenuActive(!menuActive);
   };
 
+  if (loading) {
+    return null;
+  }
+
   return (
     <header className="nav-container">
       <div className="rightHeader">
         <a href="\" className="nav-logo">
           <img src={logo} alt="International Students Affairs office Logo" />
         </a>
-
-        <Link to="/login">
-          <button className="login-button">
-            <span>Login</span>
-          </button>
-        </Link>
-
       </div>
 
       <nav
-        className={`${menuActive ? "nav-links nav-active" : "nav-links"} ${savedLang?.code === `ar` ? "nav-linksar" : "nav-linksen"
-          }`}
+        className={`${menuActive ? "nav-links nav-active" : "nav-links"} ${
+          savedLang?.code === `ar` ? "nav-linksar" : "nav-linksen"
+        }`}
       >
         <i
           className="fa-solid fa-times close"
@@ -147,7 +148,10 @@ const Header = (props) => {
       </nav>
 
       <div className="nav-icons">
-        <div className="search-container" style={displaySearch ? { display: "flex" } : { display: "none" }}>
+        <div
+          className="search-container"
+          style={displaySearch ? { display: "flex" } : { display: "none" }}
+        >
           <input type="search" className="search-input" ref={inputRef}></input>
           <i className="fa-solid fa-magnifying-glass" onClick={Search}></i>
         </div>
@@ -156,7 +160,9 @@ const Header = (props) => {
           <span>{language.toUpperCase()}</span>
 
           <div
-            className={langActive ? "lang-dropdown lang-active" : "lang-dropdown"}
+            className={
+              langActive ? "lang-dropdown lang-active" : "lang-dropdown"
+            }
           >
             {languages.map((lang) => {
               return (
@@ -174,6 +180,23 @@ const Header = (props) => {
             })}
           </div>
         </div>
+
+        <div>
+          {user ? (
+            user?.userRole.includes("ADMIN") ? (<Link to="/login">
+            <button className="login-button">
+              <span style={savedLang?.code === `ar` ? ARstyle : ENstyle}>
+                Dashboard
+              </span>
+            </button>
+          </Link>) : ("")
+          ) : (
+            <Link to="/login">
+              <i className="fa-solid fa-right-to-bracket"></i>
+            </Link>
+          )}
+        </div>
+
         <i className="fa-solid fa-bars menu" onClick={navBarMenu}></i>
       </div>
     </header>
