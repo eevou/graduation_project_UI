@@ -1,15 +1,15 @@
-import React, { useState, useEffect, useRef } from "react";
-import { ChevronLeft, ChevronRight, ArrowUpRight } from "lucide-react";
+import React, { useRef } from "react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import { Link } from "react-router-dom";
 import "./Carousel.css";
-import api from "../../Services/api";
-import { useTranslation } from "react-i18next";
+import { useNews } from "../../Services/NewsContext";
 
 
 export default function NewsCarousel(props) {
   const scrollRef = useRef<HTMLDivElement>(null);
-  const savedLang = JSON.parse(localStorage.getItem("lang"));
-  const { i18n, t } = useTranslation();
+  const langString = localStorage.getItem("lang");
+  const savedLang = langString ? JSON.parse(langString) : null;
+  const { news } = useNews();
 
   const ArStyle = {
     fontFamily: "var(--MNF_Body_AR)",
@@ -42,7 +42,7 @@ export default function NewsCarousel(props) {
       <div className="news-carousel-container">
         <div ref={scrollRef} className="news-carousel-scroll custom-scrollbar">
           <div className="news-carousel-content">
-            {props.News.slice(0, 10).map((news, index) => (
+            {news?.slice(0, 10).map((news, index) => (
               <div key={index} className="news-card">
                 <div className="news-card-inner">
                   <div className="news-card-content">
@@ -53,7 +53,7 @@ export default function NewsCarousel(props) {
                           : "news-card-text news-card-text-right"
                       }
                     >
-                      <h3 className="news-card-title" style={savedLang?.code === `ar`? ArStyle : EnStyle}>{news.header[0].slice(0, 75)}...</h3>
+                      <h3 className="news-card-title" style={savedLang?.code === `ar`? ArStyle : EnStyle}>{news.translations[0].header.slice(0, 75)}{news.translations[0].header.length > 75 && "..."}</h3>
                       <Link
                         to={`/details`}
                         state={{ news }}

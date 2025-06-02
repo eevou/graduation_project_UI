@@ -262,10 +262,6 @@
         height: 250px;
     }
 
-    .news-card-title {
-        font-size: 11px;
-    }
-
     .arrowlinks {
         width: 45px;
         height: 45px;
@@ -284,10 +280,6 @@
 
     .news-card-inner {
         height: 230px;
-    }
-
-    .news-card-title {
-        font-size: 11px;
     }
 
     .arrowlinks {

@@ -4,37 +4,30 @@ import Hero from "./Hero/Hero";
 import About from "./About/About";
 import Carousel from "./Carousel/Carousel";
 import Footer from "./Footer/Footer";
-import api from "../Services/api" ;
-import i18n from "../i18n";
-import { useTranslation } from 'react-i18next';
+import { useNews } from "../Services/NewsContext";
 
 
 function Home() {
   const savedLang = JSON.parse(localStorage.getItem("lang"));
   const [filteredNews, setFilteredNews] = useState([]);
   const [langId, setLangId] = useState(savedLang?.id || 2)
-
+  const { news } = useNews();
+  
   useEffect(() => {
     if (savedLang) {
       setLangId(savedLang.id)
     }
+    
+    setFilteredNews(news)
 
-    api
-      .get(`/News?langId=${langId}`)
-      .then((response) => {
-        setFilteredNews(response.data);
-      })
-      .catch((error) => {
-        console.error("Error fetching News:", error);
-      });
   }, []);
 
   return (
     <div>
       <Header index={0} setFilteredNews={setFilteredNews}/>
-      <Hero News={filteredNews}/>
+      <Hero/>
       <About />
-      <Carousel News={filteredNews}/>
+      <Carousel />
       <Footer />
     </div>
   );
