@@ -26,7 +26,8 @@ const Header = (props) => {
   const langString = localStorage.getItem("lang");
   const savedLang = langString ? JSON.parse(langString) : null;
 
-  const { user, loading } = useAuth();
+  const { user, loading, setUser } = useAuth();
+  console.log("user", user);
 
   const { i18n, t } = useTranslation();
 
@@ -108,6 +109,20 @@ const Header = (props) => {
     setMenuActive(!menuActive);
   };
 
+  const logout = async () => {
+    try {
+      const response = await api.post("/Accounts/logout");
+      console.log("Logout response:", response.data);
+
+      setUser(null);
+
+      window.location.href = "/login"; 
+    } catch (error) {
+      console.error("Logout error:", error);
+    }
+
+  }
+
   if (loading) {
     return null;
   }
@@ -183,19 +198,27 @@ const Header = (props) => {
 
         <div>
           {user ? (
-            user?.userRole.includes("ADMIN") ? (<Link to="/login">
-            <button className="login-button">
-              <span style={savedLang?.code === `ar` ? ARstyle : ENstyle}>
-                Dashboard
-              </span>
-            </button>
-          </Link>) : ("")
+            user?.userRole.includes("ADMIN") ? (
+              <Link to="/login">
+                <button className="login-button">
+                  <span style={savedLang?.code === `ar` ? ARstyle : ENstyle}>
+                    Dashboard
+                  </span>
+                </button>
+              </Link>
+            ) : (
+              ""
+            )
           ) : (
             <Link to="/login">
-              <i className="fa-solid fa-right-to-bracket"></i>
+              <button className="login-button">
+                <span>Login</span>
+              </button>
             </Link>
           )}
         </div>
+
+        {user && <i className="fa-solid fa-right-from-bracket" onClick={logout}></i>}
 
         <i className="fa-solid fa-bars menu" onClick={navBarMenu}></i>
       </div>

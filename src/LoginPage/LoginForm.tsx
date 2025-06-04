@@ -2,16 +2,30 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom'; 
 import './LoginForm.css';
 import image1 from '../assets/image2.png';
+import api from '../Services/api';
 
 const LoginForm = () => {
-    const [username, setUsername] = useState('');
+    const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [rememberMe, setRememberMe] = useState(false);
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
+
+        const criteria = { 
+            email: email.trim(),
+            password: password,
+        }
+
+        console.log("Submitting login with criteria:", criteria);
         
-        
+        try {
+            const request = await api.post("/Accounts/login", criteria);
+            console.log("Login successful:", request.data);
+            window.location.href = "/"; 
+        } catch (error) {
+            console.error("Login failed:", error);
+        }
     };
 
     return (
@@ -22,13 +36,13 @@ const LoginForm = () => {
 
                 <form onSubmit={handleSubmit} className="login-form">
                     <div className="input-group">
-                        <label htmlFor="username" className="input-label">Username</label>
+                        <label htmlFor="email" className="input-label">Email</label>
                         <input
-                            id="username"
+                            id="email"
                             type="text"
-                            value={username}
-                            onChange={(e) => setUsername(e.target.value)}
-                            placeholder="Enter your username"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                            placeholder="Enter your email"
                             className="input-field"
                         />
                     </div>

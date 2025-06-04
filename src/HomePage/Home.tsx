@@ -12,6 +12,7 @@ function Home() {
   const [filteredNews, setFilteredNews] = useState([]);
   const [langId, setLangId] = useState(savedLang?.id || 2)
   const { news } = useNews();
+  const [text, settext] = useState("");
   
   useEffect(() => {
     if (savedLang) {
