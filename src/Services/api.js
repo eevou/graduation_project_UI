@@ -23,11 +23,14 @@ api.interceptors.request.use(
 
 api.interceptors.response.use(
   (response) => {
+    console.log(response)
     return response;
   },
   async (error) => {
     const originalRequest = error.config;
 
+    console.log(error)
+    
     if (
       error.response.status === 401 &&
       !originalRequest._retry &&
