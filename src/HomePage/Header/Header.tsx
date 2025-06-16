@@ -27,7 +27,6 @@ const Header = (props) => {
   const savedLang = langString ? JSON.parse(langString) : null;
 
   const { user, loading, setUser } = useAuth();
-  console.log("user", user);
 
   const { i18n, t } = useTranslation();
 
@@ -199,7 +198,7 @@ const Header = (props) => {
         <div>
           {user ? (
             user?.userRole.includes("ADMIN") ? (
-              <Link to="/login">
+              <Link to="/dashboard">
                 <button className="login-button">
                   <span style={savedLang?.code === `ar` ? ARstyle : ENstyle}>
                     Dashboard
@@ -212,7 +211,7 @@ const Header = (props) => {
           ) : (
             <Link to="/login">
               <button className="login-button">
-                <span>Login</span>
+                <span style={savedLang?.code === `ar` ? ARstyle : ENstyle}>{t("header.login")}</span>
               </button>
             </Link>
           )}

@@ -8,6 +8,7 @@ const LoginForm = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [rememberMe, setRememberMe] = useState(false);
+    const [message, setMessage] = useState('')
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -16,8 +17,6 @@ const LoginForm = () => {
             email: email.trim(),
             password: password,
         }
-
-        console.log("Submitting login with criteria:", criteria);
         
         try {
             const request = await api.post("/Accounts/login", criteria);
@@ -25,6 +24,7 @@ const LoginForm = () => {
             window.location.href = "/"; 
         } catch (error) {
             console.error("Login failed:", error);
+            setMessage(error.response.data.message)
         }
     };
 
@@ -33,6 +33,7 @@ const LoginForm = () => {
             <div className="login-box">
                 <div className="crown-icon"><img src={image1} alt="" /></div>
                 <h1 className="login-title">Administrator Login</h1>
+                <p style={{color: "red"}}>{message}</p>
 
                 <form onSubmit={handleSubmit} className="login-form">
                     <div className="input-group">
@@ -44,6 +45,7 @@ const LoginForm = () => {
                             onChange={(e) => setEmail(e.target.value)}
                             placeholder="Enter your email"
                             className="input-field"
+                            required
                         />
                     </div>
 
@@ -56,6 +58,7 @@ const LoginForm = () => {
                             onChange={(e) => setPassword(e.target.value)}
                             placeholder="Enter your password"
                             className="input-field"
+                            required
                         />
                     </div>
 
@@ -77,10 +80,6 @@ const LoginForm = () => {
                         Sign in
                     </button>
                 </form>
-
-                <div className="new-admin">
-                    <span>New administrator ?</span>
-                </div>
 
                 <Link to="/signup">
                     <button type="button" className="create-account-button">

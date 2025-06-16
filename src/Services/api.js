@@ -23,19 +23,17 @@ api.interceptors.request.use(
 
 api.interceptors.response.use(
   (response) => {
-    console.log(response)
     return response;
   },
   async (error) => {
     const originalRequest = error.config;
-
-    console.log(error)
     
     if (
       error.response.status === 401 &&
       !originalRequest._retry &&
       !originalRequest.url.includes("/Accounts/refresh") &&
-      !originalRequest.url.includes("/Accounts/get-profile")
+      !originalRequest.url.includes("/Accounts/get-profile") &&
+      !originalRequest.url.includes("/Accounts/login") 
     ) {
       originalRequest._retry = true;
 
