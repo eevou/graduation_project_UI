@@ -4,7 +4,9 @@ import { useTranslation } from "react-i18next";
 import { useNews } from "../../Services/NewsContext";
 
 function Hero() {
-  const { news } = useNews();
+  const { getNews } = useNews();
+
+  const [news, setNews] = useState([])
 
   const isFeaturedimages = useMemo(() => {
     return news?.filter((item) => item.isFeatured).map((item) => item.image);
@@ -42,6 +44,17 @@ function Hero() {
       return () => clearInterval(interval);
     }
   }, [isPaused, startAutoSlide]);
+
+  useEffect(() => {
+    const fetchNews = async () => {
+      const result = await getNews(savedLang.id, 1, 10);
+      if (result) {
+        setNews(result);
+      }
+    };
+
+    fetchNews();
+  }, []);
 
   return (
     <div className="carousel-container">

@@ -2,17 +2,22 @@ import React, { useState } from "react";
 import { Star, Edit, Trash2, Plus, ArrowLeft, Menu } from "lucide-react";
 import "./Dashboard.css";
 import Header from "../HomePage/Header/Header";
+import { useTranslation } from "react-i18next";
+import "primereact/resources/themes/saga-blue/theme.css"; // or any other theme
+import "primereact/resources/primereact.min.css";
+import "primeicons/primeicons.css";
+import "quill/dist/quill.snow.css";
+import { Editor } from "primereact/editor";
+import truncate from "html-truncate";
 
 interface Article {
-  title: string;
   date: string;
   source: string;
-  summary: string;
   imageUrl: string;
   isFeatured: boolean;
   header: string;
   abbreviation: string;
-  content: string;
+  body: string;
   languageId: string;
   newsId: string;
   additionalImages: string[];
@@ -24,148 +29,131 @@ const NewsManagementDashboard: React.FC = () => {
   );
   const [editingArticle, setEditingArticle] = useState<Article | null>(null);
 
+  const savedLang = JSON.parse(localStorage.getItem("lang"));
+  const { i18n, t } = useTranslation("Dashboard");
+
   // Mock data
   const [articles, setArticles] = useState<Article[]>([
     {
-      title: "Breaking: Major Tech Breakthrough Announced",
       date: "2025-01-08",
       source: "Tech News Daily",
-      summary:
-        "A revolutionary advancement in artificial intelligence has been unveiled by leading researchers, promising to transform multiple industries.",
       imageUrl:
         "https://images.pexels.com/photos/546819/pexels-photo-546819.jpeg?auto=compress&cs=tinysrgb&w=400",
       isFeatured: true,
       header: "Technology",
       abbreviation: "TECH-001",
-      content: "Full article content here...",
+      body: "Full article content here...",
       languageId: "en",
       newsId: "NEWS-001",
       additionalImages: [],
     },
     {
-      title: "Global Climate Summit Reaches Historic Agreement",
       date: "2025-01-07",
       source: "Environmental Times",
-      summary:
-        "World leaders have reached a landmark agreement on climate action, setting ambitious targets for carbon reduction over the next decade.",
       imageUrl:
         "https://images.pexels.com/photos/1108701/pexels-photo-1108701.jpeg?auto=compress&cs=tinysrgb&w=400",
       isFeatured: false,
       header: "Environment",
       abbreviation: "ENV-001",
-      content: "Full article content here...",
+      body: "Full article body here...",
       languageId: "en",
       newsId: "NEWS-002",
       additionalImages: [],
     },
     {
-      title: "Economic Markets Show Strong Recovery Signs",
       date: "2025-01-06",
       source: "Financial Herald",
-      summary:
-        "Stock markets worldwide are showing positive trends as economic indicators suggest a robust recovery is underway.",
+
       imageUrl:
         "https://images.pexels.com/photos/159888/pexels-photo-159888.jpeg?auto=compress&cs=tinysrgb&w=400",
       isFeatured: true,
       header: "Finance",
       abbreviation: "FIN-001",
-      content: "Full article content here...",
+      body: "Full article body here...",
       languageId: "en",
       newsId: "NEWS-003",
       additionalImages: [],
     },
     {
-      title: "Economic Markets Show Strong Recovery Signs",
       date: "2025-01-06",
       source: "Financial Herald",
-      summary:
-        "Stock markets worldwide are showing positive trends as economic indicators suggest a robust recovery is underway.",
+
       imageUrl:
         "https://images.pexels.com/photos/159888/pexels-photo-159888.jpeg?auto=compress&cs=tinysrgb&w=400",
       isFeatured: true,
       header: "Finance",
       abbreviation: "FIN-001",
-      content: "Full article content here...",
+      body: "Full article body here...",
       languageId: "en",
       newsId: "NEWS-004",
       additionalImages: [],
     },
     {
-      title: "Economic Markets Show Strong Recovery Signs",
       date: "2025-01-06",
       source: "Financial Herald",
-      summary:
-        "Stock markets worldwide are showing positive trends as economic indicators suggest a robust recovery is underway.",
+
       imageUrl:
         "https://images.pexels.com/photos/159888/pexels-photo-159888.jpeg?auto=compress&cs=tinysrgb&w=400",
       isFeatured: true,
       header: "Finance",
       abbreviation: "FIN-001",
-      content: "Full article content here...",
+      body: "Full article body here...",
       languageId: "en",
       newsId: "NEWS-005",
       additionalImages: [],
     },
     {
-      title: "Economic Markets Show Strong Recovery Signs",
       date: "2025-01-06",
       source: "Financial Herald",
-      summary:
-        "Stock markets worldwide are showing positive trends as economic indicators suggest a robust recovery is underway.",
+
       imageUrl:
         "https://images.pexels.com/photos/159888/pexels-photo-159888.jpeg?auto=compress&cs=tinysrgb&w=400",
       isFeatured: true,
       header: "Finance",
       abbreviation: "FIN-001",
-      content: "Full article content here...",
+      body: "Full article body here...",
       languageId: "en",
       newsId: "NEWS-006",
       additionalImages: [],
     },
     {
-      title: "Economic Markets Show Strong Recovery Signs",
       date: "2025-01-06",
       source: "Financial Herald",
-      summary:
-        "Stock markets worldwide are showing positive trends as economic indicators suggest a robust recovery is underway.",
+
       imageUrl:
         "https://images.pexels.com/photos/159888/pexels-photo-159888.jpeg?auto=compress&cs=tinysrgb&w=400",
       isFeatured: true,
       header: "Finance",
       abbreviation: "FIN-001",
-      content: "Full article content here...",
+      body: "Full article body here...",
       languageId: "en",
       newsId: "NEWS-007",
       additionalImages: [],
     },
     {
-      title: "Economic Markets Show Strong Recovery Signs",
       date: "2025-01-06",
       source: "Financial Herald",
-      summary:
-        "Stock markets worldwide are showing positive trends as economic indicators suggest a robust recovery is underway.",
+
       imageUrl:
         "https://images.pexels.com/photos/159888/pexels-photo-159888.jpeg?auto=compress&cs=tinysrgb&w=400",
       isFeatured: true,
       header: "Finance",
       abbreviation: "FIN-001",
-      content: "Full article content here...",
+      body: "Full article body here...",
       languageId: "en",
       newsId: "NEWS-008",
       additionalImages: [],
     },
     {
-      title: "Economic Markets Show Strong Recovery Signs",
       date: "2025-01-06",
       source: "Financial Herald",
-      summary:
-        "Stock markets worldwide are showing positive trends as economic indicators suggest a robust recovery is underway.",
+
       imageUrl:
         "https://images.pexels.com/photos/159888/pexels-photo-159888.jpeg?auto=compress&cs=tinysrgb&w=400",
       isFeatured: true,
       header: "Finance",
       abbreviation: "FIN-001",
-      content: "Full article content here...",
+      body: "Full article body here...",
       languageId: "en",
       newsId: "NEWS-009",
       additionalImages: [],
@@ -174,15 +162,13 @@ const NewsManagementDashboard: React.FC = () => {
 
   // Form state
   const [formData, setFormData] = useState({
-    title: "",
     date: "",
     source: "",
-    summary: "",
     imageUrl: "",
     isFeatured: false,
     header: "",
     abbreviation: "",
-    content: "",
+    body: "",
     languageId: "",
     newsId: "",
     additionalImages: [""],
@@ -256,15 +242,13 @@ const NewsManagementDashboard: React.FC = () => {
 
   const resetForm = () => {
     setFormData({
-      title: "",
       date: "",
       source: "",
-      summary: "",
       imageUrl: "",
       isFeatured: false,
       header: "",
       abbreviation: "",
-      content: "",
+      body: "",
       languageId: "",
       newsId: "",
       additionalImages: [""],
@@ -293,22 +277,50 @@ const NewsManagementDashboard: React.FC = () => {
     setCurrentView("list");
   };
 
+  const pArStyle = {
+    fontFamily: "var(--MNF_Body_AR)",
+    fontSize: "13px",
+  };
+
+  const pEnStyle = {
+    fontFamily: "var(--MNF_Body_EN)",
+  };
+
+  const headArStyle = {
+    fontFamily: "var(--MNF_Heading_AR)",
+  };
+
+  const headEnStyle = {
+    fontFamily: "var(--MNF_Heading_EN)",
+  };
+
   return (
     <div className="dashboard-page">
       <Header />
 
-      <div className="dashboard-content">
-        <h1 className="dashboard-header-title">News Management Dashboard</h1>
-        
+      <div
+        className="dashboard-content"
+        style={savedLang?.code === `ar` ? pArStyle : pEnStyle}
+      >
+        <h1
+          className="dashboard-header-title"
+          style={savedLang?.code === `ar` ? headArStyle : headEnStyle}
+        >
+          {t("dashboard.title")}
+        </h1>
+
         <header className="dashboard-header">
           <button
             className={
               currentView === "create" ? "create-btn active" : "create-btn"
             }
-            onClick={() => {setCurrentView("create"), resetForm()}}
+            onClick={() => {
+              setCurrentView("create");
+              resetForm();
+            }}
           >
             <Plus size={16} />
-            Create New Article
+            {t("button.create")}
           </button>
           <button
             className={
@@ -316,8 +328,8 @@ const NewsManagementDashboard: React.FC = () => {
             }
             onClick={() => setCurrentView("list")}
           >
-            <Menu size={16}></Menu>
-            View News
+            <Menu size={16} />
+            {t("button.view")}
           </button>
         </header>
 
@@ -326,9 +338,9 @@ const NewsManagementDashboard: React.FC = () => {
             {articles.map((article) => (
               <div key={article.newsId} className="article-card">
                 <div className="article-image">
-                  <img src={article.imageUrl} alt={article.title} />
+                  <img src={article.imageUrl} alt={article.header} />
                   {article.isFeatured && (
-                    <p className="featured-badge">Featured</p>
+                    <p className="featured-badge">{t("badge.featured")}</p>
                   )}
                 </div>
                 <div className="article-content">
@@ -337,23 +349,28 @@ const NewsManagementDashboard: React.FC = () => {
                       {new Date(article.date).toLocaleDateString()}
                     </span>
                   </div>
-                  <h3 className="article-title">{article.title}</h3>
-                  <p className="article-source">Source: {article.source}</p>
-                  <p className="article-summary">{article.summary.slice(0, 50)}...</p>
+                  <h3 className="article-title">{article.header}</h3>
+                  <p className="article-source">
+                    {t("article.source")}: {article.source}
+                  </p>
+                  <div
+                    className="article-summary"
+                    dangerouslySetInnerHTML={{ __html: truncate(article.body, 50)}}
+                  />
                   <div className="article-actions">
                     <button
                       className="edit-btn"
                       onClick={() => handleEdit(article)}
                     >
                       <Edit size={16} />
-                      Edit
+                      {t("article.edit")}
                     </button>
                     <button
                       className="delete-btn"
                       onClick={() => handleDelete(article.newsId)}
                     >
                       <Trash2 size={16} />
-                      Delete
+                      {t("article.delete")}
                     </button>
                   </div>
                 </div>
@@ -366,25 +383,12 @@ const NewsManagementDashboard: React.FC = () => {
           <div className="form-container">
             <div className="form-card">
               <h2>
-                {currentView === "create"
-                  ? "Create New Article"
-                  : "Edit Article"}
+                {currentView === "create" ? t("form.create") : t("form.update")}
               </h2>
               <form onSubmit={handleSubmit} className="article-form">
                 <div className="form-row">
                   <div className="form-group">
-                    <label htmlFor="title">Title *</label>
-                    <input
-                      type="text"
-                      id="title"
-                      name="title"
-                      value={formData.title}
-                      onChange={handleInputChange}
-                      required
-                    />
-                  </div>
-                  <div className="form-group">
-                    <label htmlFor="date">Date *</label>
+                    <label htmlFor="date">{t("form.date")} *</label>
                     <input
                       type="date"
                       id="date"
@@ -394,11 +398,8 @@ const NewsManagementDashboard: React.FC = () => {
                       required
                     />
                   </div>
-                </div>
-
-                <div className="form-row">
                   <div className="form-group">
-                    <label htmlFor="source">Source *</label>
+                    <label htmlFor="source">{t("form.source")} *</label>
                     <input
                       type="text"
                       id="source"
@@ -408,73 +409,10 @@ const NewsManagementDashboard: React.FC = () => {
                       required
                     />
                   </div>
-                  <div className="form-group">
-                    <label htmlFor="header">Header</label>
-                    <input
-                      type="text"
-                      id="header"
-                      name="header"
-                      value={formData.header}
-                      onChange={handleInputChange}
-                    />
-                  </div>
-                </div>
-
-                <div className="form-row">
-                  <div className="form-group">
-                    <label htmlFor="abbreviation">Abbreviation</label>
-                    <input
-                      type="text"
-                      id="abbreviation"
-                      name="abbreviation"
-                      value={formData.abbreviation}
-                      onChange={handleInputChange}
-                    />
-                  </div>
-                  <div className="form-group">
-                    <label htmlFor="languageId">Language ID</label>
-                    <select
-                      id="languageId"
-                      name="languageId"
-                      value={formData.languageId}
-                      onChange={handleInputChange}
-                    >
-                      <option value="">Select Language</option>
-                      <option value="en">English</option>
-                      <option value="es">Spanish</option>
-                      <option value="fr">French</option>
-                      <option value="de">German</option>
-                    </select>
-                  </div>
-                </div>
-
-                <div className="form-row">
-                  <div className="form-group">
-                    <label htmlFor="newsId">News ID</label>
-                    <input
-                      type="text"
-                      id="newsId"
-                      name="newsId"
-                      value={formData.newsId}
-                      onChange={handleInputChange}
-                    />
-                  </div>
-                  <div className="form-group">
-                    <label className="checkbox-label">
-                      <input
-                        type="checkbox"
-                        name="isFeatured"
-                        checked={formData.isFeatured}
-                        onChange={handleInputChange}
-                      />
-                      <span className="checkmark"></span>
-                      Featured Article
-                    </label>
-                  </div>
                 </div>
 
                 <div className="form-group">
-                  <label htmlFor="imageUrl">Main Image URL *</label>
+                  <label htmlFor="imageUrl">{t("form.image")} *</label>
                   <input
                     type="url"
                     id="imageUrl"
@@ -486,7 +424,7 @@ const NewsManagementDashboard: React.FC = () => {
                 </div>
 
                 <div className="form-group">
-                  <label>Additional Images</label>
+                  <label>{t("form.additionalImages")}</label>
                   {formData.additionalImages.map((image, index) => (
                     <div key={index} className="additional-image-row">
                       <input
@@ -503,7 +441,7 @@ const NewsManagementDashboard: React.FC = () => {
                           onClick={() => removeAdditionalImageField(index)}
                           className="remove-addition-img-btn"
                         >
-                          Remove
+                          {t("form.removeImage")}
                         </button>
                       )}
                     </div>
@@ -513,46 +451,91 @@ const NewsManagementDashboard: React.FC = () => {
                     onClick={addAdditionalImageField}
                     className="add-addition-img-btn"
                   >
-                    Add Image
+                    {t("form.addImage")}
                   </button>
                 </div>
 
-                <div className="form-group">
-                  <label htmlFor="summary">Summary *</label>
-                  <textarea
-                    id="summary"
-                    name="summary"
-                    value={formData.summary}
-                    onChange={handleInputChange}
-                    rows={3}
-                    required
-                  />
+                <div className="form-row">
+                  <div className="form-group">
+                    <label htmlFor="header">{t("form.header")}</label>
+                    <input
+                      type="text"
+                      id="header"
+                      name="header"
+                      value={formData.header}
+                      onChange={handleInputChange}
+                    />
+                  </div>
+                  <div className="form-group">
+                    <label htmlFor="abbreviation">
+                      {t("form.abbreviation")}
+                    </label>
+                    <input
+                      type="text"
+                      id="abbreviation"
+                      name="abbreviation"
+                      value={formData.abbreviation}
+                      onChange={handleInputChange}
+                    />
+                  </div>
+                </div>
+
+                <div className="form-row">
+                  <div className="form-group">
+                    <label htmlFor="languageId">{t("form.languageId")}</label>
+                    <select
+                      id="languageId"
+                      name="languageId"
+                      value={formData.languageId}
+                      onChange={handleInputChange}
+                    >
+                      <option value="">{t("form.selectLanguage")}</option>
+                      <option value="en">English</option>
+                      <option value="es">Spanish</option>
+                      <option value="fr">French</option>
+                      <option value="de">German</option>
+                    </select>
+                  </div>
+                  <div className="form-group">
+                    <label className="checkbox-label">
+                      <input
+                        type="checkbox"
+                        name="isFeatured"
+                        checked={formData.isFeatured}
+                        onChange={handleInputChange}
+                      />
+                      <span className="checkmark"></span>
+                      {t("form.featured")}
+                    </label>
+                  </div>
                 </div>
 
                 <div className="form-group">
-                  <label htmlFor="content">Content *</label>
-                  <textarea
-                    id="content"
-                    name="content"
-                    value={formData.content}
-                    onChange={handleInputChange}
-                    rows={6}
-                    required
+                  <label htmlFor="summary">{t("form.summary")} *</label>
+                  <Editor
+                    value={formData.body}
+                    onTextChange={(e) =>
+                      setFormData((prev) => ({
+                        ...prev,
+                        body: e.htmlValue ?? "",
+                      }))
+                    }
+                    style={{ height: "320px", backgroundColor: "white" }}
                   />
                 </div>
 
                 <div className="form-actions">
                   <button type="submit" className="edit-btn">
                     {currentView === "create"
-                      ? "Create Article"
-                      : "Update Article"}
+                      ? t("form.create")
+                      : t("form.update")}
                   </button>
                   <button
                     type="button"
                     onClick={handleCancel}
                     className="cansel-btn"
                   >
-                    Cancel
+                    {t("form.cancel")}
                   </button>
                 </div>
               </form>

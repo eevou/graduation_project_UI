@@ -5,6 +5,7 @@ import logo from "../../assets/image.png";
 import api from "../../Services/api";
 import { useTranslation } from "react-i18next";
 import { useAuth } from "../../Services/authContext";
+import { useNews } from "../../Services/NewsContext";
 
 const Header = (props) => {
   const [displaySearch, setDisplaySearch] = useState(props.display || false);
@@ -27,6 +28,7 @@ const Header = (props) => {
   const savedLang = langString ? JSON.parse(langString) : null;
 
   const { user, loading, setUser } = useAuth();
+  const { news, getNews } = useNews();
 
   const { i18n, t } = useTranslation();
 
@@ -64,21 +66,6 @@ const Header = (props) => {
     }
   }, []);
 
-  const GetAllNews = (lang) => {
-    api
-      .get(`/News?langId=${lang?.id}&search=${inputRef.current.value}`)
-      .then((response) => {
-        props.setFilteredNews(response.data);
-      })
-      .catch((error) => {
-        console.error("Error fetching News:", error);
-      });
-  };
-
-  const Search = () => {
-    GetAllNews(savedLang);
-  };
-
   const GetNewsById = (lang) => {
     api
       .get(`News/Id?newsId=${location.state?.news.newsId}&langId=${lang.id}`)
@@ -93,7 +80,7 @@ const Header = (props) => {
   const changeLanguage = (lang) => {
     setLanguage(lang.code);
     localStorage.setItem("lang", JSON.stringify(lang));
-    GetAllNews(lang);
+    getNews(lang.id)
 
     if (location.pathname === `/details`) {
       GetNewsById(lang);
@@ -115,12 +102,11 @@ const Header = (props) => {
 
       setUser(null);
 
-      window.location.href = "/login"; 
+      window.location.href = "/login";
     } catch (error) {
       console.error("Logout error:", error);
     }
-
-  }
+  };
 
   if (loading) {
     return null;
@@ -167,7 +153,7 @@ const Header = (props) => {
           style={displaySearch ? { display: "flex" } : { display: "none" }}
         >
           <input type="search" className="search-input" ref={inputRef}></input>
-          <i className="fa-solid fa-magnifying-glass" onClick={Search}></i>
+          <i className="fa-solid fa-magnifying-glass"></i>
         </div>
         <div className="nav-lang-container" onClick={dropdownLang}>
           <i className="fa-solid fa-globe"></i>
@@ -211,13 +197,17 @@ const Header = (props) => {
           ) : (
             <Link to="/login">
               <button className="login-button">
-                <span style={savedLang?.code === `ar` ? ARstyle : ENstyle}>{t("header.login")}</span>
+                <span style={savedLang?.code === `ar` ? ARstyle : ENstyle}>
+                  {t("header.login")}
+                </span>
               </button>
             </Link>
           )}
         </div>
 
-        {user && <i className="fa-solid fa-right-from-bracket" onClick={logout}></i>}
+        {user && (
+          <i className="fa-solid fa-right-from-bracket" onClick={logout}></i>
+        )}
 
         <i className="fa-solid fa-bars menu" onClick={navBarMenu}></i>
       </div>
