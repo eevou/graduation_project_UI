@@ -1,10 +1,15 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./SectionOne.css";
 import { Link } from "react-router-dom";
+import { useNews } from "../../Services/NewsContext";
 
 function SectionOne(props) {
-  const News = props.News;
-  const savedLang = JSON.parse(localStorage.getItem("lang"));
+  const { getNews } = useNews();
+
+  const [news, setNews] = useState([]);
+
+  const langString = localStorage.getItem("lang");
+  const savedLang = langString ? JSON.parse(langString) : null;
 
   const ArStyle = {
     fontFamily: "var(--MNF_Heading_AR)",
@@ -22,6 +27,24 @@ function SectionOne(props) {
     right: "15px",
   };
 
+  useEffect(() => {
+    const fetchNews = async () => {
+      if (props.isReversed) {
+        const result = await getNews(savedLang.id, 2, 5);
+        if (result) {
+          setNews(result);
+        }
+      } else {
+        const result = await getNews(savedLang.id, 1, 5);
+        if (result) {
+          setNews(result);
+        }
+      }
+    };
+
+    fetchNews();
+  }, []);
+
   const formatDate = (rawDate) => {
     const date = new Date(rawDate);
     const year = date.getFullYear();
@@ -32,13 +55,13 @@ function SectionOne(props) {
 
   return (
     <div className="news-section" style={{ flexDirection: props.row }}>
-      {News[0] && (
+      {news[0] && (
         <Link
           to={`/details`}
-          state={{ news: News[0] }}
+          state={{ news: news[0] }}
           className="news-left-section"
         >
-          <img src={News[0].image} alt="" />
+          <img src={news[0].image} alt="" />
 
           <div
             className="about-news"
@@ -52,16 +75,20 @@ function SectionOne(props) {
             className="content"
             style={savedLang?.code === "ar" ? ArStyle : EnStyle}
           >
-            <h4>{News[0].header[0].slice(0, 100)}...</h4>
+            <h4>
+              {news[0].translations[0].header.length > 50
+                ? news[0]?.translations[0]?.header?.slice(0, 100) + "..."
+                : news[0]?.translations[0]?.header}
+            </h4>
             <div className="date-more">
-              <span>{formatDate(News[0].date)}</span>
+              <span>{formatDate(news[0]?.date)}</span>
             </div>
           </div>
         </Link>
       )}
 
       <div className="news-right-section">
-        {News.slice(1, 5).map((news, index) => (
+        {news.slice(1, 5).map((news, index) => (
           <Link to={`/details`} state={{ news }} className="card" key={index}>
             <img src={news.image} alt="" />
 
@@ -77,7 +104,9 @@ function SectionOne(props) {
               className="content"
               style={savedLang?.code === "ar" ? ArStyle : EnStyle}
             >
-              <h4>{news.header[0].slice(0, 100)}...</h4>
+              {news.translations[0].header.length > 50
+                ? news?.translations[0]?.header?.slice(0, 100) + "..."
+                : news?.translations[0]?.header}
               <div className="date-more">
                 <span>{formatDate(news.date)}</span>
               </div>
