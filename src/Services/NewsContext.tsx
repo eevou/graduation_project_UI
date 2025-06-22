@@ -11,6 +11,9 @@ export const NewsProvider = ({ children }) => {
     try {
       const response = await api.get("/News");
       setNews(response.data);
+
+      console.log("News fetched successfully:", response.data);
+
     } catch (error) {
       console.error("Error fetching news:", error);
       setNews(null);

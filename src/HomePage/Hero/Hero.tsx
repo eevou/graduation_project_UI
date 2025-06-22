@@ -5,9 +5,9 @@ import { useNews } from "../../Services/NewsContext";
 
 function Hero() {
   const { news } = useNews();
-
+console.log("News data in Hero component:", news);
   const isFeaturedimages = useMemo(() => {
-    return news?.filter((item) => item.isFeatured).map((item) => item.image);
+    return news?.filter((item) => item.isFeatured).map((item) => item?.image);
   }, [news]);
 
   const ARstyle = {
