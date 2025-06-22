@@ -1,10 +1,15 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./SectionTow.css";
 import { Link } from "react-router-dom";
+import { useNews } from "../../Services/NewsContext";
 
-function SectionTow(props) {
-  const News = props.News;
-  const savedLang = JSON.parse(localStorage.getItem("lang"));
+function SectionTow() {
+  const { getNews } = useNews();
+  
+  const [news, setNews] = useState([]);
+
+  const langString = localStorage.getItem("lang");
+  const savedLang = langString ? JSON.parse(langString) : null;
 
   const ArStyle = {
     fontFamily: "var(--MNF_Heading_AR)",
@@ -22,6 +27,17 @@ function SectionTow(props) {
     right: "15px",
   };
 
+  useEffect(() => {
+    const fetchNews = async () => {
+      const result = await getNews(savedLang.id, 2, 4);
+      if (result) {
+        setNews(result);
+      }
+    };
+
+    fetchNews();
+  }, []);
+
   const formatDate = (rawDate) => {
     const date = new Date(rawDate);
     const year = date.getFullYear();
@@ -32,7 +48,7 @@ function SectionTow(props) {
 
   return (
     <div className="news-bottom-section">
-      {News.map((news, index) => (
+      {news.map((news, index) => (
         <div className="card" key={index}>
           <img src={news.image} alt="" />
           <Link
@@ -47,7 +63,7 @@ function SectionTow(props) {
           <div className="card-overlay">
             <div className="content">
               <h4 style={savedLang?.code === "ar" ? ArStyle : EnStyle}>
-                {news.header[0].slice(0, 100)}...
+                {news.translations[0].header.slice(0, 100)}...
               </h4>
               <div className="date-more">
                 <span>{formatDate(news.date)}</span>

@@ -4,8 +4,15 @@ import { useTranslation } from "react-i18next";
 import { useNews } from "../../Services/NewsContext";
 
 function Hero() {
+<<<<<<< HEAD
   const { news } = useNews();
 console.log("News data in Hero component:", news);
+=======
+  const { getNews } = useNews();
+
+  const [news, setNews] = useState([])
+
+>>>>>>> 12b062b5d4a7eebbd34fda34468af9d8032bd89d
   const isFeaturedimages = useMemo(() => {
     return news?.filter((item) => item.isFeatured).map((item) => item?.image);
   }, [news]);
@@ -42,6 +49,17 @@ console.log("News data in Hero component:", news);
       return () => clearInterval(interval);
     }
   }, [isPaused, startAutoSlide]);
+
+  useEffect(() => {
+    const fetchNews = async () => {
+      const result = await getNews(savedLang.id, 1, 10);
+      if (result) {
+        setNews(result);
+      }
+    };
+
+    fetchNews();
+  }, []);
 
   return (
     <div className="carousel-container">
