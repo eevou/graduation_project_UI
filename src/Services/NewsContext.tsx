@@ -4,30 +4,45 @@ import api from "./api.js";
 const NewsContext = createContext();
 
 export const NewsProvider = ({ children }) => {
-  const [news, setNews] = useState(null);
+  const [news, setNews] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  const getNews = async () => {
-    try {
-      const response = await api.get("/News");
-      setNews(response.data);
+  const langString = localStorage.getItem("lang");
+  var savedLang = langString ? JSON.parse(langString) : null;
 
-      console.log("News fetched successfully:", response.data);
+  const getNews = async (
+    langId,
+    pageIndex = 1,
+    pageSize = 10,
+    date1 = null,
+    date2 = null
+  ) => {
+    try {
+
+      const response = await api.get("/News", {
+        params: {
+          langId: langId,
+          pageSize: pageSize,
+          pageIndex: pageIndex,
+          dateTime1: date1,
+          dateTime2: date2,
+        },
+      });
+
+      return response.data.data
 
     } catch (error) {
       console.error("Error fetching news:", error);
-      setNews(null);
+      return null
     } finally {
       setLoading(false);
     }
   };
 
-  useEffect(() => {
-    getNews();
-  }, []);
-
   return (
-    <NewsContext.Provider value={{ news, loading }}>{children}</NewsContext.Provider>
+    <NewsContext.Provider value={{ news, loading, getNews }}>
+      {children}
+    </NewsContext.Provider>
   );
 };
 

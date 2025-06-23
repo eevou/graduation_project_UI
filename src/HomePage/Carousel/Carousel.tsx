@@ -1,24 +1,25 @@
-import React, { useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { Link } from "react-router-dom";
 import "./Carousel.css";
 import { useNews } from "../../Services/NewsContext";
 
-
 export default function NewsCarousel(props) {
   const scrollRef = useRef<HTMLDivElement>(null);
   const langString = localStorage.getItem("lang");
   const savedLang = langString ? JSON.parse(langString) : null;
-  const { news } = useNews();
+  const { getNews } = useNews();
+
+  const [news, setNews] = useState([]);
 
   const ArStyle = {
     fontFamily: "var(--MNF_Body_AR)",
     // fontSize: "16px"
-  }
-  
+  };
+
   const EnStyle = {
     fontFamily: "var(--MNF_Body_EN)",
-  }
+  };
 
   const scroll = (direction: "left" | "right") => {
     const card = scrollRef.current?.childNodes[0].childNodes[0];
@@ -37,6 +38,17 @@ export default function NewsCarousel(props) {
     }
   };
 
+  useEffect(() => {
+    const fetchNews = async () => {
+      const result = await getNews(savedLang.id, 1, 10);
+      if (result) {
+        setNews(result);
+      }
+    };
+
+    fetchNews();
+  }, []);
+
   return (
     <div className="news-carousel">
       <div className="news-carousel-container">
@@ -53,7 +65,13 @@ export default function NewsCarousel(props) {
                           : "news-card-text news-card-text-right"
                       }
                     >
-                      <h3 className="news-card-title" style={savedLang?.code === `ar`? ArStyle : EnStyle}>{news.translations[0].header.slice(0, 75)}{news.translations[0].header.length > 75 && "..."}</h3>
+                      <h3
+                        className="news-card-title"
+                        style={savedLang?.code === `ar` ? ArStyle : EnStyle}
+                      >
+                        {news.translations[0].header.slice(0, 75)}
+                        {news.translations[0].header.length > 75 && "..."}
+                      </h3>
                       <Link
                         to={`/details`}
                         state={{ news }}
