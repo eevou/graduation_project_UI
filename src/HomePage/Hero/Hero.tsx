@@ -4,12 +4,13 @@ import { useTranslation } from "react-i18next";
 import { useNews } from "../../Services/NewsContext";
 
 function Hero() {
+
   const { getNews } = useNews();
 
   const [news, setNews] = useState([])
 
   const isFeaturedimages = useMemo(() => {
-    return news?.filter((item) => item.isFeatured).map((item) => item.image);
+    return news?.filter((item) => item.isFeatured).map((item) => item?.image);
   }, [news]);
 
   const ARstyle = {

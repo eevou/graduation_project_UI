@@ -18,6 +18,7 @@ export const NewsProvider = ({ children }) => {
     date2 = null
   ) => {
     try {
+
       const response = await api.get("/News", {
         params: {
           langId: langId,
