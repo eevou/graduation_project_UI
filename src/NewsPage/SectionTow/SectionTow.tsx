@@ -3,8 +3,8 @@ import "./SectionTow.css";
 import { Link } from "react-router-dom";
 import { useNews } from "../../Services/NewsContext";
 
-function SectionTow() {
-  const { getNews } = useNews();
+function SectionTow(props) {
+  const { getFilteredNews } = useNews();
   
   const [news, setNews] = useState([]);
 
@@ -29,7 +29,7 @@ function SectionTow() {
 
   useEffect(() => {
     const fetchNews = async () => {
-      const result = await getNews(savedLang.id, 2, 4);
+      const result = await getFilteredNews(savedLang.id, 2, 4);
       if (result) {
         setNews(result);
       }
