@@ -18,12 +18,6 @@ export const NewsProvider = ({ children }) => {
     date2 = null
   ) => {
     try {
-<<<<<<< HEAD
-      const response = await api.get("/News");
-      setNews(response.data);
-
-      console.log("News fetched successfully:", response.data);
-=======
       const response = await api.get("/News", {
         params: {
           langId: langId,
@@ -35,7 +29,6 @@ export const NewsProvider = ({ children }) => {
       });
 
       return response.data.data
->>>>>>> 12b062b5d4a7eebbd34fda34468af9d8032bd89d
 
     } catch (error) {
       console.error("Error fetching news:", error);
