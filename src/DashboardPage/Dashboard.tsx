@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Star, Edit, Trash2, Plus, ArrowLeft, Menu } from "lucide-react";
 import "./Dashboard.css";
+import { useNews } from "../Services/NewsContext";
 import Header from "../HomePage/Header/Header";
 import { useTranslation } from "react-i18next";
 import "primereact/resources/themes/saga-blue/theme.css"; // or any other theme
@@ -12,15 +13,20 @@ import truncate from "html-truncate";
 
 interface Article {
   date: string;
-  source: string;
-  imageUrl: string;
-  isFeatured: boolean;
-  header: string;
-  abbreviation: string;
-  body: string;
-  languageId: string;
+  ownerId: string;
+  image: string;
   newsId: string;
-  additionalImages: string[];
+  isFeatured: boolean;
+  gallaries: string[];
+  translations: {
+    header: string;
+    abbreviation: string;
+    body: string;
+    id: number;
+    source: string;
+    languageId: number;
+    newsId: string;
+  }[];
 }
 
 const NewsManagementDashboard: React.FC = () => {
@@ -29,136 +35,22 @@ const NewsManagementDashboard: React.FC = () => {
   );
   const [editingArticle, setEditingArticle] = useState<Article | null>(null);
 
-  const savedLang = JSON.parse(localStorage.getItem("lang"));
+  const { getNews, langId } = useNews();
+  const [articles, setArticles] = useState<Article[]>([]);
+
+  const langString = localStorage.getItem("lang");
+  const savedLang = langString ? JSON.parse(langString) : null;
   const { i18n, t } = useTranslation("Dashboard");
 
-  // Mock data
-  const [articles, setArticles] = useState<Article[]>([
-    {
-      date: "2025-01-08",
-      source: "Tech News Daily",
-      imageUrl:
-        "https://images.pexels.com/photos/546819/pexels-photo-546819.jpeg?auto=compress&cs=tinysrgb&w=400",
-      isFeatured: true,
-      header: "Technology",
-      abbreviation: "TECH-001",
-      body: "Full article content here...",
-      languageId: "en",
-      newsId: "NEWS-001",
-      additionalImages: [],
-    },
-    {
-      date: "2025-01-07",
-      source: "Environmental Times",
-      imageUrl:
-        "https://images.pexels.com/photos/1108701/pexels-photo-1108701.jpeg?auto=compress&cs=tinysrgb&w=400",
-      isFeatured: false,
-      header: "Environment",
-      abbreviation: "ENV-001",
-      body: "Full article body here...",
-      languageId: "en",
-      newsId: "NEWS-002",
-      additionalImages: [],
-    },
-    {
-      date: "2025-01-06",
-      source: "Financial Herald",
+  
+  useEffect(() => {
+    const fetchNews = async () => {
+      const newsData = await getNews(langId);
+      setArticles(newsData.data);
+    };
 
-      imageUrl:
-        "https://images.pexels.com/photos/159888/pexels-photo-159888.jpeg?auto=compress&cs=tinysrgb&w=400",
-      isFeatured: true,
-      header: "Finance",
-      abbreviation: "FIN-001",
-      body: "Full article body here...",
-      languageId: "en",
-      newsId: "NEWS-003",
-      additionalImages: [],
-    },
-    {
-      date: "2025-01-06",
-      source: "Financial Herald",
-
-      imageUrl:
-        "https://images.pexels.com/photos/159888/pexels-photo-159888.jpeg?auto=compress&cs=tinysrgb&w=400",
-      isFeatured: true,
-      header: "Finance",
-      abbreviation: "FIN-001",
-      body: "Full article body here...",
-      languageId: "en",
-      newsId: "NEWS-004",
-      additionalImages: [],
-    },
-    {
-      date: "2025-01-06",
-      source: "Financial Herald",
-
-      imageUrl:
-        "https://images.pexels.com/photos/159888/pexels-photo-159888.jpeg?auto=compress&cs=tinysrgb&w=400",
-      isFeatured: true,
-      header: "Finance",
-      abbreviation: "FIN-001",
-      body: "Full article body here...",
-      languageId: "en",
-      newsId: "NEWS-005",
-      additionalImages: [],
-    },
-    {
-      date: "2025-01-06",
-      source: "Financial Herald",
-
-      imageUrl:
-        "https://images.pexels.com/photos/159888/pexels-photo-159888.jpeg?auto=compress&cs=tinysrgb&w=400",
-      isFeatured: true,
-      header: "Finance",
-      abbreviation: "FIN-001",
-      body: "Full article body here...",
-      languageId: "en",
-      newsId: "NEWS-006",
-      additionalImages: [],
-    },
-    {
-      date: "2025-01-06",
-      source: "Financial Herald",
-
-      imageUrl:
-        "https://images.pexels.com/photos/159888/pexels-photo-159888.jpeg?auto=compress&cs=tinysrgb&w=400",
-      isFeatured: true,
-      header: "Finance",
-      abbreviation: "FIN-001",
-      body: "Full article body here...",
-      languageId: "en",
-      newsId: "NEWS-007",
-      additionalImages: [],
-    },
-    {
-      date: "2025-01-06",
-      source: "Financial Herald",
-
-      imageUrl:
-        "https://images.pexels.com/photos/159888/pexels-photo-159888.jpeg?auto=compress&cs=tinysrgb&w=400",
-      isFeatured: true,
-      header: "Finance",
-      abbreviation: "FIN-001",
-      body: "Full article body here...",
-      languageId: "en",
-      newsId: "NEWS-008",
-      additionalImages: [],
-    },
-    {
-      date: "2025-01-06",
-      source: "Financial Herald",
-
-      imageUrl:
-        "https://images.pexels.com/photos/159888/pexels-photo-159888.jpeg?auto=compress&cs=tinysrgb&w=400",
-      isFeatured: true,
-      header: "Finance",
-      abbreviation: "FIN-001",
-      body: "Full article body here...",
-      languageId: "en",
-      newsId: "NEWS-009",
-      additionalImages: [],
-    },
-  ]);
+    fetchNews();
+  }, [langId]);
 
   // Form state
   const [formData, setFormData] = useState({
@@ -216,9 +108,7 @@ const NewsManagementDashboard: React.FC = () => {
       const newArticle: Article = {
         ...formData,
         newsId: Date.now().toString(),
-        additionalImages: formData.additionalImages.filter(
-          (img) => img.trim() !== ""
-        ),
+        gallaries: formData.additionalImages.filter((img) => img.trim() !== ""),
       };
       setArticles((prev) => [...prev, newArticle]);
     } else if (currentView === "edit" && editingArticle) {
@@ -228,7 +118,7 @@ const NewsManagementDashboard: React.FC = () => {
             ? {
                 ...formData,
                 newsId: editingArticle.newsId,
-                additionalImages: formData.additionalImages.filter(
+                gallaries: formData.additionalImages.filter(
                   (img) => img.trim() !== ""
                 ),
               }
@@ -259,8 +149,7 @@ const NewsManagementDashboard: React.FC = () => {
   const handleEdit = (article: Article) => {
     setFormData({
       ...article,
-      additionalImages:
-        article.additionalImages.length > 0 ? article.additionalImages : [""],
+      additionalImages: article.gallaries.length > 0 ? article.gallaries : [""],
     });
     setEditingArticle(article);
     setCurrentView("edit");
@@ -338,7 +227,7 @@ const NewsManagementDashboard: React.FC = () => {
             {articles.map((article) => (
               <div key={article.newsId} className="article-card">
                 <div className="article-image">
-                  <img src={article.imageUrl} alt={article.header} />
+                  <img src={article.image} alt={article?.translations[0]?.header} />
                   {article.isFeatured && (
                     <p className="featured-badge">{t("badge.featured")}</p>
                   )}
@@ -349,13 +238,15 @@ const NewsManagementDashboard: React.FC = () => {
                       {new Date(article.date).toLocaleDateString()}
                     </span>
                   </div>
-                  <h3 className="article-title">{article.header}</h3>
+                  <h3 className="article-title">{article?.translations[0]?.header}</h3>
                   <p className="article-source">
-                    {t("article.source")}: {article.source}
+                    {t("article.source")}: {article?.translations[0]?.source}
                   </p>
                   <div
                     className="article-summary"
-                    dangerouslySetInnerHTML={{ __html: truncate(article.body, 50)}}
+                    dangerouslySetInnerHTML={{
+                      __html: truncate(article?.translations[0]?.body, 50),
+                    }}
                   />
                   <div className="article-actions">
                     <button
@@ -367,7 +258,7 @@ const NewsManagementDashboard: React.FC = () => {
                     </button>
                     <button
                       className="delete-btn"
-                      onClick={() => handleDelete(article.newsId)}
+                      onClick={() => handleDelete(article?.newsId)}
                     >
                       <Trash2 size={16} />
                       {t("article.delete")}
