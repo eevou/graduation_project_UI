@@ -4,9 +4,8 @@ import { useTranslation } from "react-i18next";
 import { useNews } from "../../Services/NewsContext";
 
 function Hero() {
-  const { getNews } = useNews();
-
-  const [news, setNews] = useState([])
+  const { getNews, langId } = useNews();
+  const [news, setNews] = useState([]);
 
   const isFeaturedimages = useMemo(() => {
     return news?.filter((item) => item.isFeatured).map((item) => item.image);
@@ -27,7 +26,9 @@ function Hero() {
     justifyContent: "flex-start",
   };
 
-  const savedLang = JSON.parse(localStorage.getItem("lang"));
+  const langString = localStorage.getItem("lang");
+  const savedLang = langString ? JSON.parse(langString) : null;
+  
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
   const { i18n, t } = useTranslation();
@@ -47,14 +48,12 @@ function Hero() {
 
   useEffect(() => {
     const fetchNews = async () => {
-      const result = await getNews(savedLang.id, 1, 10);
-      if (result) {
-        setNews(result);
-      }
+      const newsData = await getNews(langId);
+      setNews(newsData.data);
     };
 
     fetchNews();
-  }, []);
+  }, [langId]);
 
   return (
     <div className="carousel-container">

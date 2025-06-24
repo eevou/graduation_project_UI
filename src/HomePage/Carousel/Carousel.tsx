@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { use, useEffect, useRef, useState } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { Link } from "react-router-dom";
 import "./Carousel.css";
@@ -8,9 +8,9 @@ export default function NewsCarousel(props) {
   const scrollRef = useRef<HTMLDivElement>(null);
   const langString = localStorage.getItem("lang");
   const savedLang = langString ? JSON.parse(langString) : null;
-  const { getNews } = useNews();
 
   const [news, setNews] = useState([]);
+  const { getNews, langId } = useNews();
 
   const ArStyle = {
     fontFamily: "var(--MNF_Body_AR)",
@@ -40,14 +40,12 @@ export default function NewsCarousel(props) {
 
   useEffect(() => {
     const fetchNews = async () => {
-      const result = await getNews(savedLang.id, 1, 10);
-      if (result) {
-        setNews(result);
-      }
+      const newsData = await getNews(langId);
+      setNews(newsData.data);
     };
 
     fetchNews();
-  }, []);
+  }, [langId]);  
 
   return (
     <div className="news-carousel">
@@ -69,8 +67,8 @@ export default function NewsCarousel(props) {
                         className="news-card-title"
                         style={savedLang?.code === `ar` ? ArStyle : EnStyle}
                       >
-                        {news.translations[0].header.slice(0, 75)}
-                        {news.translations[0].header.length > 75 && "..."}
+                        {news?.translations[0]?.header?.slice(0, 75)}
+                        {news?.translations[0]?.header?.length > 75 && "..."}
                       </h3>
                       <Link
                         to={`/details`}

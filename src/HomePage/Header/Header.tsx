@@ -28,7 +28,7 @@ const Header = (props) => {
   const savedLang = langString ? JSON.parse(langString) : null;
 
   const { user, loading, setUser } = useAuth();
-  const { news, getNews } = useNews();
+  const { news, getNews, setLangId } = useNews();
 
   const { i18n, t } = useTranslation();
 
@@ -80,8 +80,9 @@ const Header = (props) => {
   const changeLanguage = (lang) => {
     setLanguage(lang.code);
     localStorage.setItem("lang", JSON.stringify(lang));
+    
     getNews(lang.id)
-
+    setLangId(lang.id);
     if (location.pathname === `/details`) {
       GetNewsById(lang);
     }
@@ -148,13 +149,13 @@ const Header = (props) => {
       </nav>
 
       <div className="nav-icons">
-        <div
+        {/* <div
           className="search-container"
           style={displaySearch ? { display: "flex" } : { display: "none" }}
         >
           <input type="search" className="search-input" ref={inputRef}></input>
           <i className="fa-solid fa-magnifying-glass"></i>
-        </div>
+        </div> */}
         <div className="nav-lang-container" onClick={dropdownLang}>
           <i className="fa-solid fa-globe"></i>
           <span>{language.toUpperCase()}</span>
