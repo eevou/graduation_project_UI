@@ -103,45 +103,80 @@ const Sector = () => {
     <div className="page-container">
       <Header index={2}></Header>
 
-      {/* Hero Section with Classification */}
-      <div
-        className="hero-container"
-        style={{
-          backgroundImage: "url(https://i.pinimg.com/736x/6a/d4/df/6ad4df6cc3a3734cc7776f05e9f9ee39.jpg)",
-          backgroundPosition: "center",
-          backgroundSize: "cover",
-        }}
-      >
-        <div className="hero-image"></div>
-        <div className="hero-overlay"></div>
-        <div className="hero-content">
-          <div className="hero-title-section">
-            <div className="hero-icon">🎓</div>
-            <h1 className="hero-main-title" style={savedLang?.code === `ar` ? headArStyle : headEnStyle}>
-              {savedLang?.code === `ar` ? "كلياتنا" : "Our Faculties"}
-            </h1>
+      {/* Modern Hero Section with Classification */}
+      <div className="modern-hero-container">
+        <div className="hero-background-layers">
+          <div className="hero-bg-primary"></div>
+          <div className="hero-bg-secondary"></div>
+          <div className="hero-particles"></div>
+        </div>
+
+        <div className="hero-content-wrapper">
+          <div className="hero-main-content">
+            <div className="hero-badge">
+              <span className="badge-icon">🌟</span>
+              <span className="badge-text" style={savedLang?.code === `ar` ? pArStyle : pEnStyle}>
+                {savedLang?.code === `ar` ? "تصنيف دولي معتمد" : "Internationally Accredited"}
+              </span>
+            </div>
+
+            <div className="hero-title-container">
+              <div className="hero-icon-modern">🎓</div>
+              <h1 className="hero-title-modern" style={savedLang?.code === `ar` ? headArStyle : headEnStyle}>
+                {savedLang?.code === `ar` ? "كلياتنا المتميزة" : "Our Distinguished Faculties"}
+              </h1>
+              <p className="hero-subtitle" style={savedLang?.code === `ar` ? pArStyle : pEnStyle}>
+                {savedLang?.code === `ar`
+                  ? "رحلة التعليم العالي تبدأ هنا - اكتشف مستقبلك الأكاديمي"
+                  : "Your higher education journey starts here - Discover your academic future"}
+              </p>
+            </div>
           </div>
-          <div
-            className={
-              savedLang?.code === `ar`
-                ? "classification-box ar-classification-box"
-                : "classification-box en-classification-box"
-            }
-          >
-            <h2 className="classification-title" style={savedLang?.code === `ar` ? headArStyle : headEnStyle}>
-              {t("classification")}
-            </h2>
-            <p className="classification-text" style={savedLang?.code === `ar` ? pArStyle : pEnStyle}>
-              {t("classification-desc")}
-            </p>
+
+          <div className="classification-modern-container">
+            <div className="classification-card">
+              <div className="classification-header">
+                
+                <h2 className="classification-title-modern" style={savedLang?.code === `ar` ? headArStyle : headEnStyle}>
+                  {t("classification")}
+                </h2>
+              </div>
+              <div className="classification-content">
+                <p className="classification-description" style={savedLang?.code === `ar` ? pArStyle : pEnStyle}>
+                  {t("classification-desc")}
+                </p>
+                <div className="classification-features">
+                  <div className="feature-item">
+                    <span className="feature-icon">✅</span>
+                    <span className="feature-text" style={savedLang?.code === `ar` ? pArStyle : pEnStyle}>
+                      {savedLang?.code === `ar` ? "معتمدة دولياً" : "Internationally Accredited"}
+                    </span>
+                  </div>
+                  <div className="feature-item">
+                    <span className="feature-icon">🌍</span>
+                    <span className="feature-text" style={savedLang?.code === `ar` ? pArStyle : pEnStyle}>
+                      {savedLang?.code === `ar` ? "معايير عالمية" : "Global Standards"}
+                    </span>
+                  </div>
+                  <div className="feature-item">
+                    <span className="feature-icon">📈</span>
+                    <span className="feature-text" style={savedLang?.code === `ar` ? pArStyle : pEnStyle}>
+                      {savedLang?.code === `ar` ? "تطوير مستمر" : "Continuous Development"}
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
+
+       
       </div>
 
       {/* Stats Section */}
       <div className="stats-section">
         <div className="stats-container">
-          <div className="stats-icon">🏆</div>
+          
           <div className="title-container">
             <div className="title-header">
               <h1 className="title-text" style={savedLang?.code === `ar` ? headArStyle : headEnStyle}>
@@ -286,12 +321,10 @@ const Sector = () => {
               : "Discover world-class education opportunities across our diverse range of faculties and programs."}
           </p>
           <div className="cta-buttons">
-            <button className="cta-button primary" style={savedLang?.code === `ar` ? pArStyle : pEnStyle}>
+            <a href="#"><button className="cta-button primary" style={savedLang?.code === `ar` ? pArStyle : pEnStyle}>
               {savedLang?.code === `ar` ? "استكشف البرامج" : "Explore Programs"}
-            </button>
-            <button className="cta-button secondary" style={savedLang?.code === `ar` ? pArStyle : pEnStyle}>
-              {savedLang?.code === `ar` ? "اتصل بالقبول" : "Contact Admissions"}
-            </button>
+            </button></a>
+            
           </div>
         </div>
       </section>
