@@ -4,13 +4,8 @@ import { useTranslation } from "react-i18next";
 import { useNews } from "../../Services/NewsContext";
 
 function Hero() {
-<<<<<<< HEAD
-  const { getNews } = useNews();
-=======
   const { getNews, langId } = useNews();
   const [news, setNews] = useState([]);
->>>>>>> 104b955f94e4050bad86b2918dac83a259b67100
-
 
   const isFeaturedimages = useMemo(() => {
     return news?.filter((item) => item.isFeatured).map((item) => item?.image);
