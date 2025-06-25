@@ -28,7 +28,7 @@ function Hero() {
 
   const langString = localStorage.getItem("lang");
   const savedLang = langString ? JSON.parse(langString) : null;
-  
+
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
   const { i18n, t } = useTranslation();
@@ -50,6 +50,7 @@ function Hero() {
     const fetchNews = async () => {
       const newsData = await getNews(langId);
       setNews(newsData.data);
+      console.log(newsData);
     };
 
     fetchNews();
@@ -58,7 +59,7 @@ function Hero() {
   return (
     <div className="carousel-container">
       <div
-        style={savedLang?.code === `ar`? carouselArStyle : carouselEnStyle}
+        style={savedLang?.code === `ar` ? carouselArStyle : carouselEnStyle}
         className="carousel"
         onMouseEnter={() => setIsPaused(true)}
         onMouseLeave={() => setIsPaused(false)}
@@ -81,16 +82,15 @@ function Hero() {
           ))}
         </div>
 
-        <h1 className="carousel-heading" style={savedLang?.code === `ar`? ARstyle : ENstyle}>{t("hero.title")}</h1>
+        <h1 className="carousel-heading" style={savedLang?.code === `ar` ? ARstyle : ENstyle}>{t("hero.title")}</h1>
 
         <div className="carousel-dots">
           {isFeaturedimages?.map((_, index) => (
             <button
               key={index}
               onClick={() => setCurrentIndex(index)}
-              className={`carousel-dot ${
-                currentIndex === index ? "active" : ""
-              }`}
+              className={`carousel-dot ${currentIndex === index ? "active" : ""
+                }`}
               aria-label={`Go to slide ${index + 1}`}
             />
           ))}
