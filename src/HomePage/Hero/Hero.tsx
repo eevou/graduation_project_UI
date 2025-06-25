@@ -7,7 +7,6 @@ function Hero() {
   const { getNews, langId } = useNews();
   const [news, setNews] = useState([]);
 
-
   const isFeaturedimages = useMemo(() => {
     return news?.filter((item) => item.isFeatured).map((item) => item?.image);
   }, [news]);
