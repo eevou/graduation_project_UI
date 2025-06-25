@@ -30,6 +30,8 @@ export const NewsProvider = ({ children }) => {
           dateTime2: date2,
         },
       });
+      console.log(response.data);
+      
       return response.data;
     } catch (error) {
       console.error("Error fetching news:", error);
