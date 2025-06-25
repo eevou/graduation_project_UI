@@ -4,15 +4,8 @@ import { useTranslation } from "react-i18next";
 import { useNews } from "../../Services/NewsContext";
 
 function Hero() {
-<<<<<<<<< Temporary merge branch 1
-
-  const { getNews } = useNews();
-
-  const [news, setNews] = useState([])
-=========
   const { getNews, langId } = useNews();
   const [news, setNews] = useState([]);
->>>>>>>>> Temporary merge branch 2
 
   const isFeaturedimages = useMemo(() => {
     return news?.filter((item) => item.isFeatured).map((item) => item?.image);
