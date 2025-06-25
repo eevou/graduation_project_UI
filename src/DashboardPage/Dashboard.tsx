@@ -240,13 +240,13 @@ const NewsManagementDashboard: React.FC = () => {
                   </div>
                   <h3 className="article-title">{article?.translations[0]?.header}</h3>
                   <p className="article-source">
-                    {t("article.source")}: {article?.translations[0]?.source}
+                    {t("article.source")}: {article?.translations[0]?.body}
                   </p>
                   <div
                     className="article-summary"
-                    dangerouslySetInnerHTML={{
-                      __html: truncate(article?.translations[0]?.body, 50),
-                    }}
+                    // dangerouslySetInnerHTML={{
+                    //   __html: truncate(article?.translations[0]?.body, 50),
+                    // }}
                   />
                   <div className="article-actions">
                     <button

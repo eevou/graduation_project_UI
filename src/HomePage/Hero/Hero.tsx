@@ -4,7 +4,7 @@ import { useTranslation } from "react-i18next";
 import { useNews } from "../../Services/NewsContext";
 
 function Hero() {
-  const { getNews } = useNews();
+  const { getNews, langId } = useNews();
 
   const [news, setNews] = useState([])
 
