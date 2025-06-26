@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useRef } from "react";
-import { useLocation, useParams, Link } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { useLocation, Link } from "react-router-dom";
 import "./Header.css";
 import logo from "../../assets/image.png";
 import api from "../../Services/api";
@@ -8,36 +8,23 @@ import { useAuth } from "../../Services/authContext";
 import { useNews } from "../../Services/NewsContext";
 
 const Header = (props) => {
-  const [displaySearch, setDisplaySearch] = useState(props.display || false);
+  const [langActive, setLangActive] = useState(false);
+  const [menuActive, setMenuActive] = useState(false);
+  const [language, setLanguage] = useState("EN");
+  const [showHeader, setShowHeader] = useState(true);
+  const [showTopBtn, setShowTopBtn] = useState(false);
+  const [lastScrollY, setLastScrollY] = useState(0);
 
-  const ARstyle = {
-    fontFamily: "var(--MNF_Body_AR)",
-    fontSize: "13px",
-  };
-  const ENstyle = {
-    fontFamily: "var(--MNF_Body_EN)",
-  };
-  const closeStyleAr = {
-    right: "170px",
-  };
-  const closeStyleEn = {
-    left: "170px",
-  };
+  const { user, loading, setUser } = useAuth();
+  const { getNews, setLangId } = useNews();
+  const { i18n, t } = useTranslation();
+  const location = useLocation();
 
   const langString = localStorage.getItem("lang");
   const savedLang = langString ? JSON.parse(langString) : null;
 
-  const { user, loading, setUser } = useAuth();
-  const { news, getNews, setLangId } = useNews();
-
-  const { i18n, t } = useTranslation();
-
-  const [langActive, setlangActive] = useState(false);
-  const [menuActive, setMenuActive] = useState(false);
-  const [language, setLanguage] = useState("EN");
-  const [searchValue, setSearchValue] = useState("");
-  const inputRef = useRef();
-  const location = useLocation();
+  const ARstyle = { fontFamily: "var(--MNF_Body_AR)", fontSize: "13px" };
+  const ENstyle = { fontFamily: "var(--MNF_Body_EN)" };
 
   const languages = [
     { code: "ar", name: t("header.Arabic"), id: 1 },
@@ -54,7 +41,7 @@ const Header = (props) => {
     { name: t("header.contact US"), link: "/contactUs" },
   ];
 
-  const changeAllLanguage = (lng: string) => {
+  const changeAllLanguage = (lng) => {
     i18n.changeLanguage(lng);
     document.documentElement.dir = lng === "ar" ? "rtl" : "ltr";
   };
@@ -69,150 +56,130 @@ const Header = (props) => {
   const GetNewsById = (lang) => {
     api
       .get(`News/Id?newsId=${location.state?.news.newsId}&langId=${lang.id}`)
-      .then((response) => {
-        props.setCurrentNews(response.data);
-      })
-      .catch((error) => {
-        console.error("Error fetching News:", error);
-      });
+      .then((response) => props.setCurrentNews(response.data))
+      .catch((error) => console.error("Error fetching News:", error));
   };
 
   const changeLanguage = (lang) => {
     setLanguage(lang.code);
     localStorage.setItem("lang", JSON.stringify(lang));
-    
-    getNews(lang.id)
+    getNews(lang.id);
     setLangId(lang.id);
-    if (location.pathname === `/details`) {
-      GetNewsById(lang);
-    }
-  };
-
-  const dropdownLang = () => {
-    setlangActive(!langActive);
-  };
-
-  const navBarMenu = () => {
-    setMenuActive(!menuActive);
+    if (location.pathname === `/details`) GetNewsById(lang);
   };
 
   const logout = async () => {
     try {
-      const response = await api.post("/Accounts/logout");
-      console.log("Logout response:", response.data);
-
+      await api.post("/Accounts/logout");
       setUser(null);
-
       window.location.href = "/login";
     } catch (error) {
       console.error("Logout error:", error);
     }
   };
 
-  if (loading) {
-    return null;
-  }
+  const handleScroll = () => {
+    const currentScrollY = window.scrollY;
+
+    // Show/hide header
+    if (currentScrollY > lastScrollY && currentScrollY > 100) {
+      setShowHeader(false);
+    } else {
+      setShowHeader(true);
+    }
+
+    // Show back to top button
+    setShowTopBtn(currentScrollY > 300);
+
+    setLastScrollY(currentScrollY);
+  };
+
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
+  useEffect(() => {
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [lastScrollY]);
+
+  if (loading) return null;
 
   return (
-    <header className="nav-container">
-      <div className="rightHeader">
-        <a href="\" className="nav-logo">
-          <img src={logo} alt="International Students Affairs office Logo" />
+    <>
+      <header className={`new-nav-container ${showHeader ? "show" : "hide"}`}>
+        <a href="/" className="nav-logo">
+          <img src={logo} alt="Logo" />
         </a>
-      </div>
 
-      <nav
-        className={`${menuActive ? "nav-links nav-active" : "nav-links"} ${
-          savedLang?.code === `ar` ? "nav-linksar" : "nav-linksen"
-        }`}
-      >
-        <i
-          className="fa-solid fa-times close"
-          onClick={navBarMenu}
-          style={savedLang?.code === `ar` ? closeStyleAr : closeStyleEn}
-        ></i>
-
-        <ul>
-          {navLinks.map((link, index) => {
-            return (
+        <nav
+          className={`nav-section ${menuActive ? "nav-open" : ""} ${savedLang?.code === "ar" ? "nav-ar" : "nav-en"
+            }`}
+        >
+          <i className="fa-solid fa-times close-icon" onClick={() => setMenuActive(false)}></i>
+          <ul className={`nav-links-list ${savedLang?.code === "ar" ? "rtl" : ""}`}>
+            {navLinks.map((link, index) => (
               <li key={index} className={props.index === index ? "active" : ""}>
                 <a
                   href={link.link}
-                  style={savedLang?.code === `ar` ? ARstyle : ENstyle}
+                  style={savedLang?.code === "ar" ? ARstyle : ENstyle}
                 >
-                  {t(`${link.name}`)}
+                  {link.name}
                 </a>
               </li>
-            );
-          })}
-        </ul>
-      </nav>
+            ))}
+          </ul>
+        </nav>
 
-      <div className="nav-icons">
-        {/* <div
-          className="search-container"
-          style={displaySearch ? { display: "flex" } : { display: "none" }}
-        >
-          <input type="search" className="search-input" ref={inputRef}></input>
-          <i className="fa-solid fa-magnifying-glass"></i>
-        </div> */}
-        <div className="nav-lang-container" onClick={dropdownLang}>
-          <i className="fa-solid fa-globe"></i>
-          <span>{language.toUpperCase()}</span>
-
-          <div
-            className={
-              langActive ? "lang-dropdown lang-active" : "lang-dropdown"
-            }
-          >
-            {languages.map((lang) => {
-              return (
-                <div
-                  style={savedLang?.code === `ar` ? ARstyle : ENstyle}
-                  key={lang.code}
-                  onClick={() => {
-                    changeLanguage(lang);
-                    changeAllLanguage(lang.code);
-                  }}
-                >
-                  {lang.name}
-                </div>
-              );
-            })}
+        <div className="nav-controls">
+          <div className="language-switcher" onClick={() => setLangActive(!langActive)}>
+            <i className="fa-solid fa-globe"></i>
+            <span>{language.toUpperCase()}</span>
+            {langActive && (
+              <div className="lang-dropdown">
+                {languages.map((lang) => (
+                  <div
+                    key={lang.code}
+                    onClick={() => {
+                      changeLanguage(lang);
+                      changeAllLanguage(lang.code);
+                      setLangActive(false);
+                    }}
+                    style={savedLang?.code === "ar" ? ARstyle : ENstyle}
+                  >
+                    {lang.name}
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
-        </div>
 
-        <div>
           {user ? (
             user?.userRole.includes("ADMIN") ? (
               <Link to="/dashboard">
-                <button className="login-button">
-                  <span style={savedLang?.code === `ar` ? ARstyle : ENstyle}>
-                    Dashboard
-                  </span>
-                </button>
+                <button className="login-button">Dashboard</button>
               </Link>
-            ) : (
-              ""
-            )
+            ) : null
           ) : (
             <Link to="/login">
-              <button className="login-button">
-                <span style={savedLang?.code === `ar` ? ARstyle : ENstyle}>
-                  {t("header.login")}
-                </span>
-              </button>
+              <button className="login-button">{t("header.login")}</button>
             </Link>
           )}
+
+          {user && (
+            <i className="fa-solid fa-right-from-bracket logout-icon" onClick={logout}></i>
+          )}
+
+          <i className="fa-solid fa-bars menu-icon" onClick={() => setMenuActive(true)}></i>
         </div>
+      </header>
 
-        {user && (
-          <i className="fa-solid fa-right-from-bracket" onClick={logout}></i>
-        )}
-
-        <i className="fa-solid fa-bars menu" onClick={navBarMenu}></i>
-      </div>
-    </header>
+      {showTopBtn && (
+        <button className="back-to-top" onClick={scrollToTop}>
+          <i className="fa-solid fa-chevron-up"></i>
+        </button>
+      )}
+    </>
   );
 };
 

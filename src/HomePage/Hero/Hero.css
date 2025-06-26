@@ -4,6 +4,7 @@
 }
 
 .carousel {
+    margin-top: 5.5rem;
     position: relative;
     height: 700px;
     overflow: hidden;

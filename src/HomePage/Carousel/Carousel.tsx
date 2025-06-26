@@ -1,141 +1,121 @@
-import React, { use, useEffect, useRef, useState } from "react";
-import { ChevronLeft, ChevronRight } from "lucide-react";
-import { Link } from "react-router-dom";
-import "./Carousel.css";
-import { useNews } from "../../Services/NewsContext";
+"use client"
+
+import { useEffect, useRef, useState } from "react"
+import { ChevronLeft, ChevronRight, ArrowUpRight, Clock } from "lucide-react"
+import { Link } from "react-router-dom"
+import "./Carousel.css"
+import { useNews } from "../../Services/NewsContext"
 
 export default function NewsCarousel(props) {
-  const scrollRef = useRef<HTMLDivElement>(null);
-  const langString = localStorage.getItem("lang");
-  const savedLang = langString ? JSON.parse(langString) : null;
+  const scrollRef = useRef<HTMLDivElement>(null)
+  const langString = localStorage.getItem("lang")
+  const savedLang = langString ? JSON.parse(langString) : null
 
-  const [news, setNews] = useState([]);
-  const { getNews, langId } = useNews();
+  const [news, setNews] = useState([])
+  const { getNews, langId } = useNews()
 
   const ArStyle = {
     fontFamily: "var(--MNF_Body_AR)",
-    // fontSize: "16px"
-  };
+  }
 
   const EnStyle = {
     fontFamily: "var(--MNF_Body_EN)",
-  };
+  }
 
   const scroll = (direction: "left" | "right") => {
-    const card = scrollRef.current?.childNodes[0].childNodes[0];
+    const card = scrollRef.current?.childNodes[0].childNodes[0]
 
     if (scrollRef.current && card) {
-      const scrollAmount = card.clientWidth + 24;
+      const scrollAmount = card.clientWidth + 24
       const newScrollLeft =
-        direction === "left"
-          ? scrollRef.current.scrollLeft - scrollAmount
-          : scrollRef.current.scrollLeft + scrollAmount;
+        direction === "left" ? scrollRef.current.scrollLeft - scrollAmount : scrollRef.current.scrollLeft + scrollAmount
 
       scrollRef.current.scrollTo({
         left: newScrollLeft,
         behavior: "smooth",
-      });
+      })
     }
-  };
+  }
 
   useEffect(() => {
     const fetchNews = async () => {
-      const newsData = await getNews(langId);
-      setNews(newsData.data);
-    };
+      const newsData = await getNews(langId)
+      setNews(newsData.data)
+    }
 
-    fetchNews();
-  }, [langId]);  
+    fetchNews()
+  }, [langId])
 
   return (
-    <div className="news-carousel">
-      <div className="news-carousel-container">
-        <div ref={scrollRef} className="news-carousel-scroll custom-scrollbar">
-          <div className="news-carousel-content">
-            {news?.slice(0, 10).map((news, index) => (
-              <div key={index} className="news-card">
-                <div className="news-card-inner">
-                  <div className="news-card-content">
-                    <div
-                      className={
-                        index % 2 === 0
-                          ? "news-card-text"
-                          : "news-card-text news-card-text-right"
-                      }
-                    >
-                      <h3
-                        className="news-card-title"
-                        style={savedLang?.code === `ar` ? ArStyle : EnStyle}
-                      >
-                        {news?.translations[0]?.header?.slice(0, 75)}
-                        {news?.translations[0]?.header?.length > 75 && "..."}
-                      </h3>
-                      <Link
-                        to={`/details`}
-                        state={{ news }}
-                        className="arrowlinks"
-                        onClick={() => window.scrollTo(0, 0)}
-                      >
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          height="24px"
-                          viewBox="0 -960 960 960"
-                          width="24px"
-                          fill="#1f1f1f"
-                        >
-                          <path d="m242-246-42-42 412-412H234v-60h480v480h-60v-378L242-246Z" />
-                        </svg>
-                      </Link>
-                    </div>
-                    <div
-                      className={
-                        index % 2 !== 0
-                          ? "news-card-image-container"
-                          : "news-card-image-container news-card-image-container-right"
-                      }
-                    >
-                      <svg width="0" height="0">
-                        <clipPath id="img-container">
-                          <path
-                            d="M3.99997 20C3.99997 8.95433 12.9543 0 24 0H170C181.046 0 190 8.95431 190 20V187.088C190 201.067 176.026 210.733 162.946 205.803L16.9462 150.774C9.15647 147.838 3.99997 140.384 3.99997 132.059V20Z"
-                            fill="#D9D9D9"
-                            className="svg-path"
-                          />
-                        </clipPath>
-                      </svg>
+    <div className="modern-news-carousel">
+      <div className="carousel-header">
+        <h2 className="carousel-title" style={savedLang?.code === `ar` ? ArStyle : EnStyle}>
+          Latest News
+        </h2>
+      </div>
 
-                      <img
-                        style={{ clipPath: "url(#img-container)" }}
-                        src={news.image}
-                        alt=""
-                        className={
-                          index % 2 !== 0
-                            ? "news-card-image"
-                            : "news-card-image news-card-image-right"
-                        }
-                      />
-                    </div>
+      <div className="carousel-container">
+        <div ref={scrollRef} className="carousel-scroll custom-scrollbar">
+          <div className="carousel-content">
+            {news?.slice(0, 10).map((newsItem, index) => (
+              <article key={index} className="news-card modern-card">
+                <div className="card-image-container">
+                  <img
+                    src={newsItem.image || "/placeholder.svg"}
+                    alt={newsItem?.translations[0]?.header}
+                    className="card-image"
+                    loading="lazy"
+                  />
+                  <div className="image-overlay"></div>
+                  <div className="card-badge">
+                    <Clock size={12} />
+                    <span>Latest</span>
                   </div>
                 </div>
-              </div>
+
+                <div className="card-content">
+                  <div className="card-text">
+                    <h3 className="card-title" style={savedLang?.code === `ar` ? ArStyle : EnStyle}>
+                      {newsItem?.translations[0]?.header?.slice(0, 85)}
+                      {newsItem?.translations[0]?.header?.length > 85 && "..."}
+                    </h3>
+
+                    <div className="card-meta">
+                      <span className="read-time">2 min read</span>
+                    </div>
+                  </div>
+
+                  <Link
+                    to={`/details`}
+                    state={{ news: newsItem }}
+                    className="card-link"
+                    onClick={() => window.scrollTo(0, 0)}
+                    aria-label={`Read more about ${newsItem?.translations[0]?.header}`}
+                  >
+                    <span>Read More</span>
+                    <ArrowUpRight size={16} />
+                  </Link>
+                </div>
+              </article>
             ))}
           </div>
         </div>
 
         <button
           onClick={() => scroll("left")}
-          className="carousel-button carousel-button-left"
+          className="carousel-nav-button carousel-nav-left"
+          aria-label="Previous news"
         >
-          <ChevronLeft />
+          <ChevronLeft size={24} />
         </button>
-
         <button
           onClick={() => scroll("right")}
-          className="carousel-button carousel-button-right"
+          className="carousel-nav-button carousel-nav-right"
+          aria-label="Next news"
         >
-          <ChevronRight />
+          <ChevronRight size={24} />
         </button>
       </div>
     </div>
-  );
+  )
 }
