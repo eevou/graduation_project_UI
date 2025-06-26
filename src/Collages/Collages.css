@@ -590,6 +590,7 @@
   font-weight: 800;
   margin-bottom: 1.5rem;
   line-height: 1.2;
+  color: #001351;
 }
 
 .cta-description {
@@ -597,6 +598,7 @@
   color: rgba(255, 255, 255, 0.9);
   margin-bottom: 2.5rem;
   line-height: 1.6;
+  color: #001351;
 }
 
 .cta-buttons {
@@ -604,6 +606,7 @@
   gap: 1rem;
   justify-content: center;
   flex-wrap: wrap;
+
 }
 
 .cta-button {
@@ -619,13 +622,13 @@
 }
 
 .cta-button.primary {
-  background: white;
-  color: #000820;
-  border-color: white;
+  background: #001351;
+  color: white;
 }
 
 .cta-button.primary:hover {
   background: #f1f5f9;
+  color: #001351;
   transform: translateY(-2px);
 }
 

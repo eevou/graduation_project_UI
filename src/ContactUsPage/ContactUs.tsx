@@ -183,14 +183,6 @@ function ContactUs() {
       <Header index={5}></Header>
 
       <div className="contact-page" style={savedLang?.code === `ar` ? pArStyle : pEnStyle}>
-        <div className="hero-section">
-          <div className="hero-overlay"></div>
-          <div className="hero-pattern"></div>
-          <div className="hero-content">
-            <h1 className="hero-title">{t("contact-us")}</h1>
-            <p className="hero-subtitle">{t("contact-desc")}</p>
-          </div>
-        </div>
 
         <div className="container">
           <div className="contact-wrapper">

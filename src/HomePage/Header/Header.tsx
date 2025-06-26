@@ -80,7 +80,7 @@ const Header = (props) => {
 
   const handleScroll = () => {
     const currentScrollY = window.scrollY;
-
+    
     // Show/hide header
     if (currentScrollY > lastScrollY && currentScrollY > 100) {
       setShowHeader(false);

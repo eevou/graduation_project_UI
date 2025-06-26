@@ -31,7 +31,7 @@ const About = () => {
         </svg>
       </div>
 
-      <div className="about-box fade-in">
+      <div className="about-box">
         <h1 style={headStyle}>{t("about.title")}</h1>
 
         <img src={logo} alt="logo" className="about-logo" />
