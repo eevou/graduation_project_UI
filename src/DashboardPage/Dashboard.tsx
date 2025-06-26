@@ -42,7 +42,6 @@ const NewsManagementDashboard: React.FC = () => {
   const savedLang = langString ? JSON.parse(langString) : null;
   const { i18n, t } = useTranslation("Dashboard");
 
-  
   useEffect(() => {
     const fetchNews = async () => {
       const newsData = await getNews(langId);
@@ -207,6 +206,7 @@ const NewsManagementDashboard: React.FC = () => {
               setCurrentView("create");
               resetForm();
             }}
+            style={savedLang?.code === `ar` ? pArStyle : pEnStyle}
           >
             <Plus size={16} />
             {t("button.create")}
@@ -216,6 +216,7 @@ const NewsManagementDashboard: React.FC = () => {
               currentView === "list" ? "view-list-btn active" : "view-list-btn"
             }
             onClick={() => setCurrentView("list")}
+            style={savedLang?.code === `ar` ? pArStyle : pEnStyle}
           >
             <Menu size={16} />
             {t("button.view")}
@@ -227,7 +228,10 @@ const NewsManagementDashboard: React.FC = () => {
             {articles.map((article) => (
               <div key={article.newsId} className="article-card">
                 <div className="article-image">
-                  <img src={article.image} alt={article?.translations[0]?.header} />
+                  <img
+                    src={article.image}
+                    alt={article?.translations[0]?.header}
+                  />
                   {article.isFeatured && (
                     <p className="featured-badge">{t("badge.featured")}</p>
                   )}
@@ -238,20 +242,25 @@ const NewsManagementDashboard: React.FC = () => {
                       {new Date(article.date).toLocaleDateString()}
                     </span>
                   </div>
-                  <h3 className="article-title">{article?.translations[0]?.header}</h3>
+                  <h3 className="article-title">
+                    {article?.translations[0]?.header}
+                  </h3>
                   <p className="article-source">
                     {t("article.source")}: {article?.translations[0]?.source}
                   </p>
                   <div
                     className="article-summary"
                     dangerouslySetInnerHTML={{
-                      __html: truncate(article?.translations[0]?.body, 50),
+                      __html: article?.translations?.[0]?.body
+                        ? truncate(article.translations[0].body, 50)
+                        : "<span>لا يوجد محتوى</span>",
                     }}
                   />
                   <div className="article-actions">
                     <button
                       className="edit-btn"
                       onClick={() => handleEdit(article)}
+                      style={savedLang?.code === `ar` ? pArStyle : pEnStyle}
                     >
                       <Edit size={16} />
                       {t("article.edit")}
@@ -259,6 +268,7 @@ const NewsManagementDashboard: React.FC = () => {
                     <button
                       className="delete-btn"
                       onClick={() => handleDelete(article?.newsId)}
+                      style={savedLang?.code === `ar` ? pArStyle : pEnStyle}
                     >
                       <Trash2 size={16} />
                       {t("article.delete")}
@@ -331,6 +341,7 @@ const NewsManagementDashboard: React.FC = () => {
                           type="button"
                           onClick={() => removeAdditionalImageField(index)}
                           className="remove-addition-img-btn"
+                          style={savedLang?.code === `ar` ? pArStyle : pEnStyle}
                         >
                           {t("form.removeImage")}
                         </button>
@@ -341,6 +352,7 @@ const NewsManagementDashboard: React.FC = () => {
                     type="button"
                     onClick={addAdditionalImageField}
                     className="add-addition-img-btn"
+                    style={savedLang?.code === `ar` ? pArStyle : pEnStyle}
                   >
                     {t("form.addImage")}
                   </button>
@@ -416,7 +428,7 @@ const NewsManagementDashboard: React.FC = () => {
                 </div>
 
                 <div className="form-actions">
-                  <button type="submit" className="edit-btn">
+                  <button type="submit" className="edit-btn" style={savedLang?.code === `ar` ? pArStyle : pEnStyle}>
                     {currentView === "create"
                       ? t("form.create")
                       : t("form.update")}
@@ -425,6 +437,7 @@ const NewsManagementDashboard: React.FC = () => {
                     type="button"
                     onClick={handleCancel}
                     className="cansel-btn"
+                    style={savedLang?.code === `ar` ? pArStyle : pEnStyle}
                   >
                     {t("form.cancel")}
                   </button>
