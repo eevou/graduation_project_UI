@@ -1,216 +1,203 @@
-import React, { useState, useEffect, useCallback } from "react";
-import "./Details.css";
-import { Link, useLocation } from "react-router-dom";
+import React, { useState, useEffect } from 'react';
+import { useParams, Link } from 'react-router-dom';
+import { ArrowLeft, Calendar, User, ChevronRight, ChevronLeft } from 'lucide-react';
+import { newsData } from '../data/newsdata';
+import './Details.css';
 import Header from "../HomePage/Header/Header";
 import Footer from "../HomePage/Footer/Footer";
-import api from "../Services/api";
-import { useTranslation } from "react-i18next";
 
-function Details(props) {
-  const headerArStyle = {
-    fontFamily: "var(--MNF_Heading_AR)",
-  };
-
-  const headerEnStyle = {
-    fontFamily: "var(--MNF_Heading_EN)",
-  };
-
-  const pArStyle = {
-    fontFamily: "var(--MNF_Heading_AR)",
-  };
-
-  const pEnStyle = {
-    fontFamily: "var(--MNF_Heading_EN)",
-  };
-
-  const savedLang = JSON.parse(localStorage.getItem("lang"));
-  const location = useLocation();
-  const news = location.state?.news;
-  const [filteredNews, setFilteredNews] = useState([]);
-  const [currentNews, setCurrentNews] = useState();
-  const [langId, setLangId] = useState(savedLang?.id || 2);
-  const { i18n, t } = useTranslation();
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [isPaused, setIsPaused] = useState(false);
-
-  const images = [
-    currentNews?.images?.[0],
-    currentNews?.images?.[1],
-    currentNews?.images?.[2],
-  ].filter(Boolean); 
-
-  const formatDate = (rawDate: string) => {
-    const date = new Date(rawDate);
-    const year = date.getFullYear();
-    const month = String(date.getMonth() + 1).padStart(2, "0");
-    const day = String(date.getDate()).padStart(2, "0");
-    return `${year} - ${month} - ${day}`;
-  };
-
-  const GetNewsById = () => {
-    api
-      .get(`News/Id?newsId=${news.newsId}&langId=${langId}`)
-      .then((response) => {
-        setCurrentNews(response.data);
-      })
-      .catch((error) => {
-        console.error("Error fetching News:", error);
-      });
-  };
-
-  const startAutoSlide = useCallback(() => {
-    return setInterval(() => {
-      setCurrentIndex((prevIndex) => (prevIndex + 1) % images.length);
-    }, 3500);
-  }, [images.length]);
+const NewsDetails: React.FC = () => {
+  const { id } = useParams<{ id: string }>();
+  const news = newsData.find((item) => item.id === parseInt(id || '0'));
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
-    if (!isPaused) {
-      const interval = startAutoSlide();
-      return () => clearInterval(interval);
-    }
-  }, [isPaused, startAutoSlide]);
-
-  useEffect(() => {
-    if (savedLang) {
-      setLangId(savedLang.id);
-    }
-
-    GetNewsById();
-
-    api
-      .get(`/News?id=${langId}`)
-      .then((response) => {
-        setFilteredNews(response.data);
-      })
-      .catch((error) => {
-        console.error("Error fetching News:", error);
-      });
+    setIsVisible(true);
   }, []);
 
-  return (
-    <div>
-      <Header
-        index={4}
-        setFilteredNews={setFilteredNews}
-        setCurrentNews={setCurrentNews}
-      />
-
-      <main className="main">
-        <div className="container">
-          <div className="content-wrapper">
-            <div className="event-text-content">
-              <h2
-                className="event-title"
-                style={savedLang?.code === `ar` ? headerArStyle : headerEnStyle}
-              >
-                {currentNews?.header}
-              </h2>
-
-              <div
-                className="image carousel"
-                onMouseEnter={() => setIsPaused(true)}
-                onMouseLeave={() => setIsPaused(false)}
-              >
-                <div
-                  className="carousel-track"
-                  style={{
-                    transform: `translateX(-${currentIndex * 100}%)`,
-                  }}
-                >
-                  {images.map((image, index) => (
-                    <div key={index} className="carousel-slide">
-                      <img
-                        src={image}
-                        alt={`University slide ${index + 1}`}
-                        className="carousel-image"
-                      />
-                    </div>
-                  ))}
-                </div>
-
-                <div className="carousel-dots">
-                  {images.map((_, index) => (
-                    <button
-                      key={index}
-                      onClick={() => setCurrentIndex(index)}
-                      className={`carousel-dot ${currentIndex === index ? "active" : ""
-                        }`}
-                      aria-label={`Go to slide ${index + 1}`}
-                    />
-                  ))}
-                </div>
-              </div>
-
-              <p
-                className="event-description"
-                style={savedLang?.code === `ar` ? pArStyle : pEnStyle}
-              >
-                {currentNews?.body}
-              </p>
-
-              <p
-                className="event-date"
-                style={savedLang?.code === `ar` ? pArStyle : pEnStyle}
-              >
-                {currentNews?.date && formatDate(currentNews.date)}
-              </p>
-            </div>
-
-            <div className="related-news">
-              <h3
-                className="related-news-title"
-                style={savedLang?.code === `ar` ? headerArStyle : headerEnStyle}
-              >
-                {t("details.latest")}
-              </h3>
-
-              <div className="news-grid">
-                {filteredNews.slice(0, 6).map((news, index) => (
-                  <Link
-                    to={`/details`}
-                    state={{ news: news }}
-                    onClick={() => {
-                      window.scrollTo(0, 0);
-                      setCurrentNews(news);
-                    }}
-                    className="about-news"
-                    key={index}
-                  >
-                    <div className="news-details-card">
-                      <img
-                        src={news.image}
-                        alt={`News ${index}`}
-                        className={
-                          savedLang?.code === `ar`
-                            ? "news-imagear"
-                            : "news-image"
-                        }
-                      />
-                      <div className="news-content">
-                        <h4
-                          style={savedLang?.code === `ar` ? pArStyle : pEnStyle}
-                        >
-                          {news.header[0].slice(0, 100)}...
-                        </h4>
-                        <p
-                          style={savedLang?.code === `ar` ? pArStyle : pEnStyle}
-                        >
-                          {news.date && formatDate(news.date)}
-                        </p>
-                      </div>
-                    </div>
-                  </Link>
-                ))}
-              </div>
-            </div>
+  if (!news) {
+    return (
+      <div className="news-details">
+        <div className="news-details-container">
+          <div className="not-found">
+            <h1>News article not found</h1>
+            <Link to="/" className="back-link">
+              <ArrowLeft size={20} />
+              Back to News
+            </Link>
           </div>
         </div>
-      </main>
+      </div>
+    );
+  }
+
+  // Create image array for carousel
+  const images = [news.image, ...(news.gallery || [])];
+
+  // Get latest articles (excluding current article)
+  const latestArticles = newsData
+    .filter((item) => item.id !== news.id)
+    .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
+    .slice(0, 6);
+
+  const nextImage = () => {
+    setCurrentImageIndex((prev) => (prev + 1) % images.length);
+  };
+
+  const prevImage = () => {
+    setCurrentImageIndex((prev) => (prev - 1 + images.length) % images.length);
+  };
+
+  const goToImage = (index: number) => {
+    setCurrentImageIndex(index);
+  };
+
+  return (
+    <div className="news-details-wrapper">
+      <Header index={4} />
+
+      {/* Floating SVG Background */}
+      <div className="floating-shapes">
+        <div className="shape shape-1"></div>
+        <div className="shape shape-2"></div>
+        <div className="shape shape-3"></div>
+      </div>
+
+      <div className={`news-details ${isVisible ? 'visible' : ''}`}>
+        <div className="news-details-container">
+
+          {/* Enhanced Breadcrumb */}
+          <div className="breadcrumb-wrapper">
+            <Link to="/news" className="breadcrumb-link">
+              <ArrowLeft size={18} />
+              <span>Back to News</span>
+            </Link>
+          </div>
+
+          {/* Main Article */}
+          <article className="article">
+            <div className="article-header">
+              <div className="title-wrapper">
+                <h1 className="article-title">{news.title}</h1>
+                <div className="title-underline"></div>
+              </div>
+
+              <div className="article-meta">
+                <div className="meta-item">
+                  <div className="meta-icon">
+                    <Calendar size={16} />
+                  </div>
+                  <span>{new Date(news.date).toLocaleDateString('en-US', {
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric'
+                  })}</span>
+                </div>
+                <div className="meta-item">
+                  <div className="meta-icon">
+                    <User size={16} />
+                  </div>
+                  <span>{news.author}</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Enhanced Image Carousel */}
+            <div className="carousel-container">
+              <div className="carousel-wrapper">
+                <div className="carousel-images">
+                  {images.map((image, index) => (
+                    <div
+                      key={index}
+                      className={`carousel-slide ${index === currentImageIndex ? 'active' : ''}`}
+                    >
+                      <img src={image} alt={`${news.title} - Image ${index + 1}`} />
+                      <div className="image-overlay"></div>
+                    </div>
+                  ))}
+                </div>
+
+                {images.length > 1 && (
+                  <>
+                    <button className="carousel-btn prev-btn" onClick={prevImage}>
+                      <ChevronLeft size={24} />
+                    </button>
+                    <button className="carousel-btn next-btn" onClick={nextImage}>
+                      <ChevronRight size={24} />
+                    </button>
+
+                    <div className="carousel-indicators">
+                      {images.map((_, index) => (
+                        <button
+                          key={index}
+                          className={`indicator ${index === currentImageIndex ? 'active' : ''}`}
+                          onClick={() => goToImage(index)}
+                        />
+                      ))}
+                    </div>
+                  </>
+                )}
+              </div>
+            </div>
+
+            {/* Enhanced Content */}
+            <div className="article-content">
+              <div className="content-wrapper">
+                <div className="article-body">
+                  {news.content.split('\n\n').map((paragraph, index) => (
+                    <p key={index} className={`article-paragraph fade-in-paragraph paragraph-${index}`}>
+                      {paragraph}
+                    </p>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </article>
+
+          {/* Latest News Section */}
+          <section className="latest-news-section">
+            <div className="section-header">
+              <h2 className="section-title">Latest News</h2>
+            </div>
+
+            <div className="latest-news-grid">
+              {latestArticles.map((article, index) => (
+                <article key={article.id} className={`news-card card-${index + 1}`}>
+                  <div className="card-image-wrapper">
+                    <img src={article.image} alt={article.title} />
+                    <div className="card-overlay"></div>
+                  </div>
+
+                  <div className="card-content">
+                    <div className="card-meta">
+                      <span className="card-date">
+                        {new Date(article.date).toLocaleDateString('en-US', {
+                          month: 'short',
+                          day: 'numeric'
+                        })}
+                      </span>
+                    </div>
+
+                    <h3 className="card-title">{article.title}</h3>
+
+                    <Link to={`/news/${article.id}`} className="card-link">
+                      <span>Read Article</span>
+                      <ChevronRight size={16} />
+                    </Link>
+                  </div>
+
+                  <div className="card-number">{String(index + 1).padStart(2, '0')}</div>
+                </article>
+              ))}
+            </div>
+          </section>
+        </div>
+      </div>
 
       <Footer />
     </div>
   );
-}
+};
 
-export default Details;
+export default NewsDetails;
