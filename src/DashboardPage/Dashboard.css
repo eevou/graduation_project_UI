@@ -74,6 +74,7 @@
   font-weight: 600;
   border: none;
   cursor: pointer;
+  width: 100%;
 }
 
 .dashboard-content .add-addition-img-btn {
@@ -258,6 +259,8 @@
   border-radius: 8px;
   font-size: 14px;
   transition: border-color 0.2s ease;
+  width: 100%;
+  background: white;
 }
 
 .dashboard-content .form-group input:focus,
@@ -311,8 +314,16 @@
 }
 
 /* Additional Images */
+.dashboard-content .addition-img-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+  padding: 16px 0;
+}
+
 .dashboard-content .additional-image-row {
   display: flex;
+  flex-direction: column;
   gap: 10px;
   align-items: center;
   margin-bottom: 10px;
@@ -320,6 +331,25 @@
 
 .dashboard-content .additional-image-row input {
   flex: 1;
+}
+
+.dashboard-content .dropArea {
+  border: 2px dashed #e5e7eb;
+  border-radius: 8px;
+  padding: 20px;
+  text-align: center;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.dashboard-content .previewContainer {
+  margin-top: 20px;
+}
+
+.dashboard-content .previewContainer .previewImage {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
 }
 
 /* Form Actions */

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { use, useEffect, useState } from "react";
 import { Star, Edit, Trash2, Plus, ArrowLeft, Menu } from "lucide-react";
 import "./Dashboard.css";
 import { useNews } from "../Services/NewsContext";
@@ -36,6 +36,8 @@ const NewsManagementDashboard: React.FC = () => {
   const [editingArticle, setEditingArticle] = useState<Article | null>(null);
 
   const { getNews, langId } = useNews();
+
+  const [file, setFile] = useState(null);
   const [articles, setArticles] = useState<Article[]>([]);
 
   const langString = localStorage.getItem("lang");
@@ -81,10 +83,14 @@ const NewsManagementDashboard: React.FC = () => {
     }
   };
 
-  const handleAdditionalImageChange = (index: number, value: string) => {
+  const handleAdditionalImageChange = (index: number, event) => {
+    const selectedFile = event.target.files[0];
     const newImages = [...formData.additionalImages];
-    newImages[index] = value;
+    newImages[index] = selectedFile.name;
+
     setFormData((prev) => ({ ...prev, additionalImages: newImages }));
+
+    setFile(selectedFile);
   };
 
   const addAdditionalImageField = () => {
@@ -315,10 +321,9 @@ const NewsManagementDashboard: React.FC = () => {
                 <div className="form-group">
                   <label htmlFor="imageUrl">{t("form.image")} *</label>
                   <input
-                    type="url"
+                    type="file"
                     id="imageUrl"
                     name="imageUrl"
-                    value={formData.imageUrl}
                     onChange={handleInputChange}
                     required
                   />
@@ -326,28 +331,33 @@ const NewsManagementDashboard: React.FC = () => {
 
                 <div className="form-group">
                   <label>{t("form.additionalImages")}</label>
-                  {formData.additionalImages.map((image, index) => (
-                    <div key={index} className="additional-image-row">
-                      <input
-                        type="url"
-                        value={image}
-                        onChange={(e) =>
-                          handleAdditionalImageChange(index, e.target.value)
-                        }
-                        placeholder="Additional image URL"
-                      />
-                      {formData.additionalImages.length > 1 && (
-                        <button
-                          type="button"
-                          onClick={() => removeAdditionalImageField(index)}
-                          className="remove-addition-img-btn"
-                          style={savedLang?.code === `ar` ? pArStyle : pEnStyle}
-                        >
-                          {t("form.removeImage")}
-                        </button>
-                      )}
-                    </div>
-                  ))}
+                  <div className="addition-img-container">
+                    {formData.additionalImages.map((image, index) => (
+                      <div key={index} className="additional-image-row">
+                        <input
+                          type="file"
+                          onChange={(e) => {
+                            handleAdditionalImageChange(index, e);
+                          }}
+                          className="dropArea"
+                          placeholder="Additional image URL"
+                        />
+
+                        {formData.additionalImages.length > 1 && (
+                          <button
+                            type="button"
+                            onClick={() => removeAdditionalImageField(index)}
+                            className="remove-addition-img-btn"
+                            style={
+                              savedLang?.code === `ar` ? pArStyle : pEnStyle
+                            }
+                          >
+                            {t("form.removeImage")}
+                          </button>
+                        )}
+                      </div>
+                    ))}
+                  </div>
                   <button
                     type="button"
                     onClick={addAdditionalImageField}
@@ -428,7 +438,11 @@ const NewsManagementDashboard: React.FC = () => {
                 </div>
 
                 <div className="form-actions">
-                  <button type="submit" className="edit-btn" style={savedLang?.code === `ar` ? pArStyle : pEnStyle}>
+                  <button
+                    type="submit"
+                    className="edit-btn"
+                    style={savedLang?.code === `ar` ? pArStyle : pEnStyle}
+                  >
                     {currentView === "create"
                       ? t("form.create")
                       : t("form.update")}

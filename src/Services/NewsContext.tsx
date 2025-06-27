@@ -14,7 +14,7 @@ export const NewsProvider = ({ children }) => {
   const getNews = async (
     langId,
     pageIndex = 1,
-    pageSize = 10,
+    pageSize = 20,
     search = null,
     date1 = null,
     date2 = null
@@ -30,8 +30,8 @@ export const NewsProvider = ({ children }) => {
           dateTime2: date2,
         },
       });
-      
       return response.data;
+      
     } catch (error) {
       console.error("Error fetching news:", error);
       return null;
