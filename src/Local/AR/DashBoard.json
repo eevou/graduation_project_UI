@@ -22,5 +22,8 @@
   "article.edit": "تعديل",
   "article.delete": "حذف",
   "article.source": "المصدر",
-  "form.selectLanguage": "اختر اللغة"
+  "form.selectLanguage": "اختر اللغة",
+  "selectImage": "انقر لتحديد الصورة",
+  "dragAndDrop": "أو اسحب وأفلت الصورة هنا",
+  "loading": "جارٍ التحميل..."
 }
