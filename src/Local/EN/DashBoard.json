@@ -22,5 +22,8 @@
   "article.edit": "Edit",
   "article.delete": "Delete",
   "article.source": "Source",
-  "form.selectLanguage": "Select Language"
+  "form.selectLanguage": "Select Language",
+  "selectImage": "Click to select image",
+  "dragAndDrop": "or drag and drop it here",
+  "loading": "Loading..."
 }

@@ -22,5 +22,8 @@
   "article.edit": "Editar",
   "article.delete": "Eliminar",
   "article.source": "Fuente",
-  "form.selectLanguage": "Seleccionar Idioma"
+  "form.selectLanguage": "Seleccionar Idioma",
+  "selectImage": "Haga clic para seleccionar la imagen",
+  "dragAndDrop": "o arrástrelo y suéltelo aquí",
+  "loading": "Cargando..."
 }

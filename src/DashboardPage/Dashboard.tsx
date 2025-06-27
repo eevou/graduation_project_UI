@@ -10,6 +10,7 @@ import "primeicons/primeicons.css";
 import "quill/dist/quill.snow.css";
 import { Editor } from "primereact/editor";
 import truncate from "html-truncate";
+import api from "../Services/api";
 
 interface Article {
   date: string;
@@ -35,10 +36,11 @@ const NewsManagementDashboard: React.FC = () => {
   );
   const [editingArticle, setEditingArticle] = useState<Article | null>(null);
 
-  const { getNews, langId } = useNews();
+  const { getNews, langId, loading } = useNews();
 
-  const [file, setFile] = useState(null);
   const [articles, setArticles] = useState<Article[]>([]);
+  const [successfull, setSuccessfull] = useState(false);
+  const [addingLoading, setAddingLoading] = useState(false);
 
   const langString = localStorage.getItem("lang");
   const savedLang = langString ? JSON.parse(langString) : null;
@@ -48,28 +50,33 @@ const NewsManagementDashboard: React.FC = () => {
     const fetchNews = async () => {
       const newsData = await getNews(langId);
       setArticles(newsData.data);
+      console.log("Fetched articles:", newsData.data);
     };
 
     fetchNews();
-  }, [langId]);
+  }, [langId, successfull]);
 
   // Form state
+
   const [formData, setFormData] = useState({
     date: "",
     source: "",
-    imageUrl: "",
+    imageUrl: null,
     isFeatured: false,
     header: "",
     abbreviation: "",
     body: "",
     languageId: "",
     newsId: "",
-    additionalImages: [""],
+    additionalImages: [],
   });
 
   const handleInputChange = (
     e: React.ChangeEvent<
-      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+      | HTMLInputElement
+      | HTMLTextAreaElement
+      | HTMLSelectElement
+      | HTMLFormElement
     >
   ) => {
     const { name, value, type } = e.target;
@@ -78,6 +85,11 @@ const NewsManagementDashboard: React.FC = () => {
         ...prev,
         [name]: (e.target as HTMLInputElement).checked,
       }));
+    } else if (type === "file") {
+      const selectedFile = (e.target as HTMLInputElement).files?.[0];
+      if (!selectedFile) return;
+
+      setFormData((prev) => ({ ...prev, [name]: selectedFile }));
     } else {
       setFormData((prev) => ({ ...prev, [name]: value }));
     }
@@ -85,12 +97,10 @@ const NewsManagementDashboard: React.FC = () => {
 
   const handleAdditionalImageChange = (index: number, event) => {
     const selectedFile = event.target.files[0];
+
     const newImages = [...formData.additionalImages];
-    newImages[index] = selectedFile.name;
-
+    newImages[index] = selectedFile;
     setFormData((prev) => ({ ...prev, additionalImages: newImages }));
-
-    setFile(selectedFile);
   };
 
   const addAdditionalImageField = () => {
@@ -107,25 +117,66 @@ const NewsManagementDashboard: React.FC = () => {
     }
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (currentView === "create") {
-      const newArticle: Article = {
-        ...formData,
-        newsId: Date.now().toString(),
-        gallaries: formData.additionalImages.filter((img) => img.trim() !== ""),
-      };
-      setArticles((prev) => [...prev, newArticle]);
+      const form = new FormData();
+      form.append("Date", formData.date);
+      form.append("Image", formData.imageUrl);
+      form.append("IsFeatured", String(formData.isFeatured));
+
+      form.append("Translations[0].header", formData.header);
+      form.append("Translations[0].abbreviation", formData.abbreviation);
+      form.append("Translations[0].body", formData.body);
+      form.append("Translations[0].source", formData.source);
+      form.append("Translations[0].languageId", formData.languageId);
+
+      formData.additionalImages.forEach((file) => {
+        form.append("Gallary", file);
+      });
+
+      setAddingLoading(true);
+
+      try {
+        const response = await api.post("/news", form, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        });
+        setSuccessfull(true);
+      } catch (error) {
+        console.error("Error uploading:", error);
+      } finally {
+        setAddingLoading(false);
+      }
     } else if (currentView === "edit" && editingArticle) {
       setArticles((prev) =>
         prev.map((article) =>
           article.newsId === editingArticle.newsId
             ? {
+                ...article,
                 ...formData,
                 newsId: editingArticle.newsId,
                 gallaries: formData.additionalImages.filter(
                   (img) => img.trim() !== ""
                 ),
+                // Ensure these fields are present and updated as needed
+                ownerId: article.ownerId,
+                image: formData.imageUrl || article.image,
+                translations: [
+                  {
+                    header: formData.header,
+                    abbreviation: formData.abbreviation,
+                    body: formData.body,
+                    id: article.translations[0]?.id ?? 0,
+                    source: formData.source,
+                    languageId:
+                      Number(formData.languageId) ||
+                      article.translations[0]?.languageId ||
+                      1,
+                    newsId: editingArticle.newsId,
+                  },
+                ],
               }
             : article
         )
@@ -160,9 +211,18 @@ const NewsManagementDashboard: React.FC = () => {
     setCurrentView("edit");
   };
 
-  const handleDelete = (id: string) => {
+  const handleDelete = async (id: string) => {
+    console.log("Deleting article with ID:", id);
     if (window.confirm("Are you sure you want to delete this article?")) {
       setArticles((prev) => prev.filter((article) => article.newsId !== id));
+      try {
+        const response = await api.delete("/News", {
+          params: { id: id },
+        });
+        console.log("Article deleted successfully:", response.data);
+      } catch (error) {
+        console.error("Error deleting article:", error);
+      }
     }
   };
 
@@ -187,6 +247,13 @@ const NewsManagementDashboard: React.FC = () => {
   const headEnStyle = {
     fontFamily: "var(--MNF_Heading_EN)",
   };
+
+  if (loading) {
+    return <div className="dashboard-loading">
+      <p>{t("loading")}</p>
+      <i className="fa-solid fa-circle-notch loading-icon"></i>
+    </div>
+  }
 
   return (
     <div className="dashboard-page">
@@ -243,25 +310,28 @@ const NewsManagementDashboard: React.FC = () => {
                   )}
                 </div>
                 <div className="article-content">
-                  <div className="article-meta">
-                    <span className="article-date">
-                      {new Date(article.date).toLocaleDateString()}
-                    </span>
+                  <div>
+                    <div className="article-meta">
+                      <span className="article-date">
+                        {new Date(article.date).toLocaleDateString()}
+                      </span>
+                    </div>
+                    <h3 className="article-title">
+                      {article?.translations[0]?.header}
+                    </h3>
+                    <p className="article-source">
+                      {t("article.source")}: {article?.translations[0]?.source}
+                    </p>
+                    <div
+                      className="article-summary"
+                      dangerouslySetInnerHTML={{
+                        __html: article?.translations?.[0]?.body
+                          ? truncate(article.translations[0].body, 50)
+                          : "<span>لا يوجد محتوى</span>",
+                      }}
+                    />
                   </div>
-                  <h3 className="article-title">
-                    {article?.translations[0]?.header}
-                  </h3>
-                  <p className="article-source">
-                    {t("article.source")}: {article?.translations[0]?.source}
-                  </p>
-                  <div
-                    className="article-summary"
-                    dangerouslySetInnerHTML={{
-                      __html: article?.translations?.[0]?.body
-                        ? truncate(article.translations[0].body, 50)
-                        : "<span>لا يوجد محتوى</span>",
-                    }}
-                  />
+
                   <div className="article-actions">
                     <button
                       className="edit-btn"
@@ -320,28 +390,49 @@ const NewsManagementDashboard: React.FC = () => {
 
                 <div className="form-group">
                   <label htmlFor="imageUrl">{t("form.image")} *</label>
-                  <input
-                    type="file"
-                    id="imageUrl"
-                    name="imageUrl"
-                    onChange={handleInputChange}
-                    required
-                  />
+                  <label htmlFor="imageUrl" className="dropArea">
+                    <input
+                      type="file"
+                      id="imageUrl"
+                      name="imageUrl"
+                      onChange={handleInputChange}
+                      required
+                      style={{ marginTop: "10px", display: "none" }}
+                    />
+                    {formData.imageUrl ? (
+                      <p>{formData.imageUrl.name}</p>
+                    ) : (
+                      <p>{t("selectImage")}</p>
+                    )}
+                  </label>
                 </div>
 
                 <div className="form-group">
-                  <label>{t("form.additionalImages")}</label>
+                  <label>{t("form.additionalImages")} *</label>
+
                   <div className="addition-img-container">
                     {formData.additionalImages.map((image, index) => (
                       <div key={index} className="additional-image-row">
-                        <input
-                          type="file"
-                          onChange={(e) => {
-                            handleAdditionalImageChange(index, e);
-                          }}
+                        <label
+                          htmlFor={`gallary-input-${index}`}
                           className="dropArea"
-                          placeholder="Additional image URL"
-                        />
+                        >
+                          <input
+                            type="file"
+                            id={`gallary-input-${index}`}
+                            required
+                            style={{ display: "none" }}
+                            placeholder="Additional image URL"
+                            onChange={(e) => {
+                              handleAdditionalImageChange(index, e);
+                            }}
+                          />
+                          {image ? (
+                            <p>{image.name}</p>
+                          ) : (
+                            <p>{t("selectImage")}</p>
+                          )}
+                        </label>
 
                         {formData.additionalImages.length > 1 && (
                           <button
@@ -370,18 +461,19 @@ const NewsManagementDashboard: React.FC = () => {
 
                 <div className="form-row">
                   <div className="form-group">
-                    <label htmlFor="header">{t("form.header")}</label>
+                    <label htmlFor="header">{t("form.header")} *</label>
                     <input
                       type="text"
                       id="header"
                       name="header"
                       value={formData.header}
                       onChange={handleInputChange}
+                      required
                     />
                   </div>
                   <div className="form-group">
                     <label htmlFor="abbreviation">
-                      {t("form.abbreviation")}
+                      {t("form.abbreviation")} *
                     </label>
                     <input
                       type="text"
@@ -389,24 +481,25 @@ const NewsManagementDashboard: React.FC = () => {
                       name="abbreviation"
                       value={formData.abbreviation}
                       onChange={handleInputChange}
+                      required
                     />
                   </div>
                 </div>
 
                 <div className="form-row">
                   <div className="form-group">
-                    <label htmlFor="languageId">{t("form.languageId")}</label>
+                    <label htmlFor="languageId">{t("form.languageId")} *</label>
                     <select
                       id="languageId"
                       name="languageId"
                       value={formData.languageId}
                       onChange={handleInputChange}
+                      required
                     >
                       <option value="">{t("form.selectLanguage")}</option>
-                      <option value="en">English</option>
-                      <option value="es">Spanish</option>
-                      <option value="fr">French</option>
-                      <option value="de">German</option>
+                      <option value="1">Arabic</option>
+                      <option value="2">English</option>
+                      <option value="3">Spanish</option>
                     </select>
                   </div>
                   <div className="form-group">
@@ -427,13 +520,14 @@ const NewsManagementDashboard: React.FC = () => {
                   <label htmlFor="summary">{t("form.summary")} *</label>
                   <Editor
                     value={formData.body}
+                    style={{ height: "320px", backgroundColor: "white" }}
+                    required
                     onTextChange={(e) =>
                       setFormData((prev) => ({
                         ...prev,
                         body: e.htmlValue ?? "",
                       }))
                     }
-                    style={{ height: "320px", backgroundColor: "white" }}
                   />
                 </div>
 
@@ -443,7 +537,9 @@ const NewsManagementDashboard: React.FC = () => {
                     className="edit-btn"
                     style={savedLang?.code === `ar` ? pArStyle : pEnStyle}
                   >
-                    {currentView === "create"
+                    {addingLoading
+                      ? <i className="fa-solid fa-circle-notch loading-icon"></i>
+                      : currentView === "create"
                       ? t("form.create")
                       : t("form.update")}
                   </button>
