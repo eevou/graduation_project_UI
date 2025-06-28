@@ -5,7 +5,7 @@ import Header from "../HomePage/Header/Header";
 import Footer from "../HomePage/Footer/Footer";
 import { useTranslation } from "react-i18next"
 import { Phone, Mail, MapPin, Star } from "lucide-react"
-import axios from "axios"
+import api from "../Services/api"
 import "./ContactUs.css"
 
 function ContactUs() {
@@ -65,8 +65,9 @@ function ContactUs() {
     }
 
     try {
-      const response = await axios.post("http://193.227.24.31:5050/api", messageData)
-      setStatus("Message sent successfully!")
+      const response = await api.post("/ContactUd/contact-us", messageData)
+      console.log("Message sent successfully:", response.data)
+      setStatus(response.data)
     } catch (error) {
       console.error("Error sending message:", error)
       setStatus("Failed to send message.")

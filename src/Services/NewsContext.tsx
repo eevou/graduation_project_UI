@@ -15,9 +15,9 @@ export const NewsProvider = ({ children }) => {
     langId,
     pageIndex = 1,
     pageSize = 20,
-    search = null,
-    date1 = null,
-    date2 = null
+    search = "",
+    date1 = "",
+    date2 = ""
   ) => {
     try {
       const response = await api.get("/News", {

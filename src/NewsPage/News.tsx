@@ -2,57 +2,97 @@ import React, { useState, useEffect } from "react";
 import Header from "../HomePage/Header/Header";
 import Footer from "../HomePage/Footer/Footer";
 import "./News.css";
-import { Search, Calendar, ChevronRight } from 'lucide-react';
-import { Link } from 'react-router-dom';
-import { newsData } from '../data/newsdata';
+import { Calendar, ChevronRight } from "lucide-react";
+import { Link } from "react-router-dom";
+import { useNews } from "../Services/NewsContext";
+import { useTranslation } from "react-i18next";
+
+const pageSize = 9;
+
+interface Article {
+  date: string;
+  ownerId: string;
+  image: string;
+  newsId: string;
+  isFeatured: boolean;
+  gallaries: string[];
+  translations: {
+    header: string;
+    abbreviation: string;
+    body: string;
+    id: number;
+    source: string;
+    languageId: number;
+    newsId: string;
+  }[];
+}
 
 const NewsPage: React.FC = () => {
-  const [searchTerm, setSearchTerm] = useState('');
-  const [dateFrom, setDateFrom] = useState('');
-  const [dateTo, setDateTo] = useState('');
-  const [filteredNews, setFilteredNews] = useState(newsData);
-  const [displayedCount, setDisplayedCount] = useState(6);
-  const [isLoading, setIsLoading] = useState(false);
+  const [news, setNews] = useState<Article[]>([]);
+  const [search, setSearch] = useState("");
+  const { getNews, langId, loading } = useNews();
+
+  const { i18n, t } = useTranslation("News");
+
+  const [pagesCount, setPagesCount] = useState(0);
+  const pages = Array.from({ length: pagesCount }, (_, i) => i + 1);
+
+  const today = new Date().toISOString().split("T")[0];
+  const [filters, setFilters] = useState({
+    pageSize: pageSize,
+    pageNumber: 1,
+    Search: "",
+    date1: "",
+    date2: today,
+  });
 
   useEffect(() => {
-    let filtered = newsData;
+    const fetchNews = async () => {
+      try {
+        const response = await getNews(
+          langId,
+          filters.pageNumber,
+          filters.pageSize,
+          filters.Search,
+          filters.date1,
+          filters.date2
+        );
+        setNews(response.data);
+        setPagesCount(Math.ceil(response.count / pageSize));
+      } catch (error) {
+        console.error("Error fetching news:", error);
+      }
+    };
 
-    if (searchTerm) {
-      filtered = filtered.filter(
-        (news) =>
-          news.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-          news.excerpt.toLowerCase().includes(searchTerm.toLowerCase())
-      );
-    }
+    fetchNews();
+  }, [langId, filters]);
 
-    if (dateFrom) {
-      filtered = filtered.filter((news) => new Date(news.date) >= new Date(dateFrom));
-    }
-
-    if (dateTo) {
-      filtered = filtered.filter((news) => new Date(news.date) <= new Date(dateTo));
-    }
-
-    setFilteredNews(filtered);
-    setDisplayedCount(6); // Reset display count when filters change
-  }, [searchTerm, dateFrom, dateTo]);
-
-  const clearFilters = () => {
-    setSearchTerm('');
-    setDateFrom('');
-    setDateTo('');
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => {
+    setFilters((prev) => ({
+      ...prev,
+      [e.target.name]: e.target.value,
+      pageNumber: 1,
+    }));
+    console.log(filters);
   };
 
-  const handleShowMore = () => {
-    setIsLoading(true);
-    setTimeout(() => {
-      setDisplayedCount(prev => prev + 6);
-      setIsLoading(false);
-    }, 800);
+  const navigateToPage = (page) => {
+    if (page !== filters.pageNumber) {
+      setFilters((prev) => ({ ...prev, pageNumber: page }));
+    }
   };
 
-  const displayedNews = filteredNews.slice(0, displayedCount);
-  const hasMoreNews = displayedCount < filteredNews.length;
+  const pArStyle = {
+    fontFamily: "var(--MNF_Body_AR)",
+    fontSize: "13px",
+    padding: "16px 20px 16px 50px",
+  };
+  const pEnStyle = {
+    fontFamily: "var(--MNF_Body_EN)",
+    padding: "16px 50px 16px 20px",
+  };
 
   return (
     <div className="news-page">
@@ -65,126 +105,156 @@ const NewsPage: React.FC = () => {
         <div className="floating-shape shape-3"></div>
       </div>
 
-      <div className="news-container">
-
-
+      <div
+        className="news-container"
+        style={langId === 1 ? pArStyle : pEnStyle}
+      >
         <div className="search-section fade-in">
           <div className="search-filters">
             <div className="search-group">
               <div className="search-input-wrapper">
-                <Search className="search-icon" size={20} />
                 <input
                   id="search"
                   type="text"
-                  placeholder="ابحث بعنوان الخبر أو مضمونه..."
-                  value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
+                  style={langId === 1 ? pArStyle : pEnStyle}
+                  placeholder={t("searchPlaceholder")}
+                  onChange={(e) => setSearch(e.target.value)}
                   className="search-input"
                 />
+                <i
+                  className="fa-solid fa-magnifying-glass search-icon"
+                  onClick={() =>
+                    setFilters((prev) => ({ ...prev, Search: search }))
+                  }
+                  style={langId === 1 ? { left: "16px" } : { right: "15px" }}
+                ></i>
               </div>
             </div>
 
             <div className="date-filters">
               <div className="date-group">
-                <label htmlFor="dateFrom" className="date-label">من تاريخ</label>
+                <label htmlFor="dateFrom" className="date-label">
+                  {t("fromDate")}
+                </label>
                 <div className="date-input-wrapper">
-                  <Calendar className="date-icon" size={18} />
                   <input
                     id="dateFrom"
                     type="date"
-                    value={dateFrom}
-                    onChange={(e) => setDateFrom(e.target.value)}
+                    value={filters.date1}
+                    name="date1"
+                    onChange={(e) => handleChange(e)}
                     className="date-input"
                   />
                 </div>
               </div>
 
               <div className="date-group">
-                <label htmlFor="dateTo" className="date-label">إلى تاريخ</label>
+                <label htmlFor="dateTo" className="date-label">
+                  {t("toDate")}
+                </label>
                 <div className="date-input-wrapper">
-                  <Calendar className="date-icon" size={18} />
                   <input
                     id="dateTo"
                     type="date"
-                    value={dateTo}
-                    onChange={(e) => setDateTo(e.target.value)}
+                    value={filters.date2}
+                    name="date2"
+                    onChange={(e) => handleChange(e)}
                     className="date-input"
                   />
                 </div>
               </div>
-
-              <button onClick={clearFilters} className="clear-filters-btn">
-                مسح التصفية
-              </button>
             </div>
           </div>
         </div>
 
-        {/* News Results Summary */}
-       
-
         <div className="news-grid fade-in-stagger">
-          {displayedNews.map((news, index) => (
+          {news.map((news, index) => (
             <article
-              key={news.id}
-              className={`news-card ${index % 3 === 0 ? 'featured-card' : ''}`}
+              key={news.newsId}
+              className={`news-card ${index % 3 === 0 ? "featured-card" : ""}`}
               style={{ animationDelay: `${index * 0.1}s` }}
             >
               <div className="news-card-image">
-                <img src={news.image} alt={news.title} />
+                <img src={news.image} alt={news?.translations[0]?.header} />
                 <div className="image-overlay"></div>
               </div>
               <div className="news-card-content">
                 <div className="news-meta">
-                  
                   <span className="news-card-date">
-                    {new Date(news.date).toLocaleDateString("ar-EG", {
-                      year: "numeric",
-                      month: "long",
-                      day: "numeric"
-                    })}
+                    {new Date(news?.date).toLocaleDateString()}
                   </span>
                 </div>
-                <h3 className="news-card-title">{news.title}</h3>
-                <p className="news-card-excerpt">{news.excerpt}</p>
-                <Link to={`/news/${news.id}`} className="read-more-btn">
-                  اقرأ المزيد <ChevronRight size={16} />
+                <h3 className="news-card-title">
+                  {news?.translations[0]?.header}
+                </h3>
+                <p className="news-card-excerpt">
+                  {news?.translations[0]?.abbreviation}
+                </p>
+                <Link to={`/news/${news.newsId}`} className="read-more-btn">
+                  {t("readMore")}
+                  <ChevronRight size={16} />
                 </Link>
               </div>
             </article>
           ))}
         </div>
 
-        {/* Show More Button */}
-        {hasMoreNews && (
-          <div className="show-more-section fade-in">
-            <button
-              onClick={handleShowMore}
-              className={`show-more-btn ${isLoading ? 'loading' : ''}`}
-              disabled={isLoading}
-            >
-              {isLoading ? (
-                <>
-                  <div className="loading-spinner"></div>
-                  جارٍ التحميل...
-                </>
-              ) : (
-                <>
-                  عرض المزيد 
-                  <ChevronRight size={16} />
-                </>
-              )}
-            </button>
+        {news.length === 0 && (
+          <div className="no-results fade-in">
+            <div className="no-results-icon">📰</div>
+            <h3>{t("noResultsTitle")}</h3>
+            <p>{t("noResultsText")}</p>
           </div>
         )}
 
-        {filteredNews.length === 0 && (
-          <div className="no-results fade-in">
-            <div className="no-results-icon">📰</div>
-            <h3>لم يتم العثور على أي أخبار</h3>
-            <p>لم يتم العثور على أي أخبار تطابق البحث. جرب تعديل معايير البحث.</p>
-          </div>
-        )}
+        <div className="pagination">
+          <button
+            className="pagination-arrow"
+            onClick={() => {
+              setFilters((prev) => ({
+                ...prev,
+                pageNumber: filters.pageNumber - 1,
+              }));
+              window.scrollTo(0, 0);
+            }}
+            disabled={filters.pageNumber <= 1 ? true : false}
+          >
+            <i className="fa-solid fa-left-long"></i>
+          </button>
+
+          <span>
+            {pages.map((page) => (
+              <span
+                key={page}
+                className={
+                  filters.pageNumber === page
+                    ? "pagination-pages page-active"
+                    : "pagination-pages"
+                }
+                onClick={() => {
+                  navigateToPage(page);
+                  window.scrollTo(0, 0);
+                }}
+              >
+                {page}
+              </span>
+            ))}
+          </span>
+
+          <button
+            className="pagination-arrow"
+            onClick={() => {
+              setFilters((prev) => ({
+                ...prev,
+                pageNumber: filters.pageNumber + 1,
+              }));
+              window.scrollTo(0, 0);
+            }}
+            disabled={filters.pageNumber >= pagesCount ? true : false}
+          >
+            <i className="fa-solid fa-right-long"></i>
+          </button>
+        </div>
       </div>
       <Footer />
     </div>
