@@ -100,7 +100,7 @@ const Sector = () => {
   }
 
   return (
-    <div className="page-container">
+    <div className="collage-page-container">
       <Header index={2}></Header>
 
       {/* Modern Hero Section with Classification */}

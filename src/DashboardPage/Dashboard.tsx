@@ -11,6 +11,9 @@ import "quill/dist/quill.snow.css";
 import { Editor } from "primereact/editor";
 import truncate from "html-truncate";
 import api from "../Services/api";
+import { data } from "react-router-dom";
+
+const pageSize = 20;
 
 interface Article {
   date: string;
@@ -41,6 +44,15 @@ const NewsManagementDashboard: React.FC = () => {
   const [articles, setArticles] = useState<Article[]>([]);
   const [successfull, setSuccessfull] = useState(false);
   const [addingLoading, setAddingLoading] = useState(false);
+  const [filters, setFilters] = useState({
+    pageSize: pageSize,
+    pageNumber: 1,
+    search: null,
+    date1: null,
+    data2: null,
+  });
+  const [pagesCount, setPagesCount] = useState(0);
+  const pages = Array.from({ length: pagesCount }, (_, i) => i + 1);
 
   const langString = localStorage.getItem("lang");
   const savedLang = langString ? JSON.parse(langString) : null;
@@ -48,13 +60,20 @@ const NewsManagementDashboard: React.FC = () => {
 
   useEffect(() => {
     const fetchNews = async () => {
-      const newsData = await getNews(langId);
+      const newsData = await getNews(
+        langId,
+        filters.pageNumber,
+        filters.pageSize,
+        filters.search,
+        filters.date1,
+        filters.data2
+      );
       setArticles(newsData.data);
-      console.log("Fetched articles:", newsData.data);
+      setPagesCount(Math.ceil(newsData.count / pageSize));
     };
 
     fetchNews();
-  }, [langId, successfull]);
+  }, [filters, successfull, langId]);
 
   // Form state
 
@@ -231,6 +250,12 @@ const NewsManagementDashboard: React.FC = () => {
     setCurrentView("list");
   };
 
+  const navigateToPage = (page) => {
+    if (page !== filters.pageNumber) {
+      setFilters((prev) => ({ ...prev, pageNumber: page }));
+    }
+  };
+
   const pArStyle = {
     fontFamily: "var(--MNF_Body_AR)",
     fontSize: "13px",
@@ -249,10 +274,12 @@ const NewsManagementDashboard: React.FC = () => {
   };
 
   if (loading) {
-    return <div className="dashboard-loading">
-      <p>{t("loading")}</p>
-      <i className="fa-solid fa-circle-notch loading-icon"></i>
-    </div>
+    return (
+      <div className="dashboard-loading">
+        <p>{t("loading")}</p>
+        <i className="fa-solid fa-circle-notch loading-icon"></i>
+      </div>
+    );
   }
 
   return (
@@ -326,7 +353,7 @@ const NewsManagementDashboard: React.FC = () => {
                       className="article-summary"
                       dangerouslySetInnerHTML={{
                         __html: article?.translations?.[0]?.body
-                          ? truncate(article.translations[0].body, 50)
+                          ? truncate(article.translations[0].body, 50, {})
                           : "<span>لا يوجد محتوى</span>",
                       }}
                     />
@@ -537,11 +564,13 @@ const NewsManagementDashboard: React.FC = () => {
                     className="edit-btn"
                     style={savedLang?.code === `ar` ? pArStyle : pEnStyle}
                   >
-                    {addingLoading
-                      ? <i className="fa-solid fa-circle-notch loading-icon"></i>
-                      : currentView === "create"
-                      ? t("form.create")
-                      : t("form.update")}
+                    {addingLoading ? (
+                      <i className="fa-solid fa-circle-notch loading-icon"></i>
+                    ) : currentView === "create" ? (
+                      t("form.create")
+                    ) : (
+                      t("form.update")
+                    )}
                   </button>
                   <button
                     type="button"
@@ -556,6 +585,55 @@ const NewsManagementDashboard: React.FC = () => {
             </div>
           </div>
         )}
+
+        <div className="pagination">
+          <button
+            className="pagination-arrow"
+            onClick={() => {
+              setFilters((prev) => ({
+                ...prev,
+                pageNumber: filters.pageNumber - 1,
+              }));
+              window.scrollTo(0, 0);
+            }}
+            disabled={filters.pageNumber <= 1 ? true : false}
+          >
+            <i className="fa-solid fa-left-long" ></i>
+          </button>
+
+          <span>
+            {pages.map((page) => (
+              <span
+                key={page}
+                className={
+                  filters.pageNumber === page
+                    ? "pagination-pages page-active"
+                    : "pagination-pages"
+                }
+                onClick={() => {
+                  navigateToPage(page);
+                  window.scrollTo(0, 0);
+                }}
+              >
+                {page}
+              </span>
+            ))}
+          </span>
+
+          <button
+            className="pagination-arrow"
+            onClick={() => {
+              setFilters((prev) => ({
+                ...prev,
+                pageNumber: filters.pageNumber + 1,
+              }));
+              window.scrollTo(0, 0);
+            }}
+            disabled={filters.pageNumber >= pagesCount ? true : false}
+          >
+            <i className="fa-solid fa-right-long"></i>
+          </button>
+        </div>
       </div>
     </div>
   );

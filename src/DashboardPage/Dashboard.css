@@ -476,3 +476,49 @@
   color: #c98507;
   animation: spin 1s linear infinite;
 }
+
+.dashboard-page .pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 3rem;
+  direction: ltr;
+}
+
+.dashboard-page .pagination .pagination-arrow {
+  padding: 5px 10px;
+  border-radius: 5px;
+  border: 1px solid #c9c9c9;
+  cursor: pointer;
+  background: #1e3a8a;
+  color: white;
+  transition: 0.3s;
+  direction: ltr;
+}
+
+.dashboard-page .pagination .pagination-arrow:not(:disabled):hover {
+  background-color: #dddddd;
+  color: black;
+}
+
+.dashboard-page .pagination .pagination-arrow:disabled {
+  cursor: no-drop;
+  opacity: 0.5;
+}
+
+.dashboard-page .pagination .pagination-pages {
+  padding: 5px;
+  width: 30px;
+  display: inline-block;
+  text-align: center;
+  background-color: #f0f0f0;
+  border-radius: 5px;
+  margin: 0 5px;
+  cursor: pointer;
+}
+
+.dashboard-page .pagination .pagination-pages.page-active {
+  background-color: #1e3a8a;
+  color: white;
+}

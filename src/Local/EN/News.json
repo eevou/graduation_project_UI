@@ -1,0 +1,12 @@
+{
+  "searchPlaceholder": "Search by title or content...",
+  "fromDate": "From Date",
+  "toDate": "To Date",
+  "clearFilters": "Clear Filters",
+  "noResultsTitle": "No News Found",
+  "noResultsText": "No news matched your search. Try adjusting the search criteria.",
+  "readMore": "Read More",
+  "backToNews": "Back to News",
+  "latestNews": "Latest News",
+  "readArticle": "Read Article"
+}

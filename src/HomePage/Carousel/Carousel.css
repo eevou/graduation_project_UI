@@ -48,7 +48,7 @@
 }
 
 /* Carousel Header */
-.carousel-header {
+.modern-news-carousel .carousel-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -56,7 +56,7 @@
   padding: 0 1rem;
 }
 
-.carousel-title {
+.modern-news-carousel .carousel-title {
   font-size: 2rem;
   font-weight: 700;
   color: var(--blue-primary);
@@ -64,7 +64,7 @@
   position: relative;
 }
 
-.carousel-title::after {
+.modern-news-carousel .carousel-title::after {
   content: "";
   position: absolute;
   bottom: -8px;
@@ -75,8 +75,8 @@
   border-radius: 2px;
 }
 
-/* Carousel Navigation Buttons */
-.carousel-nav-button {
+/*.modern-news-carousel  Carousel Navigation Buttons */
+.modern-news-carousel .carousel-nav-button {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
@@ -95,7 +95,7 @@
   z-index: 10;
 }
 
-.carousel-nav-button:hover {
+.modern-news-carousel .carousel-nav-button:hover {
   background: var(--orange-500);
   border-color: var(--orange-500);
   color: var(--white);
@@ -103,30 +103,30 @@
   box-shadow: var(--shadow-xl);
 }
 
-.carousel-nav-button:active {
+.modern-news-carousel .carousel-nav-button:active {
   transform: translateY(-50%) scale(0.95);
 }
 
-.carousel-nav-left {
+.modern-news-carousel .carousel-nav-left {
   left: -28px;
 }
 
-.carousel-nav-right {
+.modern-news-carousel .carousel-nav-right {
   right: -28px;
 }
 
-.carousel-container {
+.modern-news-carousel .carousel-container {
   position: relative;
   margin: 0 2rem;
 }
 
-.carousel-scroll {
+.modern-news-carousel .carousel-scroll {
   overflow-x: auto;
   overflow-y: hidden;
   scroll-behavior: smooth;
 }
 
-.carousel-content {
+.modern-news-carousel .carousel-content {
   display: flex;
   gap: 1.5rem;
   padding: 1rem 0.5rem 2rem;
@@ -134,7 +134,7 @@
 }
 
 /* Modern News Card */
-.modern-card {
+.modern-news-carousel .modern-card {
   width: 380px;
   background: var(--white);
   border-radius: 20px;
@@ -148,31 +148,31 @@
   justify-content: space-between;
 }
 
-.modern-card:hover {
+.modern-news-carousel .modern-card:hover {
   transform: translateY(-8px);
   box-shadow: var(--shadow-xl);
 }
 
 /* Card Image Container */
-.card-image-container {
+.modern-news-carousel .card-image-container {
   position: relative;
   height: 220px;
   overflow: hidden;
   background: var(--blue-light);
 }
 
-.card-image {
+.modern-news-carousel .card-image {
   width: 100%;
   height: 100%;
   object-fit: cover;
   transition: transform 0.4s ease;
 }
 
-.modern-card:hover .card-image {
+.modern-news-carousel .modern-card:hover .card-image {
   transform: scale(1.05);
 }
 
-.image-overlay {
+.modern-news-carousel .image-overlay {
   position: absolute;
   top: 0;
   left: 0;
@@ -188,12 +188,12 @@
   transition: opacity 0.3s ease;
 }
 
-.modern-card:hover .image-overlay {
+.modern-news-carousel .modern-card:hover .image-overlay {
   opacity: 1;
 }
 
 /* Card Badge */
-.card-badge {
+.modern-news-carousel .card-badge {
   position: absolute;
   top: 16px;
   right: 16px;

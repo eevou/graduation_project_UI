@@ -1,0 +1,12 @@
+{
+  "searchPlaceholder": "Buscar por título o contenido...",
+  "fromDate": "Desde la fecha",
+  "toDate": "Hasta la fecha",
+  "clearFilters": "Borrar filtros",
+  "noResultsTitle": "No se encontraron noticias",
+  "noResultsText": "No se encontraron noticias que coincidan con la búsqueda. Intenta ajustar los criterios.",
+  "readMore": "Leer más",
+  "backToNews": "Volver a Noticias",
+  "latestNews": "Últimas Noticias",
+  "readArticle": "Leer artículo"
+}
