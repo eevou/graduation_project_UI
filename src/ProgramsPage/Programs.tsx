@@ -95,7 +95,7 @@ const Programs = () => {
       id: 8,
       program: t("program.ece_program"),
       link: "https://www.menofia.edu.eg/View/12740/ar",
-      icon: "👶",
+      icon: "📊 ",
       category: "Education",
     },
     {
