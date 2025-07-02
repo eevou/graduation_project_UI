@@ -190,7 +190,7 @@ const NewsPage: React.FC = () => {
                 <p className="news-card-excerpt">
                   {news?.translations[0]?.abbreviation}
                 </p>
-                <Link to={`/news/${news.newsId}`} className="read-more-btn">
+                <Link to={`/news/${news.newsId}`} className="read-more-btn" onClick={() => window.scrollTo(0, 0)}>
                   {t("readMore")}
                   <ChevronRight size={16} />
                 </Link>
