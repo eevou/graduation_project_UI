@@ -13,7 +13,7 @@ import truncate from "html-truncate";
 import api from "../Services/api";
 import { data } from "react-router-dom";
 
-const pageSize = 20;
+const pageSize = 8;
 
 interface Article {
   date: string;
@@ -42,7 +42,6 @@ const NewsManagementDashboard: React.FC = () => {
   const { getNews, langId, loading } = useNews();
 
   const [articles, setArticles] = useState<Article[]>([]);
-  const [successfull, setSuccessfull] = useState(false);
   const [addingLoading, setAddingLoading] = useState(false);
   const [filters, setFilters] = useState({
     pageSize: pageSize,
@@ -73,7 +72,7 @@ const NewsManagementDashboard: React.FC = () => {
     };
 
     fetchNews();
-  }, [filters, successfull, langId]);
+  }, [filters, articles.length, langId]);
 
   // Form state
 
@@ -162,44 +161,43 @@ const NewsManagementDashboard: React.FC = () => {
             "Content-Type": "multipart/form-data",
           },
         });
-        setSuccessfull(true);
+        console.log("Upload successful:", response.data);
+        setArticles((prev) => [...prev, response.data]);
       } catch (error) {
         console.error("Error uploading:", error);
       } finally {
         setAddingLoading(false);
       }
-    } else if (currentView === "edit" && editingArticle) {
-      setArticles((prev) =>
-        prev.map((article) =>
-          article.newsId === editingArticle.newsId
-            ? {
-                ...article,
-                ...formData,
-                newsId: editingArticle.newsId,
-                gallaries: formData.additionalImages.filter(
-                  (img) => img.trim() !== ""
-                ),
-                // Ensure these fields are present and updated as needed
-                ownerId: article.ownerId,
-                image: formData.imageUrl || article.image,
-                translations: [
-                  {
-                    header: formData.header,
-                    abbreviation: formData.abbreviation,
-                    body: formData.body,
-                    id: article.translations[0]?.id ?? 0,
-                    source: formData.source,
-                    languageId:
-                      Number(formData.languageId) ||
-                      article.translations[0]?.languageId ||
-                      1,
-                    newsId: editingArticle.newsId,
-                  },
-                ],
-              }
-            : article
-        )
-      );
+    } else if (currentView === "edit") {
+       const form = new FormData();
+      form.append("Date", formData.date);
+      form.append("Image", formData.imageUrl);
+      form.append("IsFeatured", String(formData.isFeatured));
+
+      form.append("Translations[0].header", formData.header);
+      form.append("Translations[0].abbreviation", formData.abbreviation);
+      form.append("Translations[0].body", formData.body);
+      form.append("Translations[0].source", formData.source);
+      form.append("Translations[0].languageId", formData.languageId);
+
+      formData.additionalImages.forEach((file) => {
+        form.append("Gallary", file);
+      });
+
+      setAddingLoading(true);
+
+      try {
+        const response = await api.put(`/News/${formData.newsId}?langId=${formData.languageId}`, form, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        });
+        console.log("Upload successful:", response.data);
+      } catch (error) {
+        console.error("Error uploading:", error);
+      } finally {
+        setAddingLoading(false);
+      }
     }
     resetForm();
     setCurrentView("list");
@@ -231,14 +229,12 @@ const NewsManagementDashboard: React.FC = () => {
   };
 
   const handleDelete = async (id: string) => {
-    console.log("Deleting article with ID:", id);
     if (window.confirm("Are you sure you want to delete this article?")) {
-      setArticles((prev) => prev.filter((article) => article.newsId !== id));
       try {
         const response = await api.delete("/News", {
           params: { id: id },
         });
-        console.log("Article deleted successfully:", response.data);
+        setArticles((prev) => prev.filter((article) => article.newsId !== id));
       } catch (error) {
         console.error("Error deleting article:", error);
       }
@@ -598,7 +594,7 @@ const NewsManagementDashboard: React.FC = () => {
             }}
             disabled={filters.pageNumber <= 1 ? true : false}
           >
-            <i className="fa-solid fa-left-long" ></i>
+            <i className="fa-solid fa-left-long"></i>
           </button>
 
           <span>
